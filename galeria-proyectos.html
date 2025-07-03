@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Proyectos - Cuarzo</title>
+    <meta name="description" content="Descubre los proyectos exitosos y las experiencias de nuestros clientes en Cuarzo.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            /* Nuevo estilo para la imagen de fondo */
+            background-image: url('screenshots/Picture55.jpg');
+            background-size: contain; /* Ajusta la imagen completa dentro del contenedor */
+            background-repeat: no-repeat; /* No repite la imagen */
+            background-position: center center; /* Centra la imagen */
+            background-attachment: fixed; /* Mantiene la imagen fija al hacer scroll */
+            background-color: #1a1a1a; /* Color de fondo sólido para las áreas no cubiertas por la imagen */
+
+            color: #e0e0e0; /* Color de texto general */
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            line-height: 1.6;
+            cursor: default;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente para el encabezado */
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Sombra para profundidad */
+            max-width: 1200px; /* Limitar ancho del header para coherencia */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        header h1 {
+            color: #FFD700; /* Color dorado para el título */
+            font-size: 2.8em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas responsivas */
+            gap: 30px; /* Espacio entre tarjetas */
+            max-width: 1200px;
+            margin: 0 auto 50px auto;
+            padding: 0 20px;
+        }
+
+        .project-card {
+            background-color: rgba(26, 26, 26, 0.8); /* Fondo semi-transparente para las tarjetas */
+            border-radius: 10px;
+            overflow: hidden; /* Asegura que la imagen no sobresalga */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+            text-align: center;
+            padding-bottom: 20px;
+            display: flex; /* Para controlar la imagen y el contenido */
+            flex-direction: column; /* Contenido apilado */
+            justify-content: space-between; /* Empujar el contenido hacia abajo */
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px); /* Pequeño levantamiento al pasar el ratón */
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5); /* Sombra dorada más intensa */
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+            display: block;
+            border-bottom: 1px solid #333; /* Separador sutil */
+            border-radius: 10px 10px 0 0; /* Bordes redondeados solo en la parte superior */
+            filter: grayscale(100%); /* Inicialmente en blanco y negro */
+            transition: filter 0.5s ease-in-out; /* Transición suave para el efecto */
+            cursor: pointer; /* AÑADIDO: Cambia el cursor a una mano */
+        }
+
+        .project-card img:hover {
+            filter: grayscale(0%); /* Al pasar el ratón, la imagen vuelve a color */
+        }
+
+        .project-card h3 {
+            color: #FFD700; /* Color dorado para los títulos de proyecto */
+            margin: 20px 15px 10px 15px;
+            font-size: 1.5em;
+        }
+
+        .project-card p {
+            color: #ccc;
+            padding: 0 15px;
+            font-size: 0.95em;
+            flex-grow: 1; /* Para que el párrafo ocupe el espacio restante */
+        }
+
+        /* Fullscreen Image Glow Effect */
+        :fullscreen img,
+        :-webkit-full-screen img,
+        :-moz-full-screen img,
+        :-ms-fullscreen img {
+            box-shadow:
+                0 0 10px #FFD700,
+                0 0 20px #FFD700,
+                0 0 30px #FFD700,
+                0 0 40px #FFD700; /* Efecto de brillo dorado en pantalla completa */
+            border-radius: 15px;
+            transition: box-shadow 1.5s ease-in-out infinite alternate; /* Animación de brillo */
+            object-fit: contain; /* Ajusta la imagen sin estirarla */
+            max-width: 90vw; /* Ancho máximo en pantalla completa */
+            max-height: 90vh; /* Alto máximo en pantalla completa */
+        }
+
+        .testimonials-section {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .testimonials-section h2 {
+            color: #FFD700;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+        }
+
+        /* Contenedor de las cajas interactivas de testimonios */
+        .interactive-boxes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        /* Estilos para las cajas interactivas */
+        .interactive-box {
+            background-color: rgba(26, 26, 26, 0.9); /* Fondo ligeramente más oscuro y opaco */
+            border-left: 5px solid #FFD700; /* Borde dorado a la izquierda */
+            padding: 25px;
+            border-radius: 8px;
+            text-align: left;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            cursor: pointer; /* Cambia el cursor a un puntero */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones para el hover */
+        }
+
+        .interactive-box:hover {
+            transform: translateY(-5px); /* Efecto de "levantar" */
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); /* Resplandor dorado */
+        }
+
+        .interactive-box p {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #f1f1f1;
+        }
+
+        .interactive-box .author {
+            font-weight: bold;
+            color: #FFD700;
+            text-align: right;
+            display: block;
+        }
+
+        .back-button {
+            display: block;
+            width: fit-content; /* Ajusta el ancho al contenido */
+            margin: 40px auto; /* Centra el botón */
+            background-color: #FFD700; /* Color dorado para el botón */
+            color: #000; /* Color de texto negro */
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+        }
+
+        .back-button:hover {
+            background-color: #DAA520; /* Dorado más oscuro al pasar el ratón */
+            transform: translateY(-2px); /* Pequeño levantamiento */
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); /* Sombra dorada más intensa */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .gallery-container {
+                grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            .project-card h3 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Nuestra Galería de Proyectos</h1>
+        <p>Aquí puedes explorar algunas de las soluciones innovadoras y los resultados impactantes que hemos logrado junto a nuestros clientes. Cada proyecto es una historia de éxito y crecimiento.</p>
+    </header>
+
+    <div class="gallery-container">
+        <div class="project-card">
+            <img src="screenshots/Picture41.jpg" alt="Optimización de Procesos Logísticos">
+            <h3>Optimización de Procesos Logísticos</h3>
+            <p>Implementación de un sistema integral para una cadena de suministro, reduciendo costos operativos y mejorando la eficiencia en la distribución.</p>
+        </div>
+
+        <div class="project-card">
+            <img src="screenshots/Picture42.jpg" alt="Desarrollo de Plataforma E-learning">
+            <h3>Desarrollo de Plataforma E-learning</h3>
+            <p>Creación de una plataforma educativa interactiva y escalable para una institución, facilitando el acceso a contenidos formativos de alta calidad.</p>
+        </div>
+
+        <div class="project-card">
+            <img src="screenshots/Picture43.jpg" alt="Estrategia de Marketing Digital 360">
+            <h3>Estrategia de Marketing Digital 360</h3>
+            <p>Diseño y ejecución de campañas de marketing digital que aumentaron la visibilidad de marca y la conversión de ventas en un 40%.</p>
+        </div>
+
+        <div class="project-card">
+            <img src="screenshots/Picture44.jpg" alt="Consultoría para Expansión de Franquicias">
+            <h3>Consultoría para Expansión de Franquicias</h3>
+            <p>Asesoramiento estratégico para la expansión de una cadena de negocios, resultando en la apertura de 5 nuevas sucursales en 12 meses.</p>
+        </div>
+
+        <div class="project-card">
+            <img src="screenshots/Picture45.jpg" alt="Implementación de CRM para Ventas">
+            <h3>Implementación de CRM para Ventas</h3>
+            <p>Configuración y capacitación en un sistema CRM que mejoró la gestión de clientes y el seguimiento de ventas, incrementando la productividad del equipo.</p>
+        </div>
+
+        <div class="project-card">
+            <img src="screenshots/Picture46.jpg" alt="Rediseño de Marca y Branding Corporativo">
+            <h3>Rediseño de Marca y Branding Corporativo</h3>
+            <p>Transformación completa de la identidad visual de una empresa, proyectando una imagen moderna y atractiva que resonó con su público objetivo.</p>
+        </div>
+
+        <div class="project-card">
+            <img src="screenshots/Picture47.jpg" alt="Desarrollo de Aplicación Móvil B2B">
+            <h3>Desarrollo de Aplicación Móvil B2B</h3>
+            <p>Creación de una aplicación móvil para optimizar la comunicación y gestión de pedidos entre empresas, agilizando las transacciones comerciales.</p>
+        </div>
+
+        <div class="project-card">
+            <img src="screenshots/Picture48.jpg" alt="Análisis de Mercado y Plan de Negocios">
+            <h3>Análisis de Mercado y Plan de Negocios</h3>
+            <p>Elaboración de estudios de mercado detallados y planes de negocio robustos que sirvieron de base para el lanzamiento exitoso de nuevas startups.</p>
+        </div>
+
+        <div class="project-card">
+            <img src="screenshots/Picture49.jpg" alt="Automatización de Procesos Financieros">
+            <h3>Automatización de Procesos Financieros</h3>
+            <p>Implementación de herramientas de automatización que simplificaron la contabilidad y los reportes financieros, reduciendo errores y tiempos.</p>
+        </div>
+
+        <div class="project-card">
+            <img src="screenshots/Picture50.jpg" alt="Estrategia de Contenidos y SEO">
+            <h3>Estrategia de Contenidos y SEO</h3>
+            <p>Desarrollo de una estrategia de contenidos optimizada para SEO que posicionó a la empresa en los primeros resultados de búsqueda, atrayendo tráfico cualificado.</p>
+        </div>
+
+        <div class="project-card">
+            <img src="screenshots/Picture51.jpg" alt="Asesoría en Transformación Digital">
+            <h3>Asesoría en Transformación Digital</h3>
+            <p>Guía y acompañamiento a empresas en su proceso de digitalización, integrando nuevas tecnologías para mejorar operaciones y la experiencia del cliente.</p>
+        </div>
+
+        <div class="project-card">
+            <img src="screenshots/Picture52.jpg" alt="Diseño y Desarrollo Web Profesional">
+            <h3>Diseño y Desarrollo Web Profesional</h3>
+            <p>Creación de sitios web modernos, responsivos y optimizados, que sirvieron como herramienta clave para la presencia online y captación de clientes.</p>
+        </div>
+
+        <div class="project-card">
+            <img src="screenshots/Picture24.jpg" alt="Consultoría en Experiencia de Usuario (UX)">
+            <h3>Consultoría en Experiencia de Usuario (UX)</h3>
+            <p>Análisis y mejora de la usabilidad de productos digitales, resultando en interfaces más intuitivas y una mayor satisfacción del usuario.</p>
+        </div>
+
+        <div class="project-card">
+            <img src="screenshots/Picture28.jpg" alt="Estrategia de Reclutamiento y Talento">
+            <h3>Estrategia de Reclutamiento y Talento</h3>
+            <p>Desarrollo de planes de reclutamiento y gestión de talento que permitieron a las empresas atraer y retener a los mejores profesionales.</p>
+        </div>
+    </div>
+
+    <section class="testimonials-section">
+        <h2>Experiencias de Nuestros Clientes</h2>
+        <p>Haz clic en las cajas para conocer las historias de éxito directamente de quienes han trabajado con nosotros.</p>
+        <div class="interactive-boxes-container">
+            <div class="interactive-box" onclick="alert('Testimonio de Ana López: Trabajamos con Cuarzo en un proyecto desafiante y su experiencia fue invaluable. ¡Resultados superados!');">
+                <p>"Trabajar con Cuarzo ha sido una experiencia transformadora. Su enfoque práctico y la calidad de sus proyectos nos ayudaron a superar nuestros objetivos de crecimiento."</p>
+                <span class="author">- Ana López, CEO de InnovaTech</span>
+            </div>
+            <div class="interactive-box" onclick="alert('Testimonio de Carlos Ruiz: El equipo de Cuarzo nos brindó una mentoría excepcional, clave para el lanzamiento exitoso de nuestro producto.');">
+                <p>"Realmente impresionados con la dedicación y el conocimiento del equipo. La mentoría que recibimos fue clave para lanzar nuestro nuevo producto al mercado con éxito."</p>
+                <span class="author">- Carlos Ruiz, Fundador de EcoSolutions</span>
+            </div>
+            <div class="interactive-box" onclick="alert('Testimonio de María Fernanda: Gracias a Cuarzo, optimizamos procesos internos y logramos un ROI en tiempo récord. ¡Recomendado!');">
+                <p>"Gracias a Cuarzo, pudimos optimizar nuestros procesos internos y ver un retorno de inversión en tiempo récord. Su experiencia es inigualable."</p>
+                <span class="author">- María Fernanda, Directora de Operaciones</span>
+            </div>
+            <div class="interactive-box" onclick="alert('Testimonio de Javier Solís: La guía estratégica de Cuarzo fue fundamental para escalar nuestro negocio y alcanzar nuevos mercados. Excelente soporte.');">
+                <p>"La guía estratégica de Cuarzo fue fundamental para escalar nuestro negocio y alcanzar nuevos mercados. Su enfoque personalizado marca la diferencia."</p>
+                <span class="author">- Javier Solís, Director Comercial de GlobalNet</span>
+            </div>
+            <div class="interactive-box" onclick="alert('Testimonio de Laura Garcés: Han transformado nuestra presencia digital. El aumento en la interacción con el cliente es notable y los resultados superan las expectativas.');">
+                <p>"Han transformado nuestra presencia digital. El aumento en la interacción con el cliente es notable y los resultados superan las expectativas."</p>
+                <span class="author">- Laura Garcés, Gerente de Marketing</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p style="text-align: center; margin-top: 50px;">
+            <a href="Index testing actualizado 05-06-2025.html" class="back-button">← Volver al inicio</a>
+        </p>
+        <p style="text-align: center; font-size: 0.9em; color: #888;">© 2025 Cuarzo Proyectos Empresariales. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>

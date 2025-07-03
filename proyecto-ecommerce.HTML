@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proyecto E-commerce | Cuarzo</title>
+  <meta name="description" content="Lanzá tu tienda online con nuestro proyecto E-commerce. Diseño profesional, carrito de compras, medios de pago y más.">
+
+  <!-- Fuente formal y elegante -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* Fondo general */
+    body {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      color: #f1f1f1;
+      background-image: url('screenshots/picture28.jpg'); /* Cambiar ruta */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      filter: grayscale(100%);
+      transition: filter 0.6s ease;
+      cursor: default;
+    }
+
+    /* Al pasar el mouse por toda la página */
+    body:hover {
+      filter: grayscale(0%);
+      cursor: pointer;
+    }
+
+    /* Capa semitransparente para mejorar la legibilidad */
+    .contenido {
+      background-color: rgba(0, 0, 0, 0.75);
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+
+    header h1 {
+      font-size: 3.2em;
+      color: #ffaa00;
+      font-weight: 600;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px 40px;
+      border-radius: 10px;
+      display: inline-block;
+      letter-spacing: 1.2px;
+      user-select: none;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+      background-color: rgba(0, 0, 0, 0.55);
+      border-radius: 10px;
+      margin-bottom: 30px;
+      font-weight: 400;
+      font-size: 1.15em;
+      line-height: 1.65em;
+      color: #e0d9c7; /* tono suave y elegante */
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #ffaa00;
+      font-weight: 600;
+      letter-spacing: 1.3px;
+      user-select: none;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #111;
+      margin: 10px 0;
+      padding: 15px 20px;
+      border-left: 5px solid #ffaa00;
+      border-radius: 5px;
+      font-weight: 400;
+      user-select: none;
+    }
+
+    .galeria {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .galeria img {
+      width: 280px;
+      border-radius: 10px;
+      transition: 0.3s ease;
+      filter: grayscale(100%);
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffff;
+      user-select: none;
+    }
+
+    .galeria img:hover {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+
+    .btn-reserva {
+      display: block;
+      background-color: #ffaa00;
+      color: #000;
+      text-align: center;
+      padding: 15px 20px;
+      border-radius: 5px;
+      font-weight: 600;
+      text-decoration: none;
+      width: 250px;
+      margin: 40px auto;
+      transition: 0.3s;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 1px;
+      user-select: none;
+    }
+
+    .btn-reserva:hover {
+      background-color: #e69a00;
+    }
+
+    footer {
+      text-align: center;
+      color: #aaa;
+      padding: 20px;
+      font-size: 0.9em;
+      font-weight: 400;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.6px;
+      user-select: none;
+    }
+
+    /* Redes sociales flotantes */
+    .social-buttons {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .social-buttons a {
+      display: block;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #fff;
+      text-align: center;
+      line-height: 50px;
+      box-shadow: 0 0 10px #00ffff;
+      transition: background-color 0.3s, transform 0.3s;
+      color: #000;
+      font-size: 24px;
+      user-select: none;
+    }
+
+    .social-buttons a:hover {
+      background-color: #00ffff;
+      color: #000;
+      transform: scale(1.1);
+    }
+
+    /* Botones flotantes esquina inferior derecha */
+    .floating-buttons {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .floating-buttons a {
+      background-color: #25d366; /* verde whatsapp */
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-size: 28px;
+      box-shadow: 0 0 10px #00ffff;
+      transition: transform 0.3s;
+      user-select: none;
+    }
+
+    .floating-buttons a.contacto {
+      background-color: #ffaa00;
+    }
+
+    .floating-buttons a:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contenido">
+
+    <header>
+      <h1>Proyecto Tienda Online E-commerce</h1>
+    </header>
+
+    <section>
+      <h2>¿Qué incluye este proyecto?</h2>
+      <ul>
+        <li>Diseño web responsive y profesional.</li>
+        <li>Carrito de compras y medios de pago (MercadoPago, PayPal, Stripe).</li>
+        <li>Panel de administración de productos y pedidos.</li>
+        <li>SEO básico, certificados SSL y dominio personalizado.</li>
+        <li>Integración con redes sociales y WhatsApp.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Beneficios para tu tienda</h2>
+      <ul>
+        <li>Automatización de ventas y atención al cliente.</li>
+        <li>Escalabilidad para vender a nivel nacional o internacional.</li>
+        <li>Mayor presencia digital y profesionalismo.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Ejemplos de implementación</h2>
+      <div class="galeria">
+        <img src="screenshots/Picture54.jpg" alt="Tienda 1">
+        <img src="screenshots/Picture57.jpg" alt="Tienda 2">
+        <img src="screenshots/Picture24.jpg" alt="Tienda 3">
+      </div>
+    </section>
+
+    <a class="btn-reserva" href="https://calendly.com/tienda-online" target="_blank">
+      Reservar reunión para E-commerce
+    </a>
+  <p style="text-align: center; margin-top: 50px;">
+            <a href="Index testing actualizado 05-06-2025.html">← Volver al inicio</a>
+        </p>
+    <footer>
+      © 2025 Cuarzo Proyectos Empresariales. Todos los derechos reservados.
+    </footer>
+
+  </div>
+
+  <!-- Botones redes sociales -->
+  <div class="social-buttons">
+    <a href="https://www.linkedin.com/in/tu-usuario" target="_blank" title="LinkedIn">
+      <i class="fab fa-linkedin-in"></i>
+    </a>
+    <a href="https://www.youtube.com/channel/tu-canal" target="_blank" title="YouTube">
+      <i class="fab fa-youtube"></i>
+    </a>
+    <a href="https://www.twitch.tv/tu-canal" target="_blank" title="Twitch">
+      <i class="fab fa-twitch"></i>
+    </a>
+    <a href="https://web.telegram.org" target="_blank" title="Telegram">
+      <i class="fab fa-telegram"></i>
+    </a>
+    <a href="https://www.instagram.com/tu-perfil" target="_blank" title="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+  </div>
+
+  <!-- Botones flotantes WhatsApp y contacto -->
+  <div class="floating-buttons">
+    <a href="https://wa.me/1234567890" target="_blank" title="WhatsApp" aria-label="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="mailto:contacto@tudominio.com" class="contacto" title="Contacto por correo" aria-label="Contacto por correo">
+      <i class="fas fa-envelope"></i>
+    </a>
+  </div>
+
+</body>
+</html>
+
+
+

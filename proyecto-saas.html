@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proyecto SaaS y Plataformas | Cuarzo</title>
+  <meta name="description" content="Desarrollamos tu plataforma SaaS personalizada. MVP, escalabilidad, experiencia de usuario y soporte integral.">
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      color: #f1f1f1;
+      background-image: url('screenshots/picture23.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      filter: grayscale(100%);
+      transition: filter 0.6s ease;
+      cursor: default;
+    }
+
+    body:hover {
+      filter: grayscale(0%);
+      cursor: pointer;
+    }
+
+    .contenido {
+      background-color: rgba(0, 0, 0, 0.75);
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+
+    header h1 {
+      font-size: 3em;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #00bfff;
+      font-weight: 700;
+      padding: 20px 40px;
+      border-radius: 10px;
+      display: inline-block;
+      letter-spacing: 1.2px;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      margin-bottom: 30px;
+      font-size: 1.1em;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00bfff;
+      font-weight: 600;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #111;
+      margin: 10px 0;
+      padding: 15px 20px;
+      border-left: 5px solid #00bfff;
+      border-radius: 5px;
+    }
+
+    .galeria {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .galeria img {
+      width: 280px;
+      border-radius: 10px;
+      transition: 0.3s ease;
+      filter: grayscale(100%);
+      cursor: pointer;
+    }
+
+    .galeria img:hover {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+
+    .btn-reserva {
+      display: block;
+      background-color: #00bfff;
+      color: #000;
+      text-align: center;
+      padding: 15px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      width: 250px;
+      margin: 40px auto 20px;
+      transition: 0.3s;
+    }
+
+    .btn-reserva:hover {
+      background-color: #0099cc;
+    }
+
+    .qr-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .qr-container img {
+      width: 180px;
+      height: 180px;
+      border: 5px solid #fff;
+      border-radius: 10px;
+    }
+
+    .qr-container p {
+      color: #ccc;
+      font-size: 0.95em;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      color: #aaa;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+
+    .social-left {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .social-right {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .social-left a, .social-right a {
+      background-color: #fff;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 45px;
+      font-size: 20px;
+      color: #000;
+      box-shadow: 0 0 8px #00bfff;
+      transition: 0.3s;
+    }
+
+    .social-left a:hover, .social-right a:hover {
+      background-color: #00bfff;
+      color: #000;
+      transform: scale(1.1);
+    }
+
+    /* Botones flotantes inferior */
+    .floating-buttons {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .floating-buttons-left {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .floating-buttons a,
+    .floating-buttons-left a {
+      background-color: #25d366;
+      color: #fff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 50px;
+      font-size: 24px;
+      text-decoration: none;
+      box-shadow: 0 0 8px #00bfff;
+      transition: 0.3s;
+    }
+
+    .floating-buttons a.contacto {
+      background-color: #00bfff;
+    }
+
+    .floating-buttons a.facebook {
+      background-color: #3b5998;
+    }
+
+    .floating-buttons-left a.instagram {
+      background-color: #e1306c;
+    }
+
+    .floating-buttons a:hover,
+    .floating-buttons-left a:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contenido">
+
+    <header>
+      <h1>Desarrollo de Plataformas SaaS</h1>
+    </header>
+
+    <section>
+      <h2>¿Qué incluye este proyecto?</h2>
+      <ul>
+        <li>Definición de MVP (Producto Mínimo Viable).</li>
+        <li>Diseño UI/UX centrado en la experiencia del usuario.</li>
+        <li>Arquitectura escalable (Cloud, bases de datos, APIs).</li>
+        <li>Integración de sistemas de pago, login y paneles.</li>
+        <li>Testing, documentación y soporte técnico post-lanzamiento.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Beneficios de crear tu SaaS con nosotros</h2>
+      <ul>
+        <li>Lanzamiento rápido al mercado con enfoque en validación.</li>
+        <li>Escalabilidad técnica desde el día uno.</li>
+        <li>Asesoramiento legal para software y propiedad intelectual.</li>
+        <li>Equipo multidisciplinario: desarrollo, negocio y diseño.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Ejemplos de plataformas desarrolladas</h2>
+      <div class="galeria">
+        <img src="screenshots/Picture56.jpg" alt="SaaS 1">
+        <img src="screenshots/Picture46.jpg" alt="SaaS 2">
+        <img src="screenshots/Picture49.jpg" alt="SaaS 3">
+      </div>
+    </section>
+
+    <a class="btn-reserva" href="https://calendly.com/area-saas" target="_blank">
+      Reserva tu reunión para SaaS
+    </a>
+
+    <div class="qr-container">
+      <h2>Escaneá para chatear por WhatsApp</h2>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://wa.me/5491123456789?text=Hola%2C%20quiero%20información%20sobre%20el%20proyecto%20SaaS" alt="QR WhatsApp">
+      <p>Accedé directamente a nuestro asistente.</p>
+    </div>
+  <p style="text-align: center; margin-top: 50px;">
+            <a href="Index testing actualizado 05-06-2025.html">← Volver al inicio</a>
+        </p>
+    <footer>
+      © 2025 Cuarzo Proyectos Empresariales. Todos los derechos reservados.
+    </footer>
+  </div>
+
+  <!-- Botones sociales superiores -->
+  <div class="social-left">
+    <a href="https://www.youtube.com/tuempresa" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://www.twitch.tv/tuempresa" target="_blank"><i class="fab fa-twitch"></i></a>
+  </div>
+
+  <div class="social-right">
+    <a href="https://t.me/tuempresa" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+    <a href="https://www.kick.com/tuempresa" target="_blank"><i class="fa-solid fa-k"></i></a>
+  </div>
+
+  <!-- Botones flotantes derecha -->
+  <div class="floating-buttons">
+    <a href="https://wa.me/5491123456789" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a class="contacto" href="mailto:contacto@tuempresa.com"><i class="fa-solid fa-envelope"></i></a>
+    <a class="facebook" href="https://facebook.com/tuempresa" target="_blank"><i class="fab fa-facebook-f"></i></a>
+  </div>
+
+  <!-- Botones flotantes izquierda -->
+  <div class="floating-buttons-left">
+    <a class="instagram" href="https://instagram.com/tuempresa" target="_blank"><i class="fab fa-instagram"></i></a>
+  </div>
+</body>
+</html>

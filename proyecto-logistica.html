@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proyecto Logística y Distribución | Cuarzo</title>
+  <meta name="description" content="Optimiza tu logística y distribución con sistemas personalizados y asesoría profesional. Reducción de costos, trazabilidad y eficiencia.">
+
+  <!-- Fuente elegante -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      color: #f1f1f1;
+      background-image: url('screenshots/Picture5.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      filter: grayscale(100%);
+      transition: filter 0.6s ease;
+      cursor: default;
+    }
+
+    body:hover {
+      filter: grayscale(0%);
+      cursor: pointer;
+    }
+
+    .contenido {
+      background-color: rgba(0, 0, 0, 0.75);
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+
+    header h1 {
+      font-size: 3.2em;
+      color: #ffaa00;
+      font-weight: 600;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px 40px;
+      border-radius: 10px;
+      display: inline-block;
+      letter-spacing: 1.2px;
+      user-select: none;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+      background-color: rgba(0, 0, 0, 0.55);
+      border-radius: 10px;
+      margin-bottom: 30px;
+      font-weight: 400;
+      font-size: 1.15em;
+      line-height: 1.65em;
+      color: #e0d9c7;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #ffaa00;
+      font-weight: 600;
+      letter-spacing: 1.3px;
+      user-select: none;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #111;
+      margin: 10px 0;
+      padding: 15px 20px;
+      border-left: 5px solid #ffaa00;
+      border-radius: 5px;
+      user-select: none;
+    }
+
+    .galeria {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .galeria img {
+      width: 280px;
+      border-radius: 10px;
+      transition: 0.3s ease;
+      filter: grayscale(100%);
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffff;
+      user-select: none;
+    }
+
+    .galeria img:hover {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+
+    .btn-reserva {
+      display: block;
+      background-color: #ffaa00;
+      color: #000;
+      text-align: center;
+      padding: 15px 20px;
+      border-radius: 5px;
+      font-weight: 600;
+      text-decoration: none;
+      width: 250px;
+      margin: 40px auto;
+      transition: 0.3s;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 1px;
+      user-select: none;
+    }
+
+    .btn-reserva:hover {
+      background-color: #e69a00;
+    }
+
+    footer {
+      text-align: center;
+      color: #aaa;
+      padding: 20px;
+      font-size: 0.9em;
+      font-weight: 400;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.6px;
+      user-select: none;
+    }
+
+    .social-buttons {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .social-buttons a {
+      display: block;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #fff;
+      text-align: center;
+      line-height: 50px;
+      box-shadow: 0 0 10px #00ffff;
+      transition: background-color 0.3s, transform 0.3s;
+      color: #000;
+      font-size: 24px;
+      user-select: none;
+    }
+
+    .social-buttons a:hover {
+      background-color: #00ffff;
+      transform: scale(1.1);
+    }
+
+    .floating-buttons {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .floating-buttons a {
+      background-color: #25d366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-size: 28px;
+      box-shadow: 0 0 10px #00ffff;
+      transition: transform 0.3s;
+      user-select: none;
+    }
+
+    .floating-buttons a.contacto {
+      background-color: #ffaa00;
+    }
+
+    .floating-buttons a:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contenido">
+
+    <header>
+      <h1>Soluciones de Logística y Distribución</h1>
+    </header>
+
+    <section>
+      <h2>¿Qué incluye este proyecto?</h2>
+      <ul>
+        <li>Diseño de rutas de entrega y distribución eficiente.</li>
+        <li>Implementación de software logístico personalizado.</li>
+        <li>Optimización de almacenes y stock.</li>
+        <li>Trazabilidad en tiempo real de envíos y pedidos.</li>
+        <li>Integración con marketplaces o e-commerce propios.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Beneficios para tu operación</h2>
+      <ul>
+        <li>Reducción de costos operativos y de transporte.</li>
+        <li>Mayor control sobre inventarios y tiempos de entrega.</li>
+        <li>Mejor experiencia del cliente final.</li>
+        <li>Escalabilidad y automatización del sistema.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Casos de implementación</h2>
+      <div class="galeria">
+        <img src="screenshots/Picture53.jpg" alt="Distribución 1">
+        <img src="screenshots/Picture41.jpg" alt="Distribución 2">
+        <img src="screenshots/Picture59.jpg" alt="Distribución 3">
+      </div>
+    </section>
+
+    <a class="btn-reserva" href="https://calendly.com/area-logistica" target="_blank">
+      Reserva tu reunión para Logística
+    </a>
+
+    <section style="text-align: center;">
+      <h2>Accedé al Asistente Virtual</h2>
+      <p>Escaneá este código QR para hablar con nuestro bot de WhatsApp y resolver tus dudas al instante:</p>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://wa.me/?text=Hola%20quiero%20más%20información%20sobre%20logística" 
+           alt="QR WhatsApp Bot" 
+           style="margin-top: 20px; border-radius: 10px; box-shadow: 0 0 10px #00ffff;">
+    </section>
+
+    <footer>
+          <p style="text-align: center; margin-top: 50px;">
+            <a href="Index testing actualizado 05-06-2025.html">← Volver al inicio</a>
+        </p>
+      © 2025 Cuarzo Proyectos Empresariales. Todos los derechos reservados.
+    </footer>
+
+  </div>
+
+  <!-- Redes sociales -->
+  <div class="social-buttons">
+    <a href="https://www.linkedin.com/in/tu-usuario" target="_blank" title="LinkedIn">
+      <i class="fab fa-linkedin-in"></i>
+    </a>
+    <a href="https://www.youtube.com/channel/tu-canal" target="_blank" title="YouTube">
+      <i class="fab fa-youtube"></i>
+    </a>
+    <a href="https://www.twitch.tv/tu-canal" target="_blank" title="Twitch">
+      <i class="fab fa-twitch"></i>
+    </a>
+    <a href="https://web.telegram.org" target="_blank" title="Telegram">
+      <i class="fab fa-telegram"></i>
+    </a>
+    <a href="https://www.instagram.com/tu-perfil" target="_blank" title="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+  </div>
+
+  <!-- Botones flotantes -->
+  <div class="floating-buttons">
+    <a href="https://wa.me/1234567890" target="_blank" title="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="mailto:contacto@tudominio.com" class="contacto" title="Correo">
+      <i class="fas fa-envelope"></i>
+    </a>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos Exclusivos para Emprendedores - Tu Programa de Mentorías</title>
+    <link rel="stylesheet" href="css/style.css"> <style>
+        /* Estilos básicos para la sección E-Books (ahora Recursos para Emprendedores) */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* Fondo negro */
+            color: #DAA520; /* Dorado para el texto principal */
+        }
+        header {
+            background-color: #1a1a1a; /* Un negro un poco más claro para el encabezado */
+            color: #DAA520;
+            padding: 1em 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+            background-color: #333; /* Un gris oscuro para la navegación */
+            margin-bottom: 20px;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #FFD700; /* Dorado más brillante para los enlaces de navegación */
+            text-decoration: none;
+            padding: 10px 0;
+            display: inline-block;
+        }
+        nav ul li a:hover {
+            color: white; /* Blanco al pasar el ratón para los enlaces de nav */
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #1a1a1a; /* Fondo oscuro para el contenedor principal */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(218, 165, 32, 0.3); /* Sombra dorada */
+        }
+        h2 {
+            color: #FFD700; /* Dorado brillante para los títulos de sección */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .ebooks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; /* Aumentado el espacio entre tarjetas */
+        }
+        .ebook-card {
+            border: 2px solid transparent; /* Borde transparente por defecto */
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            background-color: #222; /* Fondo de la tarjeta un poco más claro que el contenedor */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5); /* Sombra más pronunciada */
+            transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+            cursor: pointer; /* Puntero de mano por defecto para la tarjeta */
+        }
+        .ebook-card:hover {
+            transform: translateY(-8px); /* Efecto de elevación al pasar el ratón */
+            border-color: #FFD700; /* Borde dorado al pasar el ratón */
+        }
+        .ebook-card img {
+            width: 180px; /* Ancho fijo para las portadas */
+            height: 250px; /* Alto fijo para las portadas */
+            object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+            border-radius: 4px;
+            margin-bottom: 15px;
+            filter: grayscale(100%); /* Imágenes en blanco y negro por defecto */
+            transition: filter 0.5s ease-in-out; /* Transición suave para el efecto B&N */
+        }
+        .ebook-card:hover img {
+            filter: grayscale(0%); /* Vuelven a su color original al pasar el ratón */
+        }
+        .ebook-card h3 {
+            margin-top: 10px;
+            color: #FFD700; /* Dorado brillante para el título del e-book */
+            font-size: 1.3em;
+        }
+        .ebook-card p {
+            font-size: 0.95em;
+            color: #ccc; /* Gris claro para la descripción */
+            margin-bottom: 15px;
+        }
+        .ebook-card .price {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #32CD32; /* Verde lima para el precio */
+            margin-bottom: 15px;
+        }
+        .ebook-card button {
+            background-color: #DAA520; /* Dorado para los botones */
+            color: #000; /* Texto negro en los botones dorados */
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: bold;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .ebook-card button:hover {
+            background-color: #FFD700; /* Dorado más brillante al pasar el ratón */
+            color: #333;
+        }
+
+        /* Estilos para el formulario de registro/login (modal) */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed; /* Posición fija para cubrir toda la pantalla */
+            z-index: 1000; /* Asegura que esté por encima de todo */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Permite scroll si el contenido es grande */
+            background-color: rgba(0,0,0,0.8); /* Fondo semi-transparente más oscuro */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #222; /* Fondo oscuro para el modal */
+            margin: auto;
+            padding: 30px;
+            border: 2px solid #DAA520; /* Borde dorado */
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(218, 165, 32, 0.4); /* Sombra dorada más fuerte */
+            position: relative;
+            color: #DAA520; /* Texto dorado en el modal */
+        }
+        .close-button {
+            color: #FFD700;
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: white;
+        }
+        .modal-content h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #FFD700;
+        }
+        .modal-content form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #DAA520;
+        }
+        .modal-content form input[type="text"],
+        .modal-content form input[type="email"],
+        .modal-content form input[type="password"] {
+            width: calc(100% - 22px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #555; /* Borde más oscuro */
+            background-color: #333; /* Fondo del input oscuro */
+            color: white; /* Texto blanco en el input */
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .modal-content form input[type="text"]:focus,
+        .modal-content form input[type="email"]:focus,
+        .modal-content form input[type="password"]:focus {
+            border-color: #FFD700; /* Borde dorado al enfocar */
+            outline: none;
+        }
+        .modal-content form button {
+            background-color: #DAA520; /* Dorado para el botón de envío */
+            color: #000;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.15em;
+            font-weight: bold;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .modal-content form button:hover {
+            background-color: #FFD700;
+            color: #333;
+        }
+        .modal-content .switch-form {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+        .modal-content .switch-form a {
+            color: #FFD700; /* Enlace dorado */
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .modal-content .switch-form a:hover {
+            text-decoration: underline;
+            color: white;
+        }
+
+        /* Estilos para la página de tienda simplificada */
+        #store-page {
+            display: none; /* Oculto por defecto, se muestra con JS */
+            text-align: center;
+            color: #DAA520; /* Texto dorado */
+        }
+        #store-page h2 {
+            color: #FFD700;
+        }
+        #paypal-button-container {
+            margin-top: 25px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #store-page button {
+            background-color: #666; /* Botón de volver gris oscuro */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.2s;
+        }
+        #store-page button:hover {
+            background-color: #888;
+        }
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            background-color: #1a1a1a;
+            color: #DAA520;
+            font-size: 0.9em;
+            border-top: 1px solid #444; /* Borde superior sutil */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Transforma tu Carrera: Recursos de Mentoring</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="Index%20testing%20actualizado%2005-06-2025.html">Inicio</a></li>
+            <li><a href="E-Books.html">Recursos para Emprendedores</a></li>
+            </ul>
+    </nav>
+
+    <main class="container">
+        <section id="ebooks-section">
+            <h2>Libera tu Potencial Empresarial con Nuestros Recursos Exclusivos</h2>
+            <div class="ebooks-grid" id="ebooks-display">
+                <div class="ebook-card" data-ebook-id="1" data-type-access="gratuito" data-price="0.00">
+                    <img src="screenshots/Picture3.jpg" alt="Portada Guía de Inicio">
+                    <h3>Tu Primer Paso hacia el Éxito Empresarial</h3>
+                    <p>Descubre los fundamentos para transformar tu mentalidad de empleado a propietario de negocio. ¡Una guía esencial!</p>
+                    <div class="price">Acceso Gratuito</div>
+                    <button onclick="handleEbookAccess(1, 'gratuito', 0.00)">Descargar Guía Gratis</button>
+                </div>
+
+                <div class="ebook-card" data-ebook-id="2" data-type-access="registro" data-price="0.00">
+                    <img src="screenshots/Picture48.jpg" alt="Portada Plan de Acción">
+                    <h3>Hoja de Ruta para tu Mentoría Personalizada</h3>
+                    <p>Obtén un esquema detallado de lo que lograrás en nuestras sesiones de mentoring uno a uno.</p>
+                    <div class="price">Requiere Registro</div>
+                    <button onclick="handleEbookAccess(2, 'registro', 0.00)">Regístrate para Acceder</button>
+                </div>
+
+                <div class="ebook-card" data-ebook-id="3" data-type-access="pago" data-price="19.99">
+                    <img src="screenshots/Picture24.jpg" alt="Portada Kit Empresario">
+                    <h3>El Kit Definitivo para Transformarte en Empresario</h3>
+                    <p>Herramientas, estrategias y casos de estudio que acelerarán tu transición hacia el éxito.</p>
+                    <div class="price">$19.99 USD</div>
+                    <button onclick="handleEbookAccess(3, 'pago', 19.99)">Obtén el Kit Ahora</button>
+                </div>
+
+                </div>
+        </section>
+
+        <section id="store-page" style="display: none;">
+            <h2>Confirmar Adquisición</h2>
+            <p>Estás a punto de obtener: <strong id="store-ebook-title"></strong></p>
+            <p>Precio: <strong id="store-ebook-price"></strong></p>
+
+            <div id="paypal-button-container"></div>
+            <p style="margin-top: 25px;">O paga con tarjeta de crédito/débito:</p>
+            <div id="card-element-container" style="border: 1px solid #555; background-color: #333; padding: 15px; border-radius: 5px; margin: 15px auto; max-width: 400px; color: #ccc;">
+                <p>Formulario de tarjeta de crédito aquí (requiere integración con Stripe u otro proveedor)</p>
+            </div>
+            <button onclick="goBackToEbooks()" style="background-color: #DAA520; color: black;">Volver a los Recursos</button>
+        </section>
+
+    </main>
+
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <div id="loginForm">
+                <h2>Accede a Contenido Exclusivo</h2>
+                <form id="loginUserForm">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                    <label for="loginPassword">Contraseña:</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                    <button type="submit">Iniciar Sesión</button>
+                </form>
+                <p class="switch-form">¿Nuevo en nuestro programa? <a href="#" onclick="showRegisterForm()">Crea tu cuenta aquí</a></p>
+            </div>
+
+            <div id="registerForm" style="display: none;">
+                <h2>Únete a la Comunidad de Empresarios</h2>
+                <form id="registerUserForm">
+                    <label for="registerName">Tu Nombre:</label>
+                    <input type="text" id="registerName" name="username" required>
+                    <label for="registerEmail">Email:</label>
+                    <input type="email" id="registerEmail" name="email" required>
+                    <label for="registerPassword">Contraseña:</label>
+                    <input type="password" id="registerPassword" name="password" required>
+                    <label for="confirmPassword">Confirmar Contraseña:</label>
+                    <input type="password" id="confirmPassword" name="confirm_password" required>
+                    <button type="submit">Registrarme</button>
+                </form>
+                <p class="switch-form">¿Ya tienes una cuenta? <a href="#" onclick="showLoginForm()">Iniciar Sesión</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <a href="Index testing actualizado 05-06-2025.html">← Volver al inicio</a>
+        <p>&copy; 2025 Tu Programa de Mentorías. Transformando Empleados en Empresarios Exitosos.</p>
+    </footer>
+
+    <script>
+        // Simulación de una base de datos de recursos (en un entorno real, esto vendría del backend)
+        const ebooksData = [
+            { id: 1, title: "Tu Primer Paso hacia el Éxito Empresarial", description: "Descubre los fundamentos para transformar tu mentalidad de empleado a propietario de negocio. ¡Una guía esencial!", cover: "screenshots/Picture3.jpg", price: 0.00, type_access: "gratuito" },
+            { id: 2, title: "Hoja de Ruta para tu Mentoría Personalizada", description: "Obtén un esquema detallado de lo que lograrás en nuestras sesiones de mentoring uno a uno.", cover: "screenshots/Picture48.jpg", price: 0.00, type_access: "registro" },
+            { id: 3, title: "El Kit Definitivo para Transformarte en Empresario", description: "Herramientas, estrategias y casos de estudio que acelerarán tu transición hacia el éxito.", cover: "screenshots/Picture24.jpg", price: 19.99, type_access: "pago" }
+        ];
+
+        let currentEbookToProcess = null; // Variable para guardar el ebook/recurso actual para registro/compra
+
+        // --- Funciones para el Modal de Registro/Login ---
+        const authModal = document.getElementById('authModal');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+
+        function openModal() {
+            authModal.style.display = 'flex'; // Usar flex para centrar
+        }
+
+        function closeModal() {
+            authModal.style.display = 'none';
+        }
+
+        function showRegisterForm() {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+        }
+
+        function showLoginForm() {
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none'; // Asegura que el registro se oculte
+        }
+
+        // Simulación de autenticación (¡Esto necesita un backend real!)
+        document.getElementById('loginUserForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Intento de inicio de sesión. (En un sitio real, esto enviaría datos a tu servidor)');
+            // Aquí iría una llamada fetch/AJAX a tu backend de login
+            // Si el login es exitoso:
+            // - Guardar estado de "logueado" (ej: en localStorage o una cookie, gestionado por backend)
+            // - Si currentEbookToProcess requiere registro, permitir acceso
+            closeModal(); // Cerrar el modal después de "loguearse"
+        });
+
+        document.getElementById('registerUserForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Las contraseñas no coinciden.');
+                return;
+            }
+
+            alert('Intento de registro. (En un sitio real, esto enviaría datos a tu servidor)');
+            // Aquí iría una llamada fetch/AJAX a tu backend de registro
+            // Si el registro es exitoso:
+            // - Loguear al usuario automáticamente o redirigir al login
+            closeModal(); // Cerrar el modal después de "registrarte"
+            showLoginForm(); // Opcional: mostrar el login después del registro
+        });
+
+        // --- Lógica para Acceder/Comprar Recursos ---
+        function handleEbookAccess(ebookId, typeAccess, price) {
+            currentEbookToProcess = { id: ebookId, type_access: typeAccess, price: price };
+            const ebookTitle = ebooksData.find(e => e.id === ebookId).title;
+
+            if (typeAccess === 'gratuito') {
+                // En un sitio real, aquí llamarías a un endpoint del backend que serviría el PDF de forma segura
+                alert(`Accediendo al recurso gratuito: ${ebookTitle}. (En un sitio real, se mostraría el PDF)`);
+                // Ejemplo: window.open(`view_pdf.php?id=${ebookId}`, '_blank');
+            } else if (typeAccess === 'registro') {
+                // Simula que verificas si el usuario está logueado
+                const userIsLoggedIn = false; // ESTO DEBE VENIR DE TU BACKEND REAL
+                if (userIsLoggedIn) {
+                    alert(`Ya estás registrado. Accediendo al recurso: ${ebookTitle}. (En un sitio real, se mostraría el PDF)`);
+                    // window.open(`view_pdf.php?id=${ebookId}`, '_blank');
+                } else {
+                    openModal(); // Mostrar modal de registro/login
+                    alert(`Este recurso requiere que te registres o inicies sesión para acceder.`);
+                }
+            } else if (typeAccess === 'pago') {
+                // Mostrar la página de la tienda
+                document.getElementById('ebooks-section').style.display = 'none';
+                document.getElementById('store-page').style.display = 'block';
+                document.getElementById('store-ebook-title').textContent = ebookTitle;
+                document.getElementById('store-ebook-price').textContent = `$${price.toFixed(2)} USD`;
+
+                // Inicializar PayPal Smart Buttons para este e-book
+                initPayPalButtons(ebookId, price, ebookTitle); // Pasa el ID y precio del ebook
+            }
+        }
+
+        function goBackToEbooks() {
+            document.getElementById('store-page').style.display = 'none';
+            document.getElementById('ebooks-section').style.display = 'block';
+        }
+
+        // --- Integración con PayPal (simulada) ---
+        // DEBES REEMPLAZAR 'YOUR_PAYPAL_CLIENT_ID' con tu Client ID real de PayPal Developer
+        // https://developer.paypal.com/developer/applications/
+        // Esto es solo el CLIENTE. La validación real de la compra DEBE HACERSE EN EL BACKEND.
+        function initPayPalButtons(ebookId, price, ebookTitle) {
+            // Limpiar el contenedor de PayPal para evitar duplicados si se llama varias veces
+            const paypalContainer = document.getElementById('paypal-button-container');
+            if (paypalContainer) {
+                paypalContainer.innerHTML = '';
+            }
+
+            paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    color:  'gold',
+                    shape:  'rect',
+                    label:  'paypal'
+                },
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: price.toFixed(2)
+                            },
+                            description: `Adquisición de Recurso: ${ebookTitle}`
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert(`¡Adquisición de $${details.purchase_units[0].amount.value} USD completada por ${details.payer.name.given_name}!\n\nID de Transacción: ${details.id}`);
+
+                        // *** IMPORTANTE: Aquí deberías enviar una solicitud a tu backend ***
+                        // para registrar esta compra en tu base de datos y otorgar acceso al usuario.
+                        // Ejemplo (requiere un endpoint en tu servidor como /api/record_purchase.php):
+                        /*
+                        fetch('/api/record_purchase.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                orderID: data.orderID,
+                                paypalDetails: details, // Envía los detalles completos para verificación
+                                ebook_id: ebookId,
+                                user_id: 'ID_DEL_USUARIO_LOGUEADO' // Necesitas el ID del usuario de tu sistema
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(serverData => {
+                            if (serverData.success) {
+                                alert('¡Adquisición registrada con éxito en nuestro sistema! Ya tienes acceso al recurso.');
+                                window.location.href = `view_pdf.php?id=${ebookId}`; // Redirigir para ver el PDF
+                            } else {
+                                alert('Error al registrar la adquisición en nuestro sistema. Contacta a soporte.');
+                            }
+                        })
+                        .catch(error => console.error('Error al enviar datos de compra al backend:', error));
+                        */
+
+                        alert('Adquisición procesada. En un sitio real, ahora tendrías acceso al recurso. ¡Gracias por tu confianza!');
+                        goBackToEbooks(); // Volver a la lista de recursos o redirigir al PDF
+                    });
+                },
+                onError: function(err) {
+                    console.error('Error de PayPal:', err);
+                    alert('Hubo un error con tu pago de PayPal. Por favor, inténtalo de nuevo.');
+                }
+            }).render('#paypal-button-container');
+        }
+
+        // Cargar los scripts externos después de que el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Carga el SDK de PayPal solo cuando sea necesario o al inicio
+            const paypalScript = document.createElement('script');
+            paypalScript.src = "https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"; // *** REEMPLAZA ESTO ***
+            paypalScript.onload = () => {
+                console.log('PayPal SDK cargado.');
+                // Puedes inicializar los botones aquí si los e-books ya están en la página
+            };
+            document.body.appendChild(paypalScript);
+        });
+    </script>
+</body>
+</html>

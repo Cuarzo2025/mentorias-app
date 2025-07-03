@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Proyecto Marketing y Publicidad | Cuarzo</title>
+  <meta name="description" content="Impulsa tu marca con estrategias de marketing digital y publicidad personalizada. Diseño, pauta, contenido y más." />
+
+  <!-- Fuente Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: url('screenshots/Picture25.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #f1f1f1;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.75);
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+
+    header {
+      padding: 60px 20px 30px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3em;
+      color: #ff4da6;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: inline-block;
+      padding: 20px 40px;
+      border-radius: 10px;
+      margin: 0;
+    }
+
+    section {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 40px 20px;
+      background-color: rgba(0, 0, 0, 0.55);
+      border-radius: 10px;
+      font-size: 1.1em;
+      line-height: 1.6em;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #ff4da6;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #111;
+      margin: 10px 0;
+      padding: 15px 20px;
+      border-left: 5px solid #ff4da6;
+      border-radius: 5px;
+    }
+
+    .galeria {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .galeria img {
+      width: 280px;
+      border-radius: 10px;
+      filter: grayscale(100%);
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff4da6;
+      transition: all 0.3s ease;
+    }
+
+    .galeria img:hover {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+
+    .btn-reserva {
+      display: block;
+      width: 250px;
+      margin: 40px auto;
+      padding: 15px 20px;
+      background-color: #ff4da6;
+      color: #000;
+      text-align: center;
+      font-weight: 700;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .btn-reserva:hover {
+      background-color: #e04492;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+
+    .qr-container {
+      text-align: center;
+      margin: 60px 0 40px;
+    }
+
+    .qr-container img {
+      width: 180px;
+      height: 180px;
+      border: 5px solid #fff;
+      border-radius: 10px;
+      margin-top: 20px;
+      background-color: white;
+    }
+
+    .qr-container p {
+      color: #ccc;
+      font-size: 0.95em;
+      margin-top: 10px;
+    }
+
+    .social-buttons {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .social-buttons a {
+      background-color: #111;
+      color: #fff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: background-color 0.3s;
+      text-decoration: none;
+    }
+
+    .social-buttons a:hover {
+      background-color: #ff4da6;
+    }
+
+    .floating-buttons {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .floating-buttons a {
+      background-color: #25d366;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      transition: transform 0.3s;
+      text-decoration: none;
+    }
+
+    .floating-buttons a.contacto {
+      background-color: #ff4da6;
+    }
+
+    .floating-buttons a:hover {
+      transform: scale(1.1);
+    }
+
+    .kick-floating {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .kick-floating a {
+      background-color: #52ff00;
+      color: #000;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #52ff00;
+      font-size: 24px;
+      transition: transform 0.3s ease;
+      text-decoration: none;
+    }
+
+    .kick-floating a:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <header>
+      <h1>Marketing y Publicidad Estratégica</h1>
+    </header>
+
+    <section>
+      <h2>¿Qué incluye este proyecto?</h2>
+      <ul>
+        <li>Diseño de campañas publicitarias para redes y buscadores.</li>
+        <li>Gestión de redes sociales (Meta, Instagram, LinkedIn).</li>
+        <li>Producción de contenido gráfico y audiovisual.</li>
+        <li>Consultoría en pauta paga (Facebook Ads, Google Ads).</li>
+        <li>Embudo de ventas y remarketing automatizado.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Ventajas para tu negocio</h2>
+      <ul>
+        <li>Mayor visibilidad y posicionamiento de marca.</li>
+        <li>Incremento de leads y ventas online.</li>
+        <li>Medición de resultados en tiempo real.</li>
+        <li>Mejor relación con tu comunidad digital.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Galería de campañas</h2>
+      <div class="galeria">
+        <img src="screenshots/Picture37.jpg" alt="Campaña 1" />
+        <img src="screenshots/Picture25.jpg" alt="Campaña 2" />
+        <img src="screenshots/Picture28.jpg" alt="Campaña 3" />
+      </div>
+    </section>
+
+    <a class="btn-reserva" href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
+      Reserva una asesoría
+    </a>
+
+    <div class="qr-container">
+      <h2>Escanea para reservar</h2>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fwa.me%2F1234567890%3Ftext%3DHola%252C%2520quiero%2520una%2520asesor%C3%ADa%2520de%2520marketing" alt="QR WhatsApp" />
+      <p>Escanea con tu teléfono y conversa directamente por WhatsApp.</p>
+    </div>
+  <p style="text-align: center; margin-top: 50px;">
+            <a href="Index testing actualizado 05-06-2025.html">← Volver al inicio</a>
+        </p>
+    <footer>© 2025 Cuarzo Proyectos Empresariales. Todos los derechos reservados.</footer>
+  </div>
+
+  <div class="social-buttons">
+    <a href="https://www.youtube.com/tuempresa" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+    <a href="https://www.twitch.tv/tuempresa" target="_blank" title="Twitch"><i class="fab fa-twitch"></i></a>
+    <a href="https://www.instagram.com/tuempresa" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.linkedin.com/company/tuempresa" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+  </div>
+
+  <div class="floating-buttons">
+    <a href="https://wa.me/1234567890" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <a href="mailto:contacto@tuempresa.com" class="contacto" title="Correo"><i class="fas fa-envelope"></i></a>
+  </div>
+
+  <div class="kick-floating">
+    <a href="https://www.kick.com/tuempresa" target="_blank" title="Kick"><i class="fab fa-kickstarter-k"></i></a>
+  </div>
+
+</body>
+</html>
+
+
+
