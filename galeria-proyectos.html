@@ -172,7 +172,7 @@
 
         .interactive-box .author {
             font-weight: bold;
-            color:  #f1f1f1;
+            color: #f1f1f1;
             text-align: right;
             display: block;
         }
@@ -215,6 +215,11 @@
     </style>
 </head>
 <body>
+
+    <audio id="background-music" loop>
+        <source src="Rob Dougan - Clubbed To Death.flac" type="audio/flac">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
 
     <header>
         <h1>Nuestra Galería de Proyectos</h1>
@@ -341,5 +346,38 @@
         <p style="text-align: center; font-size: 0.9em; color: #888;">© 2025 Cuarzo Proyectos Empresariales. Todos los derechos reservados.</p>
     </footer>
 
+    <script>
+        const audio = document.getElementById('background-music');
+        const body = document.body;
+
+        // Función para reproducir la música
+        function playMusic() {
+            // Solo intenta reproducir si no está ya reproduciéndose
+            if (audio.paused) {
+                audio.play().catch(e => console.log("Error al reproducir audio (probable bloqueo de autoplay):", e));
+            }
+        }
+
+        // Función para pausar la música
+        function pauseMusic() {
+            if (!audio.paused) {
+                audio.pause();
+            }
+        }
+
+        // 1. Reproducir al entrar el puntero en la página (intento de autoplay)
+        // El navegador puede requerir una interacción inicial del usuario.
+        body.addEventListener('mouseenter', playMusic);
+
+        // 2. Pausar al salir el puntero de la página
+        body.addEventListener('mouseleave', pauseMusic);
+
+        // 3. Reproducir al hacer un clic (si está pausada)
+        // Esto asegura que la música se reproduzca incluso si el autoplay inicial fue bloqueado.
+        body.addEventListener('click', playMusic);
+
+        // 4. Pausar al hacer doble clic (si está reproduciéndose)
+        body.addEventListener('dblclick', pauseMusic);
+    </script>
 </body>
 </html>
