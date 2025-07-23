@@ -205,7 +205,32 @@
             font-size: 14px;
             box-shadow: 0 0 10px #F0F8FF; /* Dorado similar al original */
         }
+        /* Discord button on the left */
+.discord-btn {
+    position: fixed;
+    left: 20px; /* Position on the left side */
+    bottom: 80px; /* Aligned with WhatsApp button's previous height, but on the left */
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0 0 10px #7289DA; /* Discord blue shadow */
+}
 
+.discord-btn img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Responsive Adjustments (Add this section if you don't have it, or merge if you do) */
+@media (max-width: 600px) {
+    /* ... (other responsive rules for whatsapp-btn, contacto-btn if they exist) ... */
+
+    .discord-btn {
+        left: 10px; /* Adjusted position for smaller screens */
+        bottom: 10px; /* Moved down to avoid overlapping the language selector on small screens */
+    }
+}
         /* Sections */
         section {
             padding: 40px 20px;
@@ -731,7 +756,10 @@
     <a href="contacto.html" class="contacto-btn" title="" data-key="contactButtonTitle">
         <span data-key="contactButtonText">📩 Contacto</span>
     </a>
-
+    </div>  
+    <a href="https://discord.gg/yourinvitecode" class="discord-btn" target="_blank" title="Únete a nuestro Discord" data-key="discordButtonTitle">
+    <img src="screenshots/discord_logo.png" alt="Discord" style="background-color: #5865F2; border-radius: 50%;">
+</a>
     <header>
         <img src="screenshots/Picture12.jpg" alt="Logo Mentorías Cuarzo" />
         <h1 data-key="headerTitle">Mentorías Empresariales de Impacto</h1>
