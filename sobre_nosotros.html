@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-key="aboutPageTitle">Sobre Nosotros - Cuarzo</title>
+    <meta name="description" content="Conoce la historia de Cuarzo y su fundadora, Natalia Soba." data-key="aboutMetaDescription">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base Styles */
+        body {
+            /* Ruta de la imagen de fondo */
+            background-image: url('screenshots/Picture34.jpg'); 
+            /* MODIFICACIÓN CLAVE: Escala la imagen para cubrir el fondo sin estirarla, permitiendo que las partes sobrantes se recorten */
+            background-size: cover; 
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            background-position: center center; /* Centra la imagen en la pantalla */
+            background-attachment: fixed; /* Mantiene la imagen de fondo fija al hacer scroll */
+            background-color: #000; /* Color de fondo para el espacio no cubierto por la imagen (si lo hubiera) */
+            color: #e0e0e0;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding-top: 60px;
+            box-sizing: border-box;
+            line-height: 1.6;
+            cursor: default;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        section {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+        }
+
+        section h2, section h3 {
+            margin-bottom: 20px;
+            color: #A9A9A9;
+        }
+
+        /* Contenedor principal del contenido */
+        .content-wrapper {
+            background-color: rgba(0, 0, 0, 0.8);
+            max-width: 900px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+            margin: 40px auto;
+            box-sizing: border-box;
+        }
+
+        .content-wrapper h1 {
+            color: #A9A9A9;
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(169, 169, 169, 0.5);
+            padding-bottom: 15px;
+        }
+
+        .company-description p {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+            text-align: justify;
+            color: #f1f1f1;
+        }
+
+        /* Recuadro Interactivo de la Fundadora */
+        .founder-box {
+            background-color: rgba(26, 26, 26, 0.8);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(169, 169, 169, 0.4);
+            animation: pulse-glow 2s infinite alternate;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer; /* Cursor de mano al pasar por todo el recuadro */
+        }
+
+        .founder-box img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            /* Ajuste para centrar en cuello y rostro: 
+               'center' para horizontal, '25%' para vertical desde arriba.
+               Puedes ajustar el '25%' si la imagen no se encuadra perfectamente. */
+            object-position: center 25%; 
+            border: 4px solid #A9A9A9;
+            box-shadow: 0 0 15px rgba(169, 169, 169, 0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .founder-box img:hover {
+            transform: scale(1.05);
+        }
+
+        .founder-box h3 {
+            color: #FFFFFF;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .founder-box p {
+            font-size: 1.1em;
+            color: #f1f1f1;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .founder-box a.linkedin-button {
+            display: inline-block;
+            background-color: #0A66C2;
+            color: #FFFFFF;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 10px rgba(10, 102, 194, 0.6);
+        }
+
+        .founder-box a.linkedin-button:hover {
+            background-color: #004182;
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(10, 102, 194, 0.9);
+        }
+
+        /* Keyframe animation for pulse glow */
+        @keyframes pulse-glow {
+            from {
+                box-shadow: 0 0 10px rgba(169, 169, 169, 0.4);
+            }
+            to {
+                box-shadow: 0 0 30px rgba(169, 169, 169, 0.8);
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: #aaa;
+            padding: 20px;
+            font-size: 0.9em;
+            border-top: 1px solid #333;
+            margin-top: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+
+        footer a {
+            color: #A9A9A9;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .content-wrapper {
+                padding: 15px;
+                margin: 20px auto;
+            }
+
+            .content-wrapper h1 {
+                font-size: 2em;
+            }
+
+            .founder-box {
+                padding: 20px;
+                margin: 30px auto;
+            }
+
+            .founder-box img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .founder-box h3 {
+                font-size: 1.6em;
+            }
+
+            .founder-box p {
+                font-size: 1em;
+            }
+
+            .founder-box a.linkedin-button {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h1 data-key="aboutCompanyTitle">Sobre Cuarzo: Mentorías Empresariales</h1>
+        
+        <section class="company-description">
+            <p data-key="companyDescriptionParagraph1">
+                En Cuarzo, creemos que cada gran idea merece ser un negocio exitoso. Nos dedicamos a transformar el potencial en rendimiento, ofreciendo **mentorías empresariales personalizadas** que van más allá de la teoría. Nuestro enfoque se centra en la aplicación práctica, guiando a emprendedores y empresas establecidas a través de estrategias probadas y **proyectos listos para implementar**.
+            </p>
+            <p data-key="companyDescriptionParagraph2">
+                Nuestra misión es empoderar a nuestros clientes con el conocimiento, las herramientas y la confianza necesarios para navegar el complejo mundo empresarial, innovar y alcanzar un crecimiento sostenible. Desde la optimización de procesos hasta la expansión de mercados, Cuarzo es tu aliado estratégico en el camino hacia el éxito.
+            </p>
+        </section>
+
+        <h2 data-key="founderSectionTitle">Conoce a Nuestra Fundadora</h2>
+
+        <div class="founder-box">
+            <img src="screenshots/Nataliacuarzo.jpg" alt="Foto de Perfil de Natalia Soba">
+            <h3 data-key="founderName">Natalia Soba</h3>
+            <p data-key="founderIntro">
+                Con más de 15 años de experiencia en el ámbito de las mentorías y el desarrollo empresarial, Natalia Soba es la fuerza visionaria detrás de Cuarzo. Su trayectoria abarca una profunda comprensión de diversas industrias y un historial probado en la aceleración del crecimiento de negocios de todos los tamaños.
+            </p>
+            <p data-key="founderMission">
+                La misión de Natalia es clara: "Impulsar el potencial humano y empresarial, facilitando el camino hacia la realización de metas ambiciosas con estrategias claras y un acompañamiento constante."
+            </p>
+            <a href="https://www.linkedin.com/in/natalia-soba-profile" target="_blank" class="linkedin-button" data-key="linkedinButtonText">Visita mi LinkedIn</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Cuarzo. Todos los derechos reservados.</p>
+        <p><a href="#">Política de Privacidad</a> | <a href="#">Términos de Servicio</a></p>
+    </footer>
+
+    <script>
+        const translations = {
+            es: {
+                aboutPageTitle: "Sobre Nosotros - Cuarzo",
+                aboutMetaDescription: "Conoce la historia de Cuarzo y su fundadora, Natalia Soba.",
+                aboutCompanyTitle: "Sobre Cuarzo: Mentorías Empresariales",
+                companyDescriptionParagraph1: "En Cuarzo, creemos que cada gran idea merece ser un negocio exitoso. Nos dedicamos a transformar el potencial en rendimiento, ofreciendo mentorías empresariales personalizadas que van más allá de la teoría. Nuestro enfoque se centra en la aplicación práctica, guiando a emprendedores y empresas establecidas a través de estrategias probadas y proyectos listos para implementar.",
+                companyDescriptionParagraph2: "Nuestra misión es empoderar a nuestros clientes con el conocimiento, las herramientas y la confianza necesarios para navegar el complejo mundo empresarial, innovar y alcanzar un crecimiento sostenible. Desde la optimización de procesos hasta la expansión de mercados, Cuarzo es tu aliado estratégico en el camino hacia el éxito.",
+                founderSectionTitle: "Conoce a Nuestra Fundadora",
+                founderName: "Natalia Soba",
+                founderIntro: "Con más de 15 años de experiencia en el ámbito de las mentorías y el desarrollo empresarial, Natalia Soba es la fuerza visionaria detrás de Cuarzo. Su trayectoria abarca una profunda comprensión de diversas industrias y un historial probado en la aceleración del crecimiento de negocios de todos los tamaños.",
+                founderMission: "La misión de Natalia es clara: 'Impulsar el potencial humano y empresarial, facilitando el camino hacia la realización de metas ambiciosas con estrategias claras y un acompañamiento constante.'",
+                linkedinButtonText: "Visita mi LinkedIn"
+            },
+            en: {
+                aboutPageTitle: "About Us - Cuarzo",
+                aboutMetaDescription: "Learn about Cuarzo's history and its founder, Natalia Soba.",
+                aboutCompanyTitle: "About Cuarzo: Business Mentoring",
+                companyDescriptionParagraph1: "At Cuarzo, we believe that every great idea deserves to be a successful business. We are dedicated to transforming potential into performance, offering personalized business mentoring that goes beyond theory. Our approach focuses on practical application, guiding entrepreneurs and established companies through proven strategies and ready-to-implement projects.",
+                companyDescriptionParagraph2: "Our mission is to empower our clients with the knowledge, tools, and confidence needed to navigate the complex business world, innovate and achieve sustainable growth. From process optimization to market expansion, Cuarzo is your strategic ally on the path to success.",
+                founderSectionTitle: "Meet Our Founder",
+                founderName: "Natalia Soba",
+                founderIntro: "With over 15 years of experience in mentoring and business development, Natalia Soba is the visionary force behind Cuarzo. Her background includes a deep understanding of various industries and a proven track record in accelerating the growth of businesses of all sizes.",
+                founderMission: "Natalia's mission is clear: 'To boost human and business potential, facilitating the path to achieving ambitious goals with clear strategies and constant support.'",
+                linkedinButtonText: "Visit my LinkedIn"
+            },
+            it: {
+                aboutPageTitle: "Chi Siamo - Cuarzo",
+                aboutMetaDescription: "Scopri la storia di Cuarzo e della sua fondatrice, Natalia Soba.",
+                aboutCompanyTitle: "Su Cuarzo: Mentoring Aziendale",
+                companyDescriptionParagraph1: "In Cuarzo, crediamo che ogni grande idea meriti di diventare un'impresa di successo. Ci dedichiamo a trasformare il potenziale in prestazioni, offrendo mentoring aziendale personalizzato che va oltre la teoria. Il nostro approccio si concentra sull'applicazione pratica, guidando imprenditori e aziende consolidate attraverso strategie collaudate e progetti pronti per l'implementazione.",
+                companyDescriptionParagraph2: "La nostra missione è quella di fornire ai nostri clienti le conoscenze, gli strumenti e la fiducia necessari per navigare nel complesso mondo degli affari, innovare e raggiungere una crescita sostenibile. Dall'ottimizzazione dei processi all'espansione dei mercati, Cuarzo è il tuo alleato strategico nel percorso verso il successo.",
+                founderSectionTitle: "Incontra la Nostra Fondatrice",
+                founderName: "Natalia Soba",
+                founderIntro: "Con oltre 15 anni di esperienza nel campo del mentoring e dello sviluppo aziendale, Natalia Soba è la forza visionaria dietro Cuarzo. La sua esperienza include una profonda comprensione di varie industrie e una comprovata esperienza nell'accelerazione della crescita di aziende di ogni dimensione.",
+                founderMission: "La missione de Natalia es clara: 'Stimolare il potenziale umano e aziendale, facilitando il percorso verso la realizzazione di obiettivi ambiziosi con strategie chiare e un supporto costante.'",
+                linkedinButtonText: "Visita il mio LinkedIn"
+            },
+            fr: {
+                aboutPageTitle: "À Propos de Nous - Cuarzo",
+                aboutMetaDescription: "Découvrez l'histoire de Cuarzo et de sa fondatrice, Natalia Soba.",
+                aboutCompanyTitle: "À Propos de Cuarzo : Mentorat d'Entreprise",
+                companyDescriptionParagraph1: "Chez Cuarzo, nous croyons que chaque grande idée mérite de devenir une entreprise prospère. Nous nous engageons à transformer le potentiel en performance, en offrant un mentorat d'entreprise personnalisé qui va au-delà de la théorie. Notre approche se concentre sur l'application pratique, guidant les entrepreneurs et les entreprises établies à travers des stratégies éprouvées et des projets prêts à être mis en œuvre.",
+                companyDescriptionParagraph2: "Notre mission est de donner à nos clients les connaissances, les outils et la confiance nécessaires pour naviguer dans le monde complexe des affaires, innover et atteindre une croissance durable. De l'optimisation des processus à l'expansion des marchés, Cuarzo est votre allié stratégique sur le chemin du succès.",
+                founderSectionTitle: "Rencontrez Notre Fondatrice",
+                founderName: "Natalia Soba",
+                founderIntro: "Avec plus de 15 ans d'expérience dans le domaine du mentorat et du développement commercial, Natalia Soba est la force visionnaire derrière Cuarzo. Son parcours comprend une compréhension approfondie de diverses industries et un historique prouvé dans l'accélération de la croissance des entreprises de toutes tailles.",
+                founderMission: "La misión de Natalia es clara : 'Stimuler le potentiel humain et commercial, en facilitant le chemin vers la réalisation d'objectifs ambitieux avec des stratégies claires et un soutien constant.'",
+                linkedinButtonText: "Visitez mon LinkedIn"
+            },
+            pt: {
+                aboutPageTitle: "Sobre Nós - Cuarzo",
+                aboutMetaDescription: "Conheça a história da Cuarzo e de sua fundadora, Natalia Soba.",
+                aboutCompanyTitle: "Sobre a Cuarzo: Mentorias Empresariais",
+                companyDescriptionParagraph1: "Na Cuarzo, acreditamos que toda grande ideia merece ser um negócio de sucesso. Dedicamo-nos a transformar o potencial em desempenho, oferecendo mentorias empresariais personalizadas que vão além da teoria. Nossa abordagem foca na aplicação prática, guiando empreendedores e empresas estabelecidas através de estratégias comprovadas e projetos prontos para implementar.",
+                companyDescriptionParagraph2: "Nossa missão é empoderar nossos clientes com o conhecimento, as ferramentas e a confiança necessárias para navegar no complexo mundo empresarial, inovar e alcançar um crescimento sustentável. Desde a otimização de processos até a expansão de mercados, a Cuarzo é seu aliado estratégico no caminho para o sucesso.",
+                founderSectionTitle: "Conheça Nossa Fundadora",
+                founderName: "Natalia Soba",
+                founderIntro: "Com mais de 15 anos de experiência no campo das mentorias e desenvolvimento empresarial, Natalia Soba é a força visionaria por trás da Cuarzo. Sua trajetória abrange uma profunda compreensão de diversas indústrias e um histórico comprovado na aceleração do crescimento de negócios de todos os portes.",
+                founderMission: "A missão de Natalia é clara: 'Impulsar o potencial humano e empresarial, facilitando o caminho para a realização de metas ambiciosas com estratégias claras e um acompanhamento constante.'",
+                linkedinButtonText: "Visite meu LinkedIn"
+            }
+        };
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            localStorage.setItem('language', lang);
+
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'META' && element.getAttribute('name') === 'description') {
+                        element.setAttribute('content', translations[lang][key]);
+                    } else if (element.tagName === 'TITLE') {
+                        element.textContent = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedLanguage = localStorage.getItem('language') || 'es';
+            setLanguage(savedLanguage);
+        });
+    </script>
+</body>
+</html>
