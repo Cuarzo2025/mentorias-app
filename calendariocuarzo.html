@@ -301,6 +301,29 @@
             color: #FFFFFF;
         }
 
+        /* Message Box Styles */
+        .message-box {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #000; /* Default text color */
+        }
+        .message-box.success {
+            background-color: #d4edda; /* Light green */
+            border: 1px solid #28a745; /* Green border */
+            color: #155724; /* Dark green text */
+        }
+        .message-box.error {
+            background-color: #f8d7da; /* Light red */
+            border: 1px solid #dc3545; /* Red border */
+            color: #721c24; /* Dark red text */
+        }
+        .hidden {
+            display: none;
+        }
+
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             body {
@@ -355,6 +378,9 @@
     <div id="main-content">
         <h1>Reserva tu Reunión Personalizada</h1>
 
+        <!-- Message Box -->
+        <div id="message-box" class="message-box hidden"></div>
+
         <div id="calendar-container">
             <div id="calendar-header">
                 <button id="prev-month">&lt;</button>
@@ -378,19 +404,19 @@
             </div>
         </div>
 
-        <form id="booking-form">
+        <form id="booking-form" action="enviar.php" method="POST">
             <h2>Datos de Contacto para la Reserva</h2>
-            <input type="hidden" id="selectedDate" name="selectedDate">
-            <input type="hidden" id="selectedTime" name="selectedTime">
+            <input type="hidden" id="selectedDate" name="fecha">
+            <input type="hidden" id="selectedTime" name="hora">
 
             <label for="fullName">Nombre y Apellido:</label>
-            <input type="text" id="fullName" name="fullName" required placeholder="Ej: Juan Pérez">
+            <input type="text" id="fullName" name="nombre" required placeholder="Ej: Juan Pérez">
 
             <label for="whatsappNumber">Número de WhatsApp:</label>
-            <input type="tel" id="whatsappNumber" name="whatsappNumber" required placeholder="Ej: +5491112345678">
+            <input type="tel" id="whatsappNumber" name="telefono" required placeholder="Ej: +5491112345678">
 
             <label for="emailAddress">Correo Electrónico:</label>
-            <input type="email" id="emailAddress" name="emailAddress" required placeholder="Ej: tu.email@dominio.com">
+            <input type="email" id="emailAddress" name="email" required placeholder="Ej: tu.email@dominio.com">
 
             <div class="form-actions">
                 <button type="submit">Enviar Solicitud</button>
@@ -424,6 +450,21 @@
         const emailAddressInput = document.getElementById('emailAddress');
         const hiddenSelectedDate = document.getElementById('selectedDate');
         const hiddenSelectedTime = document.getElementById('selectedTime');
+        const messageBox = document.getElementById('message-box'); // Get the message box element
+
+        // Function to show messages
+        function showMessage(message, type) {
+            messageBox.textContent = message;
+            messageBox.className = 'message-box'; // Reset classes
+            if (type) {
+                messageBox.classList.add(type);
+            }
+            messageBox.classList.remove('hidden');
+            // Hide message after a few seconds
+            setTimeout(() => {
+                messageBox.classList.add('hidden');
+            }, 5000);
+        }
 
         // Function to generate the calendar days
         function renderCalendar() {
@@ -560,7 +601,7 @@
         }
 
         // Handle form submission
-        bookingForm.addEventListener('submit', (event) => {
+        bookingForm.addEventListener('submit', async (event) => {
             event.preventDefault(); // Prevent default browser form submission
 
             const name = fullNameInput.value.trim();
@@ -568,61 +609,48 @@
             const email = emailAddressInput.value.trim();
 
             if (!selectedDate || !selectedTime) {
-                alert('Por favor, selecciona una fecha y una franja horaria.');
+                showMessage('Por favor, selecciona una fecha y una franja horaria.', 'error');
                 return;
             }
 
             if (name === '' || whatsapp === '' || email === '') {
-                alert('Por favor, completa todos los campos del formulario.');
+                showMessage('Por favor, completa todos los campos del formulario.', 'error');
                 return;
             }
 
-            // --- Here's where you would send data to a backend for email ---
-            // This is client-side only and will NOT send an actual email.
-            // You would use Fetch API or XMLHttpRequest to send this data to your server.
-            // Example (pseudo-code for backend interaction):
-            /*
-            fetch('/api/send-booking-email', { // Your backend endpoint
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    date: selectedDate,
-                    time: selectedTime,
-                    fullName: name,
-                    whatsapp: whatsapp,
-                    email: email
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('¡Tu solicitud de reunión ha sido enviada con éxito!');
+            // Create FormData object to send to PHP
+            const formData = new FormData();
+            formData.append('nombre', name);
+            formData.append('telefono', whatsapp);
+            formData.append('fecha', selectedDate);
+            formData.append('hora', selectedTime);
+            formData.append('email', email); // Add email to form data
+
+            try {
+                const response = await fetch('enviar.php', {
+                    method: 'POST',
+                    body: formData // Send as FormData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const resultText = await response.text(); // Get response as text
+
+                // Check if the PHP script returned a success message
+                if (resultText.includes('¡Gracias! Tu mensaje ha sido enviado correctamente.')) {
+                    showMessage('¡Tu solicitud de reunión ha sido enviada con éxito!', 'success');
                     clearForm(); // Clear fields on successful submission
                 } else {
-                    alert('Hubo un problema al enviar tu solicitud. Inténtalo de nuevo.');
+                    showMessage('Hubo un problema al enviar tu solicitud. Inténtalo de nuevo.', 'error');
+                    console.error('Backend response:', resultText); // Log backend response for debugging
                 }
-            })
-            .catch(error => {
+
+            } catch (error) {
                 console.error('Error sending booking:', error);
-                alert('Ocurrió un error de red. Inténtalo de nuevo más tarde.');
-            });
-            */
-
-            // For this HTML-only example, we just show an alert with the collected data:
-            const confirmationMessage = `
-                ¡Solicitud de Reunión Enviada!
-                Fecha: ${selectedDate}
-                Hora: ${selectedTime}
-                Nombre: ${name}
-                WhatsApp: ${whatsapp}
-                Email: ${email}
-
-                Nos pondremos en contacto contigo pronto.
-            `;
-            alert(confirmationMessage);
-            clearForm(); // Clear fields after alert
+                showMessage('Ocurrió un error de red. Inténtalo de nuevo más tarde.', 'error');
+            }
         });
 
         // Function to clear all form fields and selections
@@ -648,6 +676,9 @@
             fullNameInput.value = '';
             whatsappNumberInput.value = '';
             emailAddressInput.value = '';
+            
+            // Hide message box
+            messageBox.classList.add('hidden');
         }
 
         // Event listener for the "Borrar Campos" button
