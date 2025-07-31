@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Configura las cabeceras del correo para que sea HTML
     $cabeceras = "MIME-Version: 1.0" . "\r\n";
     $cabeceras .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $cabeceras .= 'From: <tu_correo_de_envio@ejemplo.com>' . "\r\n"; // Cambia esto por un correo real
+    $cabeceras .= 'From: <cuarzocristalempresarial@gmail.com>' . "\r\n"; // Cambia esto por un correo real
 
     // Envía el correo
     if(mail($destinatario, $asunto, $mensaje, $cabeceras)) {
