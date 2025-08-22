@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-key="pageTitleEcommerce">Reserva para E-commerce - Cuarzo</title>
+    <meta name="description" content="Agenda tu mentoría estratégica para proyectos de E-commerce. Descubre cómo potenciar tu negocio online." data-key="metaDescriptionEcommerce">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <audio id="backgroundMusic" src="Rob Dougan - Clubbed To Death.mp3" loop></audio>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --container-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --primary-color: #a0a0a0;
+            --secondary-color: #333;
+            --border-color: #444;
+            --accent-color: #6a6a6a;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding-top: 60px;
+            box-sizing: border-box;
+            line-height: 1.6;
+        }
+        
+        /* General Layout */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: var(--container-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--container-bg);
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .header-content h1 {
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .header-content i {
+            font-size: 2.5em;
+            color: var(--primary-color);
+        }
+
+        /* Calendario de Reservas */
+        .booking-section {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        .booking-info {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .booking-info h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .booking-info p {
+            font-size: 1em;
+            color: var(--text-color);
+        }
+
+        .calendar-container {
+            flex: 2;
+            min-width: 300px;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+
+        .calendar-header button {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+
+        .calendar-day, .calendar-time {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: var(--bg-color);
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .calendar-day:hover, .calendar-time:hover {
+            background-color: var(--accent-color);
+        }
+        
+        .calendar-day.disabled {
+            background-color: #222;
+            color: #666;
+            cursor: not-allowed;
+        }
+        
+        .calendar-day.selected {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            font-weight: bold;
+        }
+
+        /* Time Slots Grid */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-form h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background-color: #c0c0c0;
+        }
+        
+        .cta-button:disabled {
+            background-color: var(--accent-color);
+            cursor: not-allowed;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: #aaa;
+            padding: 20px;
+            font-size: 0.9em;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+            background-color: var(--container-bg);
+            border-radius: 10px;
+        }
+
+        /* Dropdown Menus */
+        .idioma-menu-desplegable { position: fixed; top: 10px; z-index: 1000; left: 10px; }
+        .menu-btn { background-color: var(--secondary-color); color: var(--text-color); padding: 10px 15px; font-size: 16px; border: none; cursor: pointer; border-radius: 5px; }
+        .menu-contenido { display: none; position: absolute; background-color: rgba(30, 30, 30, 0.95); min-width: 150px; border-radius: 5px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); white-space: nowrap; left: 0; }
+        .menu-contenido a { color: #f1f1f1; padding: 12px 16px; display: block; text-decoration: none; }
+        .menu-contenido a:hover { background-color: #555; }
+        .idioma-menu-desplegable:hover .menu-contenido { display: block; }
+        
+        /* Floating Buttons */
+        .whatsapp-btn, .contacto-btn, .discord-btn { position: fixed; right: 20px; z-index: 1000; display: inline-block; }
+        .whatsapp-btn { bottom: 80px; background: rgba(0, 0, 0, 0.7); border-radius: 50%; padding: 5px; box-shadow: 0 0 10px #25D366; }
+        .whatsapp-btn img { width: 50px; height: 50px; }
+        .contacto-btn { bottom: 20px; background-color: var(--primary-color); color: var(--bg-color); font-weight: bold; padding: 12px 18px; border-radius: 30px; text-decoration: none; font-size: 14px; box-shadow: 0 0 10px #F0F8FF; }
+        .discord-btn { left: 20px; bottom: 80px; right: auto; background: rgba(0, 0, 0, 0.7); border-radius: 50%; padding: 5px; box-shadow: 0 0 10px #7289DA; }
+        .discord-btn img { width: 50px; height: 50px; }
+        @media (max-width: 600px) {
+            .whatsapp-btn { right: 10px; bottom: 70px; }
+            .contacto-btn { right: 10px; bottom: 10px; }
+            .discord-btn { left: 10px; bottom: 10px; }
+        }
+    </style>
+
+    <script>
+        const translations = {
+            es: {
+                pageTitleEcommerce: "Reserva para E-commerce - Cuarzo",
+                metaDescriptionEcommerce: "Agenda tu mentoría estratégica para proyectos de E-commerce. Descubre cómo potenciar tu negocio online.",
+                languageSelection: "Idioma",
+                footerText: "© 2025 Mentorías Cuarzo. Todos los derechos reservados.",
+                footerContact: "Contacto",
+                whatsappButtonTitle: "Escríbenos por WhatsApp",
+                contactButtonText: "📩 Contacto",
+                contactButtonTitle: "Formulario de contacto",
+                ecommerceHeaderTitle: "Mentoría de E-commerce",
+                ecommerceBookingTitle: "Selecciona una fecha y hora",
+                ecommerceBookingDescription: "Elige una fecha y hora en el calendario para agendar tu mentoría estratégica de 30 minutos.",
+                day_mon: "Lun",
+                day_tue: "Mar",
+                day_wed: "Mié",
+                day_thu: "Jue",
+                day_fri: "Vie",
+                day_sat: "Sáb",
+                day_sun: "Dom",
+                time_slots_title: "Horarios disponibles",
+                form_title: "Completa tus datos",
+                form_name: "Nombre Completo",
+                form_phone: "Teléfono de contacto",
+                form_email: "Correo Electrónico",
+                cta_button_text: "Confirmar reserva"
+            },
+            en: {
+                pageTitleEcommerce: "E-commerce Booking - Cuarzo",
+                metaDescriptionEcommerce: "Book your strategic mentoring session for E-commerce projects. Learn how to boost your online business.",
+                languageSelection: "Language",
+                footerText: "© 2025 Cuarzo Mentoring. All rights reserved.",
+                footerContact: "Contact",
+                whatsappButtonTitle: "Message us on WhatsApp",
+                contactButtonText: "📩 Contact",
+                contactButtonTitle: "Contact form",
+                ecommerceHeaderTitle: "E-commerce Mentoring",
+                ecommerceBookingTitle: "Select a date and time",
+                ecommerceBookingDescription: "Choose a date and time from the calendar to book your 30-minute strategic mentoring session.",
+                day_mon: "Mon",
+                day_tue: "Tue",
+                day_wed: "Wed",
+                day_thu: "Thu",
+                day_fri: "Fri",
+                day_sat: "Sat",
+                day_sun: "Sun",
+                time_slots_title: "Available time slots",
+                form_title: "Fill in your details",
+                form_name: "Full Name",
+                form_phone: "Contact Phone",
+                form_email: "Email Address",
+                cta_button_text: "Confirm booking"
+            },
+            it: {
+                pageTitleEcommerce: "Prenotazione E-commerce - Cuarzo",
+                metaDescriptionEcommerce: "Prenota la tua sessione di mentoring strategico per progetti di E-commerce. Scopri come potenziare il tuo business online.",
+                languageSelection: "Lingua",
+                footerText: "© 2025 Cuarzo Mentoring. Tutti i diritti riservati.",
+                footerContact: "Contatto",
+                whatsappButtonTitle: "Scrivici su WhatsApp",
+                contactButtonText: "📩 Contatto",
+                contactButtonTitle: "Modulo di contatto",
+                ecommerceHeaderTitle: "Mentoring E-commerce",
+                ecommerceBookingTitle: "Seleziona una data e ora",
+                ecommerceBookingDescription: "Scegli una data e un orario dal calendario per prenotare la tua sessione di mentoring strategico di 30 minuti.",
+                day_mon: "Lun",
+                day_tue: "Mar",
+                day_wed: "Mié",
+                day_thu: "Gio",
+                day_fri: "Ven",
+                day_sat: "Sab",
+                day_sun: "Dom",
+                time_slots_title: "Orari disponibili",
+                form_title: "Completa i tuoi dati",
+                form_name: "Nome Completo",
+                form_phone: "Numero di Telefono",
+                form_email: "Indirizzo Email",
+                cta_button_text: "Conferma prenotazione"
+            },
+            fr: {
+                pageTitleEcommerce: "Réservation E-commerce - Cuarzo",
+                metaDescriptionEcommerce: "Réservez votre mentorat stratégique pour des projets d'E-commerce. Découvrez comment dynamiser votre entreprise en ligne.",
+                languageSelection: "Langue",
+                footerText: "© 2025 Cuarzo Mentorat. Tous droits réservés.",
+                footerContact: "Contact",
+                whatsappButtonTitle: "Contactez-nous sur WhatsApp",
+                contactButtonText: "📩 Contact",
+                contactButtonTitle: "Formulaire de contact",
+                ecommerceHeaderTitle: "Mentorats E-commerce",
+                ecommerceBookingTitle: "Sélectionnez une date et une heure",
+                ecommerceBookingDescription: "Choisissez une date et une heure dans le calendrier pour réserver votre session de mentorat stratégique de 30 minutes.",
+                day_mon: "Lun",
+                day_tue: "Mar",
+                day_wed: "Mer",
+                day_thu: "Jeu",
+                day_fri: "Ven",
+                day_sat: "Sam",
+                day_sun: "Dim",
+                time_slots_title: "Horaires disponibles",
+                form_title: "Remplissez vos coordonnées",
+                form_name: "Nom complet",
+                form_phone: "Numéro de téléphone",
+                form_email: "Adresse e-mail",
+                cta_button_text: "Confirmer la réservation"
+            },
+            pt: {
+                pageTitleEcommerce: "Reserva para E-commerce - Cuarzo",
+                metaDescriptionEcommerce: "Agende sua mentoria estratégica para projetos de E-commerce. Descubra como impulsionar seu negócio online.",
+                languageSelection: "Idioma",
+                footerText: "© 2025 Cuarzo Mentorias. Todos os direitos reservados.",
+                footerContact: "Contato",
+                whatsappButtonTitle: "Fale conosco no WhatsApp",
+                contactButtonText: "📩 Contato",
+                contactButtonTitle: "Formulário de contato",
+                ecommerceHeaderTitle: "Mentoria de E-commerce",
+                ecommerceBookingTitle: "Selecione uma data e horário",
+                ecommerceBookingDescription: "Escolha uma data e um horário no calendário para agendar sua sessão de mentoria estratégica de 30 minutos.",
+                day_mon: "Seg",
+                day_tue: "Ter",
+                day_wed: "Qua",
+                day_thu: "Qui",
+                day_fri: "Sex",
+                day_sat: "Sáb",
+                day_sun: "Dom",
+                time_slots_title: "Horários disponíveis",
+                form_title: "Preencha seus dados",
+                form_name: "Nome Completo",
+                form_phone: "Telefone de contato",
+                form_email: "Endereço de E-mail",
+                cta_button_text: "Confirmar reserva"
+            },
+            de: {
+                pageTitleEcommerce: "E-Commerce-Buchung - Cuarzo",
+                metaDescriptionEcommerce: "Buchen Sie Ihr strategisches Mentoring für E-Commerce-Projekte. Erfahren Sie, wie Sie Ihr Online-Geschäft ankurbeln können.",
+                languageSelection: "Sprache",
+                footerText: "© 2025 Cuarzo Mentoring. Alle Rechte vorbehalten.",
+                footerContact: "Kontakt",
+                whatsappButtonTitle: "Schreiben Sie uns auf WhatsApp",
+                contactButtonText: "📩 Kontakt",
+                contactButtonTitle: "Kontaktformular",
+                ecommerceHeaderTitle: "E-Commerce-Mentoring",
+                ecommerceBookingTitle: "Wählen Sie ein Datum und eine Uhrzeit",
+                ecommerceBookingDescription: "Wählen Sie ein Datum und eine Uhrzeit im Kalender, um Ihre 30-minütige strategische Mentoring-Sitzung zu buchen.",
+                day_mon: "Mo",
+                day_tue: "Di",
+                day_wed: "Mi",
+                day_thu: "Do",
+                day_fri: "Fr",
+                day_sat: "Sa",
+                day_sun: "So",
+                time_slots_title: "Verfügbare Zeiten",
+                form_title: "Geben Sie Ihre Daten ein",
+                form_name: "Vollständiger Name",
+                form_phone: "Kontakttelefon",
+                form_email: "E-Mail-Adresse",
+                cta_button_text: "Buchung bestätigen"
+            }
+        };
+        
+        let currentMonthIndex = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        const dayNames = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+        
+        const langMap = {
+            es: { monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"], dayNames: ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"] },
+            en: { monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], dayNames: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] },
+            it: { monthNames: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"], dayNames: ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"] },
+            fr: { monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"], dayNames: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"] },
+            pt: { monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"], dayNames: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"] },
+            de: { monthNames: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"], dayNames: ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"] }
+        };
+        
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            localStorage.setItem('language', lang);
+
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'META' && element.getAttribute('name') === 'description') {
+                        element.setAttribute('content', translations[lang][key]);
+                    } else if (element.tagName === 'TITLE') {
+                        element.textContent = translations[lang][key];
+                    } else if (element.hasAttribute('title') && (key === 'whatsappButtonTitle' || key === 'contactButtonTitle')) {
+                        element.setAttribute('title', translations[lang][key]);
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            renderCalendar(); // Re-render calendar for new language
+        }
+
+        function renderCalendar() {
+            const calendarGrid = document.querySelector('.calendar-grid');
+            const monthHeader = document.querySelector('#currentMonth');
+            const lang = document.documentElement.lang;
+            const currentLang = langMap[lang];
+
+            if (!currentLang) return;
+
+            // Set month and year in header
+            monthHeader.textContent = `${currentLang.monthNames[currentMonthIndex]} ${currentYear}`;
+            
+            // Clear existing days
+            calendarGrid.innerHTML = '';
+            
+            // Add day names
+            currentLang.dayNames.forEach(day => {
+                const dayNameElement = document.createElement('div');
+                dayNameElement.className = 'calendar-day day-name';
+                dayNameElement.textContent = day;
+                calendarGrid.appendChild(dayNameElement);
+            });
+
+            // Get number of days in the month and first day of the week
+            const firstDayOfMonth = new Date(currentYear, currentMonthIndex, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonthIndex + 1, 0).getDate();
+            const today = new Date();
+            const currentDay = today.getDate();
+            const isCurrentMonth = today.getMonth() === currentMonthIndex && today.getFullYear() === currentYear;
+
+            // Add empty cells for padding
+            const startDayIndex = (firstDayOfMonth === 0) ? 6 : firstDayOfMonth - 1; // Adjust for Monday-start
+            for (let i = 0; i < startDayIndex; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'calendar-day disabled';
+                calendarGrid.appendChild(emptyCell);
+            }
+
+            // Add days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.textContent = day;
+
+                // Disable past days
+                if (isCurrentMonth && day < currentDay) {
+                    dayElement.classList.add('disabled');
+                } else {
+                    dayElement.addEventListener('click', () => {
+                        handleCalendarClick(dayElement);
+                    });
+                }
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+
+        function changeMonth(direction) {
+            currentMonthIndex += direction;
+            if (currentMonthIndex < 0) {
+                currentMonthIndex = 11;
+                currentYear--;
+            } else if (currentMonthIndex > 11) {
+                currentMonthIndex = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        }
+
+        let selectedDay = null;
+        let selectedTime = null;
+
+        function handleCalendarClick(dayElement) {
+            if (dayElement.classList.contains('disabled')) return;
+            
+            if (selectedDay) {
+                selectedDay.classList.remove('selected');
+            }
+            selectedDay = dayElement;
+            selectedDay.classList.add('selected');
+        }
+
+        function handleTimeClick(timeElement) {
+            if (selectedTime) {
+                selectedTime.classList.remove('selected');
+            }
+            selectedTime = timeElement;
+            selectedTime.classList.add('selected');
+        }
+
+        function validateForm() {
+            const form = document.getElementById('bookingForm');
+            const name = form.querySelector('input[name="full-name"]').value;
+            const phone = form.querySelector('input[name="phone"]').value;
+            const email = form.querySelector('input[name="email"]').value;
+
+            if (name && phone && email && selectedDay && selectedTime) {
+                document.querySelector('.cta-button').disabled = false;
+            } else {
+                document.querySelector('.cta-button').disabled = true;
+            }
+        }
+
+        let backgroundMusic;
+        let musicPlaying = false;
+
+        function playMusic() {
+            if (backgroundMusic && backgroundMusic.paused) {
+                backgroundMusic.play().catch(error => {
+                    console.warn('Reproducción automática de música bloqueada.', error);
+                });
+            }
+        }
+
+        function pauseMusic() {
+            if (backgroundMusic && !backgroundMusic.paused) {
+                backgroundMusic.pause();
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            backgroundMusic = document.getElementById('backgroundMusic');
+            const savedLanguage = localStorage.getItem('language') || 'es';
+            setLanguage(savedLanguage);
+            renderCalendar();
+
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const selectedLang = event.target.getAttribute('data-lang');
+                    setLanguage(selectedLang);
+                });
+            });
+
+            document.querySelector('#prevMonth').addEventListener('click', () => changeMonth(-1));
+            document.querySelector('#nextMonth').addEventListener('click', () => changeMonth(1));
+            
+            document.querySelectorAll('.calendar-time').forEach(time => {
+                time.addEventListener('click', () => {
+                    handleTimeClick(time);
+                    validateForm();
+                });
+            });
+
+            const formInputs = document.querySelectorAll('#bookingForm input');
+            formInputs.forEach(input => input.addEventListener('input', validateForm));
+            
+            // Music control
+            playMusic();
+            document.body.addEventListener('mouseenter', playMusic);
+            document.body.addEventListener('mouseleave', pauseMusic);
+            document.body.addEventListener('click', (event) => {
+                if (event.target === document.body) {
+                    if (musicPlaying) {
+                        pauseMusic();
+                    } else {
+                        playMusic();
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="idioma-menu-desplegable">
+        <button class="menu-btn" data-key="languageSelection">Idioma</button>
+        <div class="menu-contenido">
+            <a href="#" class="lang-option" data-lang="es">Español</a>
+            <a href="#" class="lang-option" data-lang="en">English</a>
+            <a href="#" class="lang-option" data-lang="it">Italiano</a>
+            <a href="#" class="lang-option" data-lang="fr">Français</a>
+            <a href="#" class="lang-option" data-lang="pt">Português</a>
+            <a href="#" class="lang-option" data-lang="de">Deutsch</a>
+        </div>
+    </div>
+
+    <a href="https://wa.me/numerodetelefono" class="whatsapp-btn" target="_blank" data-key="whatsappButtonTitle" title="Escríbenos por WhatsApp">
+        <img src="whatsapp-icon.png" alt="WhatsApp">
+    </a>
+
+    <a href="index.html#contacto" class="contacto-btn" data-key="contactButtonTitle" title="Formulario de contacto">
+        <span data-key="contactButtonText">📩 Contacto</span>
+    </a>
+
+    <a href="https://discord.gg/tu-invitacion" class="discord-btn" target="_blank">
+        <img src="discord-icon.png" alt="Discord">
+    </a>
+
+    <header>
+        <div class="header-content">
+            <i class="fas fa-shopping-cart"></i>
+            <h1 data-key="ecommerceHeaderTitle">Mentoría de E-commerce</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="booking-section">
+            <div class="booking-info">
+                <h2 data-key="ecommerceBookingTitle">Selecciona una fecha y hora</h2>
+                <p data-key="ecommerceBookingDescription">
+                    Elige una fecha y hora en el calendario para agendar tu mentoría estratégica de 30 minutos.
+                </p>
+            </div>
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button id="prevMonth">&lt;</button>
+                    <span id="currentMonth">Julio 2025</span>
+                    <button id="nextMonth">&gt;</button>
+                </div>
+                <div class="calendar-grid">
+                    </div>
+                <h3 data-key="time_slots_title">Horarios disponibles</h3>
+                <div class="time-slots">
+                    <div class="calendar-time">09:00</div>
+                    <div class="calendar-time">10:00</div>
+                    <div class="calendar-time">11:00</div>
+                    <div class="calendar-time">12:00</div>
+                    <div class="calendar-time">13:00</div>
+                    <div class="calendar-time">14:00</div>
+                    <div class="calendar-time">15:00</div>
+                    <div class="calendar-time">16:00</div>
+                    <div class="calendar-time">17:00</div>
+                    <div class="calendar-time">18:00</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-form">
+            <h3 data-key="form_title">Completa tus datos</h3>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="full-name" data-key="form_name">Nombre Completo</label>
+                    <input type="text" id="full-name" name="full-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone" data-key="form_phone">Teléfono de contacto</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" data-key="form_email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <button type="submit" class="cta-button" data-key="cta_button_text" disabled>Confirmar reserva</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p data-key="footerText">
+            © 2025 Mentorías Cuarzo. Todos los derechos reservados.
+        </p>
+        <a href="index.html#contacto" data-key="footerContact">Contacto</a>
+    </footer>
+</body>
+</html>

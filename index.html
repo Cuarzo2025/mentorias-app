@@ -7,30 +7,35 @@
     <meta name="description" content="Mentorías personalizadas con proyectos listos para emprendedores. Reserva tu reunión." data-key="metaDescription">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     <audio id="backgroundMusic" src="Rob Dougan - Clubbed To Death.mp3" loop></audio>
-
     <style>
+        /* Estilos para el fondo de Matrix */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Envía el canvas al fondo */
+            background-color: #000; /* Fondo negro */
+        }
+
         /* Base Styles */
         body {
-            /* Background Image */
-            background-image: url('screenshots/Picture1.jpg');
-            background-size: cover; /* Cover the entire viewport */
-            background-attachment: fixed; /* Keep image fixed when scrolling */
-            background-position: center center; /* Center the image */
-            background-repeat: no-repeat; /* Do not repeat the image */
-            background-color: #000; /* Fallback color if image fails to load */
-
-            color: #e0e0e0; /* Brighter text color for contrast */
+            /* Eliminamos la imagen de fondo */
+            background: none;
+            background-color: #000;
+            color: #e0e0e0;
             font-family: 'Montserrat', sans-serif;
             margin: 0;
-            padding-top: 60px; /* Space for fixed header/menus */
+            padding-top: 60px;
             box-sizing: border-box;
             line-height: 1.6;
-            cursor: default; /* Asegura un cursor predeterminado */
+            cursor: default;
         }
 
         /* Header */
         header {
-            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black for header */
+            background: rgba(0, 0, 0, 0.7);
             height: 250px;
             position: relative;
             display: flex;
@@ -43,7 +48,7 @@
         header img {
             max-height: 150px;
             object-fit: contain;
-            filter: drop-shadow(0 0 5px #808080); /* Dorado para el filtro de sombra del logo */
+            filter: drop-shadow(0 0 5px #808080);
             transition: filter 0.3s ease, box-shadow 0.3s ease;
             cursor: default;
             z-index: 1;
@@ -79,7 +84,7 @@
         }
 
         .menu-btn {
-            background-color: #333; /* Darker background for menu buttons */
+            background-color: #333;
             color: white;
             padding: 10px 15px;
             font-size: 16px;
@@ -91,31 +96,31 @@
         .menu-contenido {
             display: none;
             position: absolute;
-            background-color: rgba(17, 17, 17, 0.9); /* Semi-transparent dark background for menu content */
+            background-color: rgba(17, 17, 17, 0.9);
             min-width: 200px;
             border-radius: 5px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.5); /* Stronger shadow */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
             white-space: nowrap;
         }
 
         .idioma-menu-desplegable .menu-contenido {
             min-width: 150px;
-            left: 0; /* Align to the left for language menu */
+            left: 0;
         }
 
         .menu-desplegable .menu-contenido {
-            right: 0; /* Align to the right for main menu */
+            right: 0;
         }
 
         .menu-contenido a {
-            color: #f1f1f1; /* Brighter link color */
+            color: #f1f1f1;
             padding: 12px 16px;
             display: block;
             text-decoration: none;
         }
 
         .menu-contenido a:hover {
-            background-color: #555; /* Slightly lighter hover background */
+            background-color: #555;
         }
 
         .menu-desplegable:hover .menu-contenido,
@@ -143,7 +148,7 @@
         .galeria img:hover {
             filter: grayscale(0%);
             transform: scale(1.05);
-            box-shadow: 0 0 15px #808080; /* Dorado al pasar el ratón */
+            box-shadow: 0 0 15px #808080;
         }
 
         /* Fullscreen Image Glow Effect */
@@ -155,7 +160,7 @@
                 0 0 10px #808080,
                 0 0 20px #808080,
                 0 0 30px #808080,
-                0 0 40px #808080; /* Dorado para el efecto de brillo en pantalla completa */
+                0 0 40px #808080;
             border-radius: 15px;
             transition: box-shadow 1.5s ease-in-out infinite alternate;
             object-fit: contain;
@@ -165,7 +170,7 @@
 
         /* Gallery Section */
         .galeria {
-            display: none; /* Hidden by default */
+            display: none;
             flex-wrap: wrap;
             justify-content: center;
             gap: 15px;
@@ -178,15 +183,15 @@
             position: fixed;
             right: 20px;
             z-index: 1000;
-            display: inline-block; /* Ensure proper spacing and sizing */
+            display: inline-block;
         }
 
         .whatsapp-btn {
             bottom: 80px;
-            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for WhatsApp button */
+            background: rgba(0, 0, 0, 0.7);
             border-radius: 50%;
             padding: 5px;
-            box-shadow: 0 0 10px #25D366; /* Mantengo el verde de WhatsApp para el botón de WhatsApp */
+            box-shadow: 0 0 10px #25D366;
         }
 
         .whatsapp-btn img {
@@ -196,73 +201,71 @@
 
         .contacto-btn {
             bottom: 20px;
-            background-color: #808080; /* Dorado similar al original */
+            background-color: #808080;
             color: #000;
             font-weight: bold;
             padding: 12px 18px;
             border-radius: 30px;
             text-decoration: none;
             font-size: 14px;
-            box-shadow: 0 0 10px #F0F8FF; /* Dorado similar al original */
+            box-shadow: 0 0 10px #F0F8FF;
         }
-        /* Discord button on the left */
-.discord-btn {
-    position: fixed;
-    left: 20px; /* Position on the left side */
-    bottom: 80px; /* Aligned with WhatsApp button's previous height, but on the left */
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 50%;
-    padding: 5px;
-    box-shadow: 0 0 10px #7289DA; /* Discord blue shadow */
-}
 
-.discord-btn img {
-    width: 50px;
-    height: 50px;
-}
+        .discord-btn {
+            position: fixed;
+            left: 20px;
+            bottom: 80px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            padding: 5px;
+            box-shadow: 0 0 10px #7289DA;
+        }
 
-/* Responsive Adjustments (Add this section if you don't have it, or merge if you do) */
-@media (max-width: 600px) {
-    /* ... (other responsive rules for whatsapp-btn, contacto-btn if they exist) ... */
+        .discord-btn img {
+            width: 50px;
+            height: 50px;
+        }
 
-    .discord-btn {
-        left: 10px; /* Adjusted position for smaller screens */
-        bottom: 10px; /* Moved down to avoid overlapping the language selector on small screens */
-    }
-}
+        @media (max-width: 600px) {
+            .discord-btn {
+                left: 10px;
+                bottom: 10px;
+            }
+        }
+
         /* Sections */
         section {
             padding: 40px 20px;
             max-width: 800px;
             margin: auto;
-            text-align: center; /* Center content in sections */
-            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for readability */
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
             border-radius: 10px;
-            margin-bottom: 20px; /* Space between sections */
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
         }
 
         section h2, section h3 {
             margin-bottom: 20px;
-            color: #A9A9A9; /* Dorado para títulos de sección */
+            color: #A9A9A9;
         }
 
         /* Custom Meeting Box */
         .meeting-box {
-            background-color: rgba(26, 26, 26, 0.8); /* Slightly more opaque for the meeting box */
+            background-color: rgba(26, 26, 26, 0.8);
             border: 1px solid #333;
             border-radius: 10px;
             padding: 30px;
             margin: 40px auto;
             max-width: 500px;
             text-align: center;
-            box-shadow: 0 0 20px rgba(169, 169, 169, 0.4); /* Sutil efecto dorado */
-            animation: pulse-glow 2s infinite alternate; /* Animación de pulsación */
+            box-shadow: 0 0 20px rgba(169, 169, 169, 0.4);
+            animation: pulse-glow 2s infinite alternate;
         }
 
         .meeting-box h3 {
-            color: #A9A9A9; /* Dorado para el título */
+            color: #A9A9A9;
             margin-bottom: 20px;
             font-size: 1.8em;
         }
@@ -270,12 +273,12 @@
         .meeting-box p {
             font-size: 1.1em;
             margin-bottom: 30px;
-            color: #f1f1f1; /* Asegura que el texto sea claro */
+            color: #f1f1f1;
         }
 
         .meeting-box a.button {
             display: inline-block;
-            background-color: #A9A9A9; /* Dorado para el botón */
+            background-color: #A9A9A9;
             color: #000;
             padding: 15px 30px;
             border-radius: 5px;
@@ -283,22 +286,22 @@
             font-weight: bold;
             font-size: 1.2em;
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 0 10px rgba(169, 169, 169, 0.6); /* Sombra dorada */
+            box-shadow: 0 0 10px rgba(169, 169, 169, 0.6);
         }
 
         .meeting-box a.button:hover {
-            background-color: #808080; /* Dorado más oscuro al pasar el ratón */
+            background-color: #808080;
             transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(169, 169, 169, 0.8); /* Sombra dorada más intensa */
+            box-shadow: 0 0 20px rgba(169, 169, 169, 0.8);
         }
 
         /* Keyframe animation for pulse glow */
         @keyframes pulse-glow {
             from {
-                box-shadow: 0 0 10px rgba(169, 169, 169, 0.4); /* Dorado inicial de la pulsación */
+                box-shadow: 0 0 10px rgba(169, 169, 169, 0.4);
             }
             to {
-                box-shadow: 0 0 30px rgba(169, 169, 169, 0.8); /* Dorado final de la pulsación */
+                box-shadow: 0 0 30px rgba(169, 169, 169, 0.8);
             }
         }
 
@@ -313,7 +316,7 @@
         }
 
         #calendario ul li a {
-            display: inline-block; /* For better click area */
+            display: inline-block;
             padding: 10px 15px;
             background-color: #333;
             color: white;
@@ -332,14 +335,14 @@
             color: #aaa;
             padding: 20px;
             font-size: 0.9em;
-            border-top: 1px solid #333; /* A subtle separator */
+            border-top: 1px solid #333;
             margin-top: 40px;
-            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black for footer */
+            background-color: rgba(0, 0, 0, 0.7);
             border-radius: 10px;
         }
 
         footer a {
-            color: #A9A9A9; /* Mantengo este dorado para el footer, ya que es distinto del "fosforescente" */
+            color: #A9A9A9;
             text-decoration: none;
             transition: color 0.3s ease;
         }
@@ -550,7 +553,7 @@
                 footerContact: "Contato",
                 sectionAboutTitle: "Quem Somos",
                 sectionAboutContent: "Na Cuarzo, transformamos ideias em negócios de sucesso. Oferecemos mentorias empresariais personalizadas, guiando empreendedores e empresas em direção ao crescimento e inovação. Nossa abordagem prática, com projetos prontos para implementar, garante resultados tangíveis.",
-                sectionGalleryTitle: "Nossos Projetos",
+                sectionGalleryTitle: "Nossos Proyectos",
                 sectionGalleryDescription: "Explore alguns dos projetos de sucesso que impulsionamos com nossos clientes. De lojas online a sistemas empresariais complexos, nossa experiência abrange diversas indústrias.",
                 meetingBoxTitle: "Agende uma Reunião Personalizada",
                 meetingBoxText: "Agende uma sessão estratégica para discutir seus objetivos e como podemos ajudá-lo a alcançá-los. Estamos prontos para impulsionar seu negócio!",
@@ -711,11 +714,57 @@
                     }
                 }
             });
+
+            // Nuevo script para el efecto de Matrix
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+            let width = (canvas.width = window.innerWidth);
+            let height = (canvas.height = window.innerHeight);
+            const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZあいうえおかきくけこアイウエオカキクケコÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöùúûüýþÿ' + '1234567890abcdefghijklmnopqrstuvwxyz';
+            const font_size = 10;
+            let columns = width / font_size;
+            const drops = [];
+
+            for (let x = 0; x < columns; x++) {
+                drops[x] = 1;
+            }
+
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, width, height);
+
+                ctx.fillStyle = '#FFFFFF'; /* Color blanco para la caída de números */
+                ctx.font = font_size + 'px monospace';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = characters[Math.floor(Math.random() * characters.length)];
+                    ctx.fillText(text, i * font_size, drops[i] * font_size);
+
+                    if (drops[i] * font_size > height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            setInterval(draw, 33);
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                columns = width / font_size;
+                drops.length = 0;
+                for (let x = 0; x < columns; x++) {
+                    drops[x] = 1;
+                }
+            });
+
         });
     </script>
 </head>
-
 <body>
+
+    <canvas id="matrix-canvas"></canvas>
 
     <div class="idioma-menu-desplegable">
         <button class="menu-btn" data-key="languageSelection">Idioma</button>
@@ -727,7 +776,6 @@
             <a href="#" class="lang-option" data-lang="pt">Português</a>
         </div>
     </div>
-
     <div class="menu-desplegable">
         <button class="menu-btn" data-key="menuButton">☰ Menú</button>
         <div class="menu-contenido">
@@ -738,7 +786,7 @@
             <a href="galeria-proyectos.html" data-key="menuGallery">Galería de Proyectos</a>
             <hr style="margin: 0; border: 0.5px solid #333;">
             <a href="e-books.html" data-key="project e-books">E-Books Personalizado</a>
-            <a href="proyecto-ecommerce.HTML" data-key="projectEcommerce">E-commerce Personalizado</a>
+            <a href="proyecto-ecommerce.html" data-key="projectEcommerce">E-commerce Personalizado</a>
             <a href="proyecto-marketing.html" data-key="projectMarketing">Marketing y Publicidad</a>
             <a href="proyecto-logistica.html" data-key="projectLogistics">Logística y Distribución</a>
             <a href="proyecto-franquicias.html" data-key="projectFranchises">Modelos de Franquicias</a>
@@ -747,59 +795,58 @@
         </div>
     </div>
 
-    <div class="whatsapp-btn" title="" data-key="whatsappButtonTitle">
-        <a href="https://wa.me/5491139090010" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp Icon">
-        </a>
-    </div>
-
-    <a href="contacto.html" class="contacto-btn" title="" data-key="contactButtonTitle">
-        <span data-key="contactButtonText">📩 Contacto</span>
-    </a>
-    </div>  
-    <a href="https://discord.gg/yourinvitecode" class="discord-btn" target="_blank" title="Únete a nuestro Discord" data-key="discordButtonTitle">
-    <img src="screenshots/discord_logo.png" alt="Discord" style="background-color: #5865F2; border-radius: 50%;">
-</a>
     <header>
-        <img src="screenshots/Picture12.jpg" alt="Logo Mentorías Cuarzo" />
-        <h1 data-key="headerTitle">Mentorías Empresariales de Impacto</h1>
+        <img src="Picture12.jpg" alt="Logo de Cuarzo">
     </header>
 
     <main>
-        <section id="portada">
-            <h2 data-key="sectionAboutTitle">Quiénes Somos</h2>
-            <p data-key="sectionAboutContent">En Cuarzo, transformamos ideas en negocios exitosos. Ofrecemos mentorías empresariales personalizadas, guiando a emprendedores y empresas hacia el crecimiento y la innovación. Nuestro enfoque práctico, con proyectos listos para implementar, te asegura resultados tangibles.</p>
+        <section id="inicio">
+            <h1 data-key="headerTitle">Mentorías Empresariales de Impacto</h1>
+            <p data-key="aboutUs">En Cuarzo, transformamos ideas en negocios exitosos. Ofrecemos mentorías empresariales personalizadas, guiando a emprendedores y empresas hacia el crecimiento y la innovación. Nuestro enfoque práctico, con proyectos listos para implementar, te asegura resultados tangibles.</p>
         </section>
 
-        ---
-
-        <section id="galeria" class="galeria">
+        <section id="galeria-de-proyectos" class="galeria-container">
             <h2 data-key="sectionGalleryTitle">Nuestros Proyectos</h2>
             <p data-key="sectionGalleryDescription">Explora algunos de los proyectos exitosos que hemos impulsado con nuestros clientes. Desde tiendas en línea hasta complejos sistemas empresariales, nuestra experiencia abarca diversas industrias.</p>
-            </section>
+            <div id="galeria" class="galeria">
+                </div>
+        </section>
 
-        ---
-
-        <section id="calendario">
-            <div class="meeting-box">
+        <div class="meeting-box" id="calendario">
             <h3 data-key="meetingBoxTitle">Reserva de una Reunión Personalizada</h3>
             <p data-key="meetingBoxText">Agenda una sesión estratégica para discutir tus objetivos y cómo podemos ayudarte a alcanzarlos. ¡Estamos listos para impulsar tu negocio!</p>
             <a href="calendariocuarzo.html" class="button" data-key="meetingBoxButton">Agendar mi Reunión</a>
+            <div class="calendario-opciones" style="margin-top: 20px;">
+                <h3 data-key="specificAreaQuestion">¿Interesado en un área específica?</h3>
+                <ul>
+                    <li><a href="reserva_ecommerce.html" data-key="bookEcommerce">📦 Reserva para E-commerce</a></li>
+                    <li><a href="reserva_marketing.html" data-key="bookMarketing">📢 Reserva para Marketing</a></li>
+                    <li><a href="reserva_logistica.html" data-key="bookLogistics">🚚 Reserva para Logística</a></li>
+                    <li><a href="reserva_franquicias.html" data-key="bookFranchises">🏪 Reserva para Franquicias</a></li>
+                    <li><a href="reserva_saas.html" data-key="bookSaaS">💻 Reserva para SaaS</a></li>
+                </ul>
+            </div>
         </div>
-            <h3 data-key="specificAreaQuestion">¿Interesado en un área específica?</h3>
-            <ul>
-                <li><a href="https://calendly.com/cuarzomentorias/ecommerce" target="_blank" data-key="bookEcommerce">📦 Reserva para E-commerce</a></li>
-                <li><a href="https://calendly.com/cuarzomentorias/marketing" target="_blank" data-key="bookMarketing">📢 Reserva para Marketing</a></li>
-                <li><a href="https://calendly.com/cuarzomentorias/logistica" target="_blank" data-key="bookLogistics">🚚 Reserva para Logística</a></li>
-                <li><a href="https://calendly.com/cuarzomentorias/franquicias" target="_blank" data-key="bookFranchises">🏪 Reserva para Franquicias</a></li>
-                <li><a href="https://calendly.com/cuarzomentorias/saas" target="_blank" data-key="bookSaaS">💻 Reserva para SaaS</a></li>
-            </ul>
+
+        <section id="contacto">
+            <h2 data-key="menuContact">Contacto</h2>
+            <p>Para más información o consultas, puedes contactarnos a través de:</p>
+            <a href="mailto:cuarzocristalempresarial@gmail.com" class="contacto-btn" data-key="contactButtonTitle">
+                <span data-key="contactButtonText">📩 Contacto</span>
+            </a>
         </section>
     </main>
 
+    <a href="https://wa.me/numerodetelefono" target="_blank" class="whatsapp-btn" data-key="whatsappButtonTitle">
+        <img src="whatsapp.png" alt="WhatsApp Icon">
+    </a>
+
+    <a href="https://discord.gg/your-invite-link" target="_blank" class="discord-btn" title="Únete a nuestro Discord">
+        <img src="screenshots/discord_logo.png" alt="Discord Icon">
+    </a>
+
     <footer>
         <p data-key="footerText">© 2025 Mentorías Cuarzo. Todos los derechos reservados.</p>
-        <p><a href="contacto.html" data-key="footerContact">Contacto</a></p>
     </footer>
 
 </body>
