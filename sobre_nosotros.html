@@ -7,17 +7,17 @@
     <meta name="description" content="Conoce la historia de Cuarzo y su fundadora, Natalia Soba." data-key="aboutMetaDescription">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    
     <style>
         /* Base Styles */
         body {
-            /* Ruta de la imagen de fondo */
-            background-image: url('screenshots/Picture34.jpg'); 
-            /* MODIFICACIÓN CLAVE: Escala la imagen para cubrir el fondo sin estirarla, permitiendo que las partes sobrantes se recorten */
-            background-size: cover; 
-            background-repeat: no-repeat; /* Evita que la imagen se repita */
-            background-position: center center; /* Centra la imagen en la pantalla */
-            background-attachment: fixed; /* Mantiene la imagen de fondo fija al hacer scroll */
-            background-color: #000; /* Color de fondo para el espacio no cubierto por la imagen (si lo hubiera) */
+            background-image: url('screenshots/Picture34.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-color: #000;
             color: #e0e0e0;
             font-family: 'Montserrat', sans-serif;
             margin: 0;
@@ -31,6 +31,55 @@
             min-height: 100vh;
         }
 
+        /* Estilos para el menú de navegación */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            padding: 10px 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar li {
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Espacio entre bandera y texto */
+        }
+        
+        .navbar a {
+            color: silver;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: white;
+        }
+        
+        /* Estilos para los iconos de bandera */
+        .fi {
+            font-size: 0.9em; /* Tamaño de fuente más pequeño para los iconos */
+            vertical-align: middle;
+        }
+        
         section {
             padding: 40px 20px;
             max-width: 800px;
@@ -90,7 +139,7 @@
             flex-direction: column;
             align-items: center;
             gap: 20px;
-            cursor: pointer; /* Cursor de mano al pasar por todo el recuadro */
+            cursor: pointer;
         }
 
         .founder-box img {
@@ -98,10 +147,7 @@
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            /* Ajuste para centrar en cuello y rostro: 
-               'center' para horizontal, '25%' para vertical desde arriba.
-               Puedes ajustar el '25%' si la imagen no se encuadra perfectamente. */
-            object-position: center 25%; 
+            object-position: center 25%;
             border: 4px solid #A9A9A9;
             box-shadow: 0 0 15px rgba(169, 169, 169, 0.7);
             transition: transform 0.3s ease;
@@ -215,6 +261,28 @@
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <ul>
+            <li>
+                <span class="fi fi-uy"></span>
+                <span class="fi fi-cl"></span>
+                <span class="fi fi-mx"></span>
+                <a href="index.html">Inicio</a>
+                <span class="fi fi-co"></span>
+                <span class="fi fi-ar"></span>
+                <span class="fi fi-us"></span>
+            </li>
+            <li>
+                <span class="fi fi-eu"></span>
+                <span class="fi fi-it"></span>
+                <a href="contacto.html">Contacto</a>
+                <span class="fi fi-es"></span>
+                <span class="fi fi-fr"></span>
+                <span class="fi fi-pt"></span>
+            </li>
+        </ul>
+    </nav>
+    
     <div class="content-wrapper">
         <h1 data-key="aboutCompanyTitle">Sobre Cuarzo: Mentorías Empresariales</h1>
         
@@ -305,7 +373,7 @@
                 companyDescriptionParagraph2: "Nossa missão é empoderar nossos clientes com o conhecimento, as ferramentas e a confiança necessárias para navegar no complexo mundo empresarial, inovar e alcançar um crescimento sustentável. Desde a otimização de processos até a expansão de mercados, a Cuarzo é seu aliado estratégico no caminho para o sucesso.",
                 founderSectionTitle: "Conheça Nossa Fundadora",
                 founderName: "Natalia Soba",
-                founderIntro: "Com mais de 15 anos de experiência no campo das mentorias e desenvolvimento empresarial, Natalia Soba é a força visionaria por trás da Cuarzo. Sua trajetória abrange uma profunda compreensão de diversas indústrias e um histórico comprovado na aceleração do crescimento de negócios de todos os portes.",
+                founderIntro: "Com mais de 15 anos de experiência no campo das mentorias e desenvolvimento empresarial, Natalia Soba é a força visionaria por trás da Cuarzo. Sua trajetória abrange uma profunda compreensão de diversas indústrias e um histórico comprovado na aceleração do crecimiento de negócios de todos os portes.",
                 founderMission: "A missão de Natalia é clara: 'Impulsar o potencial humano e empresarial, facilitando o caminho para a realização de metas ambiciosas com estratégias claras e um acompanhamento constante.'",
                 linkedinButtonText: "Visite meu LinkedIn"
             }
@@ -334,6 +402,6 @@
             setLanguage(savedLanguage);
         });
     </script>
-     <a href="index.html">← Volver al inicio</a>
+    <a href="index.html" class="back-button" style="display: none;">← Volver al inicio</a>
 </body>
 </html>

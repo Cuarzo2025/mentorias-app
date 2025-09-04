@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda tu Reunión - E-commerce</title>
+    <style>
+        /* Estilos Generales y de Contenedor */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            position: relative;
+            overflow-x: hidden;
+            padding-bottom: 100px; /* Espacio para que los botones no se peguen al final */
+        }
+
+        .main-content {
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .container {
+            background-color: rgba(18, 18, 18, 0.95);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+            text-align: center;
+        }
+
+        /* Títulos y Secciones */
+        h1 {
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: #aaa;
+            margin-top: 30px;
+            font-size: 1.5em;
+        }
+
+        .section {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #252525;
+            border-radius: 8px;
+        }
+
+        /* Estilos del Formulario */
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ccc;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #fff;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #666;
+        }
+
+        /* Estilos del Calendario */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #fff;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+
+        .day-label {
+            font-weight: bold;
+            color: #888;
+        }
+
+        .day {
+            width: 100%;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #444;
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .day:hover {
+            background-color: #666;
+            transform: scale(1.05);
+        }
+
+        .day.selected {
+            background-color: #777;
+            transform: scale(1.1);
+            border: 2px solid #fff;
+        }
+
+        .day.disabled {
+            background-color: #2e2e2e;
+            color: #555;
+            cursor: not-allowed;
+        }
+
+        /* Estilos de las franjas horarias */
+        .time-slots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .time-slot {
+            padding: 12px;
+            background-color: #444;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .time-slot:hover {
+            background-color: #666;
+        }
+
+        .time-slot.selected {
+            background-color: #777;
+            border: 2px solid #fff;
+        }
+
+        /* Contenedor de botones flotante */
+        .button-group-float {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(18, 18, 18, 0.95);
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 20;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            color: #000;
+        }
+
+        .button.send { background-color: #888; }
+        .button.clear { background-color: #888; }
+        .button.back { background-color: #888; }
+
+        .button:hover {
+            background-color: #aaa;
+            transform: scale(1.05);
+        }
+        
+        /* Animación de Fondo - Burbujas de E-commerce */
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .ecommerce-icon {
+            position: absolute;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.1;
+            animation: floatUp 15s ease-in-out infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            50% { opacity: 0.2; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        .ecommerce-icon:nth-child(2) { animation-duration: 20s; left: 10%; }
+        .ecommerce-icon:nth-child(3) { animation-duration: 18s; left: 30%; animation-delay: 2s; }
+        .ecommerce-icon:nth-child(4) { animation-duration: 25s; left: 50%; }
+        .ecommerce-icon:nth-child(5) { animation-duration: 22s; left: 70%; animation-delay: 1s; }
+        .ecommerce-icon:nth-child(6) { animation-duration: 17s; left: 90%; animation-delay: 3s; }
+    </style>
+</head>
+<body>
+    <div class="background-animation">
+        <div class="ecommerce-icon" style="width: 50px; left: 5%;"></div>
+        <div class="ecommerce-icon" style="width: 70px; left: 25%;"></div>
+        <div class="ecommerce-icon" style="width: 60px; left: 45%;"></div>
+        <div class="ecommerce-icon" style="width: 80px; left: 65%;"></div>
+        <div class="ecommerce-icon" style="width: 55px; left: 85%;"></div>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <h1>Agenda tu Reunión de E-commerce</h1>
+            <p style="color: #bbb;">Completa tus datos y selecciona la mejor fecha y hora para conversar sobre tu tienda en línea.</p>
+
+            <div class="section">
+                <h2>Tus Datos Personales</h2>
+                <div class="form-group">
+                    <label for="nombre">Nombre y Apellido:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="whatsapp">Número de WhatsApp:</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Selecciona una Fecha</h2>
+                <p style="color: #bbb; text-align: left; margin-bottom: 20px;">
+                    Elige el día que mejor se adapte a tu agenda. Ten en cuenta que solo se pueden seleccionar los días a partir de la fecha actual.
+                </p>
+                <div class="calendar-header">
+                    <span>Enero 2026</span>
+                </div>
+                <div id="calendar-days" class="calendar-grid">
+                    <div class="day-label">Dom</div><div class="day-label">Lun</div><div class="day-label">Mar</div>
+                    <div class="day-label">Mié</div><div class="day-label">Jue</div><div class="day-label">Vie</div>
+                    <div class="day-label">Sáb</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Selecciona una Franja Horaria</h2>
+                <p style="color: #bbb; text-align: left; margin-bottom: 20px;">
+                    Nuestros expertos están disponibles para ayudarte en estas horas. Por favor, selecciona una.
+                </p>
+                <div id="time-slots" class="time-slots-grid">
+                    </div>
+            </div>
+
+            <div class="section" style="margin-top: 50px;">
+                <h2>Información Adicional</h2>
+                <p style="color: #bbb; text-align: left;">
+                    En esta reunión, discutiremos las mejores estrategias para lanzar y escalar tu tienda en línea. Hablaremos sobre la selección de plataformas, la optimización de la experiencia del usuario y cómo manejar la logística y el marketing digital para maximizar tus ventas.
+                    Estamos listos para ayudarte a transformar tu idea en un negocio exitoso.
+                </p>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="button-group-float">
+        <button class="button send" onclick="enviarFormulario()">Enviar</button>
+        <button class="button clear" onclick="borrarCampos()">Borrar Campos</button>
+        <button class="button back" onclick="regresar()">Regresar</button>
+    </div>
+
+    <script>
+        // Funciones del formulario (iguales que las versiones anteriores)
+        function enviarFormulario() {
+            const nombre = document.getElementById('nombre').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const email = document.getElementById('email').value;
+            const fechaSeleccionada = document.querySelector('.day.selected');
+            const horaSeleccionada = document.querySelector('.time-slot.selected');
+
+            if (!nombre || !whatsapp || !email || !fechaSeleccionada || !horaSeleccionada) {
+                alert('Por favor, completa todos los campos y selecciona una fecha y hora.');
+                return;
+            }
+
+            const dia = fechaSeleccionada.textContent;
+            const hora = horaSeleccionada.textContent;
+
+            const mensaje = `
+                Datos de la cita:
+                Nombre y Apellido: ${nombre}
+                WhatsApp: ${whatsapp}
+                Correo: ${email}
+                Fecha: ${dia}
+                Hora: ${hora}
+            `;
+            
+            alert('Formulario enviado correctamente. En breve nos pondremos en contacto contigo. \n' + mensaje);
+        }
+
+        function borrarCampos() {
+            document.getElementById('nombre').value = '';
+            document.getElementById('whatsapp').value = '';
+            document.getElementById('email').value = '';
+
+            const selectedDay = document.querySelector('.day.selected');
+            if (selectedDay) {
+                selectedDay.classList.remove('selected');
+            }
+
+            const selectedTime = document.querySelector('.time-slot.selected');
+            if (selectedTime) {
+                selectedTime.classList.remove('selected');
+            }
+        }
+
+        function regresar() {
+            window.location.href = 'index.html';
+        }
+
+        // Lógica del calendario y horas (mejorada)
+        document.addEventListener('DOMContentLoaded', () => {
+            const calendarDaysContainer = document.getElementById('calendar-days');
+            const timeSlotsContainer = document.getElementById('time-slots');
+
+            // Generar los días del mes
+            const now = new Date();
+            const today = now.getDate();
+            const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+            const firstDayOfWeek = new Date(now.getFullYear(), now.getMonth(), 1).getDay();
+
+            for (let i = 0; i < firstDayOfWeek; i++) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.classList.add('day', 'disabled');
+                calendarDaysContainer.appendChild(emptyDiv);
+            }
+
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('day');
+                dayDiv.textContent = i;
+                
+                if (i < today) {
+                    dayDiv.classList.add('disabled');
+                    dayDiv.style.cursor = 'not-allowed';
+                } else {
+                    dayDiv.addEventListener('click', () => {
+                        document.querySelectorAll('.day').forEach(d => d.classList.remove('selected'));
+                        dayDiv.classList.add('selected');
+                    });
+                }
+                calendarDaysContainer.appendChild(dayDiv);
+            }
+
+            // Generar franjas horarias
+            const hours = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
+            hours.forEach(hour => {
+                const timeSlotDiv = document.createElement('div');
+                timeSlotDiv.classList.add('time-slot');
+                timeSlotDiv.textContent = hour;
+                timeSlotDiv.addEventListener('click', () => {
+                    document.querySelectorAll('.time-slot').forEach(ts => ts.classList.remove('selected'));
+                    timeSlotDiv.classList.add('selected');
+                });
+                timeSlotsContainer.appendChild(timeSlotDiv);
+            });
+        });
+    </script>
+</body>
+</html>
