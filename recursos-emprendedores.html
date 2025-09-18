@@ -82,16 +82,37 @@
             color: #888;
         }
 
-        .download-button {
+        /* Botones nuevos */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .view-button, .download-button {
             display: inline-block;
-            background-color: #555; /* Botón gris oscuro */
-            color: #eee;
-            padding: 10px 20px;
+            padding: 10px 15px;
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
-            margin-top: 15px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
+            flex-grow: 1; /* Esto hace que los botones se estiren para ocupar el espacio */
+        }
+        
+        /* Estilos específicos para cada botón */
+        .view-button {
+            background-color: #4CAF50; /* Un color más llamativo para "Ver" */
+            color: #fff;
+        }
+
+        .view-button:hover {
+            background-color: #45a049;
+        }
+
+        .download-button {
+            background-color: #555; /* Botón gris oscuro */
+            color: #eee;
         }
 
         .download-button:hover {
@@ -155,13 +176,19 @@
                 <div class="pdf-card">
                     <h3>Plan de Negocio Simplificado</h3>
                     <p>Una plantilla paso a paso para organizar tus ideas y crear una estrategia sólida para tu empresa.</p>
-                    <a href="documentos/plan-de-negocio-simplificado.pdf" download class="download-button">Descargar PDF</a>
+                    <div class="button-group">
+                        <a href="documentos/plan-de-negocio-simplificado.pdf" target="_blank" class="view-button">Ver PDF</a>
+                        <a href="documentos/plan-de-negocio-simplificado.pdf" download class="download-button">Descargar</a>
+                    </div>
                 </div>
 
                 <div class="pdf-card">
                     <h3>Marketing Digital Básico</h3>
                     <p>Aprende las claves del marketing digital para emprendedores, desde redes sociales hasta email marketing.</p>
-                    <a href="documentos/marketing-digital-basico.pdf" download class="download-button">Descargar PDF</a>
+                    <div class="button-group">
+                        <a href="documentos/marketing-digital-basico.pdf" target="_blank" class="view-button">Ver PDF</a>
+                        <a href="documentos/marketing-digital-basico.pdf" download class="download-button">Descargar</a>
+                    </div>
                 </div>
                 
                 </div>
