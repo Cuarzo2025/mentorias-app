@@ -6,10 +6,8 @@
   <title>Proyecto Logística y Distribución | Cuarzo</title>
   <meta name="description" content="Optimiza tu logística y distribución con sistemas personalizados y asesoría profesional. Reducción de costos, trazabilidad y eficiencia.">
 
-  <!-- Fuente elegante -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
@@ -92,28 +90,38 @@
       user-select: none;
     }
 
+    /* ESTILOS DE GALERÍA MODIFICADOS */
     .galeria {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
       margin-top: 30px;
+      align-items: flex-start; /* Asegura alineación superior */
+    }
+
+    .galeria a {
+      display: block;
+      line-height: 0; /* Elimina espacio bajo la imagen */
+      cursor: pointer;
     }
 
     .galeria img {
-      width: 280px;
+      width: 280px; /* Ancho fijo para alineación */
+      height: 200px; /* Altura automática para mantener proporción */
       border-radius: 10px;
-      transition: 0.3s ease;
+      transition: all 0.3s ease;
       filter: grayscale(100%);
-      cursor: pointer;
       box-shadow: 0 0 10px #FFFFFF;
       user-select: none;
+      display: block; /* Para evitar espacios extraños */
     }
 
     .galeria img:hover {
       filter: grayscale(0%);
       transform: scale(1.05);
     }
+    /* FIN DE ESTILOS DE GALERÍA MODIFICADOS */
 
     .btn-reserva {
       display: block;
@@ -244,9 +252,15 @@
     <section>
       <h2>Casos de implementación</h2>
       <div class="galeria">
-        <img src="screenshots/Picture53.jpg" alt="Distribución 1">
-        <img src="screenshots/Picture41.jpg" alt="Distribución 2">
-        <img src="screenshots/Picture59.jpg" alt="Distribución 3">
+        <a href="detalle-logistica1.html">
+          <img src="screenshots/Picture53.jpg" alt="Distribución 1">
+        </a>
+        <a href="detalle-logistica2.html">
+          <img src="screenshots/Picture41.jpg" alt="Distribución 2">
+        </a>
+        <a href="detalle-logistica3.html">
+          <img src="screenshots/Picture59.jpg" alt="Distribución 3">
+        </a>
       </div>
     </section>
 
@@ -258,20 +272,19 @@
       <h2>Accedé al Asistente Virtual</h2>
       <p>Escaneá este código QR para hablar con nuestro bot de WhatsApp y resolver tus dudas al instante:</p>
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://wa.me/?text=Hola%20quiero%20más%20información%20sobre%20logística" 
-           alt="QR WhatsApp Bot" 
-           style="margin-top: 20px; border-radius: 10px; box-shadow: 0 0 10px #00ffff;">
+            alt="QR WhatsApp Bot" 
+            style="margin-top: 20px; border-radius: 10px; box-shadow: 0 0 10px #00ffff;">
     </section>
 
     <footer>
-          <p style="text-align: center; margin-top: 50px;">
-            <a href="index.html">← Volver al inicio</a>
+        <p style="text-align: center; margin-top: 50px;">
+          <a href="index.html">← Volver al inicio</a>
         </p>
       © 2025 Cuarzo Proyectos Empresariales. Todos los derechos reservados.
     </footer>
 
   </div>
 
-  <!-- Redes sociales -->
   <div class="social-buttons">
     <a href="https://www.linkedin.com/in/tu-usuario" target="_blank" title="LinkedIn">
       <i class="fab fa-linkedin-in"></i>
@@ -290,7 +303,6 @@
     </a>
   </div>
 
-  <!-- Botones flotantes -->
   <div class="floating-buttons">
     <a href="https://wa.me/541139090010" target="_blank" title="WhatsApp">
       <i class="fab fa-whatsapp"></i>

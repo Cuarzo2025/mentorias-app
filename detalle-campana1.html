@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Detalle Campaña 1 | Cuarzo</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      /* Variables para facilitar el cambio de color principal (gris neón) */
+      --color-neon-gris: #c0c0c0;
+      --color-fondo-negro: #000000;
+      --color-texto-blanco: #f0f0f0;
+      --color-borde-gris: #444444;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--color-fondo-negro); /* Fondo negro */
+      color: var(--color-texto-blanco); /* Letras blancas/gris claro */
+      line-height: 1.6;
+    }
+
+    .contenedor-detalle {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #0d0d0d; /* Negro un poco más claro para la sección */
+      border: 1px solid var(--color-borde-gris); /* Borde gris */
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05); /* Sutil resplandor */
+    }
+
+    /* Estilo para el efecto de neón en los títulos */
+    h1, h2, .efecto-neon {
+      text-align: center;
+      color: var(--color-neon-gris); /* Color inicial gris */
+      text-shadow: 
+        0 0 5px rgba(192, 192, 192, 0.5), /* Sombra inicial sutil */
+        0 0 10px rgba(192, 192, 192, 0.3);
+      transition: text-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+      cursor: default; /* Para indicar que no es un enlace */
+    }
+
+    /* Efecto de 'encendido' al pasar el puntero */
+    h1:hover, h2:hover, .efecto-neon:hover {
+      color: #ffffff; /* Blanco brillante */
+      text-shadow:
+        0 0 10px var(--color-neon-gris),
+        0 0 20px var(--color-neon-gris),
+        0 0 30px var(--color-neon-gris),
+        0 0 40px #fff; /* Resplandor blanco intenso */
+      animation: pulsate 1.5s infinite alternate; /* Animación de parpadeo */
+    }
+
+    /* Animación de parpadeo (fosforescente que se enciende y apaga) */
+    @keyframes pulsate {
+      from {
+        text-shadow: 
+          0 0 5px var(--color-neon-gris),
+          0 0 10px var(--color-neon-gris);
+      }
+      to {
+        text-shadow: 
+          0 0 10px #fff,
+          0 0 20px #fff,
+          0 0 30px var(--color-neon-gris),
+          0 0 40px var(--color-neon-gris);
+      }
+    }
+    
+    /* Aplicar la animación solo al hacer hover */
+    h1:hover, h2:hover, .efecto-neon:hover {
+        animation: pulsate 1.5s infinite alternate;
+    }
+    /* El elemento sin hover mantiene la sombra inicial sutil (no animada) */
+    h1, h2, .efecto-neon {
+        animation: none;
+    }
+
+
+    /* Otros estilos de contenido */
+    .detalle-imagen {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .detalle-imagen img {
+      max-width: 100%;
+      height: auto;
+      border: 3px solid var(--color-neon-gris);
+      border-radius: 8px;
+    }
+
+    .detalle-info p {
+      margin-bottom: 20px;
+      padding: 0 10px;
+      font-size: 1.05em;
+    }
+    
+    .volver {
+      display: block;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .volver a {
+      color: var(--color-neon-gris);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 10px 20px;
+      border: 1px solid var(--color-borde-gris);
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .volver a:hover {
+      color: #fff;
+      background-color: var(--color-borde-gris);
+      text-shadow: 0 0 10px #fff;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="contenedor-detalle">
+
+    <h1 class="efecto-neon">Campaña de Lanzamiento "Impulso Digital"</h1>
+    
+    <div class="detalle-imagen">
+      <img src="screenshots/Picture37.jpg" alt="Imagen de Campaña 1" />
+    </div>
+
+    <div class="detalle-info">
+      <h2 class="efecto-neon">El Desafío</h2>
+      <p>
+        El cliente necesitaba penetrar un nuevo segmento de mercado B2B con un servicio de consultoría innovador, pero su marca no tenía suficiente reconocimiento. El objetivo era generar al menos 50 leads de alta calidad en el primer mes.
+      </p>
+
+      <h2 class="efecto-neon">Nuestra Solución</h2>
+      <p>
+        Desarrollamos una estrategia integral que incluyó: un **Webinar gratuito** promocionado con Google Ads y LinkedIn, contenido de valor en forma de guías descargables, y una serie de anuncios gráficos segmentados en Meta (Facebook/Instagram) enfocados en los puntos de dolor del target.
+      </p>
+      
+      <h2 class="efecto-neon">Resultados Clave</h2>
+      <p class="efecto-neon">
+        ✅ 85 leads de alta calidad obtenidos.
+        <br>
+        ✅ Costo por adquisición (CPA) 30% menor al promedio del sector.
+        <br>
+        ✅ Aumento del 15% en seguidores de LinkedIn.
+      </p>
+    </div>
+
+    <div class="volver">
+      <a href="proyecto-marketing.html">← Volver a la Galería de Proyectos</a>
+    </div>
+    
+    <p style="text-align: center; margin-top: 40px; font-size: 0.8em; color: #555;">
+        © 2025 Cuarzo Proyectos Empresariales.
+    </p>
+
+  </div>
+
+</body>
+</html>

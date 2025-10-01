@@ -6,10 +6,8 @@
   <title>Proyecto Marketing y Publicidad | Cuarzo</title>
   <meta name="description" content="Impulsa tu marca con estrategias de marketing digital y publicidad personalizada. Diseño, pauta, contenido y más." />
 
-  <!-- Fuente Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
 
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
@@ -77,10 +75,20 @@
       justify-content: center;
       gap: 15px;
       margin-top: 30px;
+      align-items: flex-start; /* Para alinear perfectamente los elementos */
+    }
+
+    .galeria a {
+      /* Asegura que el enlace no interfiera con el tamaño de la imagen */
+      display: block;
+      line-height: 0;
     }
 
     .galeria img {
+      /* Estilos actualizados para unificar el tamaño de las imágenes */
       width: 280px;
+      height: 200px; /* ALTURA FIJA para todas las imágenes */
+      object-fit: cover; /* Recorta la imagen para que cubra el área sin distorsionarse */
       border-radius: 10px;
       filter: grayscale(100%);
       cursor: pointer;
@@ -257,9 +265,15 @@
     <section>
       <h2>Galería de campañas</h2>
       <div class="galeria">
-        <img src="screenshots/Picture37.jpg" alt="Campaña 1" />
-        <img src="screenshots/Picture25.jpg" alt="Campaña 2" />
-        <img src="screenshots/Picture28.jpg" alt="Campaña 3" />
+        <a href="detalle-campana1.html">
+          <img src="screenshots/Picture37.jpg" alt="Campaña 1" />
+        </a>
+        <a href="detalle-campana2.html">
+          <img src="screenshots/Picture25.jpg" alt="Campaña 2" />
+        </a>
+        <a href="detalle-campana3.html">
+          <img src="screenshots/Picture28.jpg" alt="Campaña 3" />
+        </a>
       </div>
     </section>
 
@@ -272,9 +286,9 @@
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fwa.me%2F1234567890%3Ftext%3DHola%252C%2520quiero%2520una%2520asesor%C3%ADa%2520de%2520marketing" alt="QR WhatsApp" />
       <p>Escanea con tu teléfono y conversa directamente por WhatsApp.</p>
     </div>
-  <p style="text-align: center; margin-top: 50px;">
-            <a href="index.html">← Volver al inicio</a>
-        </p>
+    <p style="text-align: center; margin-top: 50px;">
+      <a href="index.html">← Volver al inicio</a>
+    </p>
     <footer>© 2025 Cuarzo Proyectos Empresariales. Todos los derechos reservados.</footer>
   </div>
 
@@ -296,6 +310,3 @@
 
 </body>
 </html>
-
-
-

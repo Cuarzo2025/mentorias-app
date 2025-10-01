@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Detalle Campaña 2 | Cuarzo</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* Variables CSS para consistencia */
+    :root {
+      --color-neon-gris: #c0c0c0;
+      --color-fondo-negro: #000000;
+      --color-texto-blanco: #f0f0f0;
+      --color-borde-gris: #444444;
+      --color-borde-resaltado: #A9A9A9; /* Un gris más claro para el borde del hover */
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--color-fondo-negro);
+      color: var(--color-texto-blanco);
+      line-height: 1.6;
+    }
+
+    .contenedor-detalle {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #0d0d0d;
+      border: 1px solid var(--color-borde-gris);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Estilo para el efecto de neón en los títulos */
+    h1, h2, .efecto-neon {
+      text-align: center;
+      color: var(--color-neon-gris);
+      text-shadow:
+        0 0 5px rgba(192, 192, 192, 0.5),
+        0 0 10px rgba(192, 192, 192, 0.3);
+      transition: text-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+      cursor: default;
+    }
+
+    /* Efecto de 'encendido' al pasar el puntero */
+    h1:hover, h2:hover, .efecto-neon:hover {
+      color: #ffffff;
+      text-shadow:
+        0 0 10px var(--color-neon-gris),
+        0 0 20px var(--color-neon-gris),
+        0 0 30px var(--color-neon-gris),
+        0 0 40px #fff;
+      animation: pulsate 1.5s infinite alternate;
+    }
+
+    /* Animación de parpadeo (fosforescente que se enciende y apaga) */
+    @keyframes pulsate {
+      from {
+        text-shadow:
+          0 0 5px var(--color-neon-gris),
+          0 0 10px var(--color-neon-gris);
+      }
+      to {
+        text-shadow:
+          0 0 10px #fff,
+          0 0 20px #fff,
+          0 0 30px var(--color-neon-gris),
+          0 0 40px var(--color-neon-gris);
+      }
+    }
+
+    /* Asegura que la animación se aplique solo en hover */
+    h1:hover, h2:hover, .efecto-neon:hover { animation: pulsate 1.5s infinite alternate; }
+    h1, h2, .efecto-neon { animation: none; } /* Estado base sin animación */
+
+
+    /* Estilos para la imagen con efecto blanco y negro, hover a color y borde */
+    .detalle-imagen {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative; /* Necesario para el efecto de zoom */
+      display: flex; /* Para centrar la imagen dentro del div si es más pequeña */
+      justify-content: center;
+    }
+
+    .detalle-imagen img {
+      max-width: 100%;
+      height: auto;
+      border: 3px solid var(--color-borde-gris); /* Borde inicial */
+      border-radius: 8px;
+      filter: grayscale(100%); /* Blanco y negro por defecto */
+      transition: filter 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease; /* Transición suave */
+      cursor: zoom-in; /* Cursor para indicar que se puede agrandar */
+    }
+
+    .detalle-imagen img:hover {
+      filter: grayscale(0%); /* Se pone a color al pasar el ratón */
+      border-color: var(--color-borde-resaltado); /* Borde gris resaltador */
+      box-shadow: 0 0 15px var(--color-borde-resaltado); /* Sombra para resaltar el borde */
+    }
+
+    /* Estilos para el overlay de imagen agrandada (modal) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 3px solid #fff;
+      border-radius: 8px;
+      object-fit: contain; /* Asegura que la imagen se vea completa */
+      cursor: zoom-out; /* Cursor para indicar que se puede cerrar */
+    }
+
+
+    /* Otros estilos de contenido */
+    .detalle-info p {
+      margin-bottom: 20px;
+      padding: 0 10px;
+      font-size: 1.05em;
+    }
+
+    .volver {
+      display: block;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .volver a {
+      color: var(--color-neon-gris);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 10px 20px;
+      border: 1px solid var(--color-borde-gris);
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .volver a:hover {
+      color: #fff;
+      background-color: var(--color-borde-gris);
+      text-shadow: 0 0 10px #fff;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="contenedor-detalle">
+
+    <h1 class="efecto-neon">Estrategia de Contenido "Engagement Cuántico"</h1>
+
+    <div class="detalle-imagen">
+      <img id="mainImage" src="screenshots/Picture25.jpg" alt="Imagen de Campaña 2" />
+    </div>
+
+    <div class="detalle-info">
+      <h2 class="efecto-neon">El Desafío</h2>
+      <p>
+        Un cliente en el sector de la tecnología blockchain buscaba aumentar la interacción de su comunidad y la percepción de autoridad en un nicho complejo. La baja participación en sus redes sociales era un indicativo de que el contenido no estaba resonando con su audiencia.
+      </p>
+
+      <h2 class="efecto-neon">Nuestra Solución</h2>
+      <p>
+        Desarrollamos una estrategia de contenido basada en el **Storytelling de Datos** y **contenido interactivo**. Implementamos una serie de infografías animadas, videos explicativos cortos y encuestas dinámicas en Instagram y Twitter, enfocándonos en la educación del usuario sobre conceptos complejos de blockchain de una manera sencilla y atractiva.
+      </p>
+
+      <h2 class="efecto-neon">Resultados Clave</h2>
+      <p class="efecto-neon">
+        ✅ Aumento del 45% en la tasa de engagement en Instagram.
+        <br>
+        ✅ Incremento del 30% en el tráfico referido a su blog.
+        <br>
+        ✅ Más de 100 nuevas menciones de marca en foros especializados.
+      </p>
+    </div>
+
+    <div class="volver">
+      <a href="proyecto-marketing.html">← Volver a la Galería de Proyectos</a>
+    </div>
+
+    <p style="text-align: center; margin-top: 40px; font-size: 0.8em; color: #555;">
+        © 2025 Cuarzo Proyectos Empresariales.
+    </p>
+
+  </div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <img id="modalImage" src="" alt="Imagen Agrandada" />
+  </div>
+
+  <script>
+    const mainImage = document.getElementById('mainImage');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalImage = document.getElementById('modalImage');
+
+    mainImage.addEventListener('dblclick', () => {
+      modalImage.src = mainImage.src; // Carga la misma imagen en el modal
+      modalOverlay.classList.add('active'); // Muestra el modal
+      // Detiene la propagación del evento para evitar que el doble clic se interprete como otra cosa
+      event.stopPropagation();
+    });
+
+    modalOverlay.addEventListener('dblclick', () => {
+      modalOverlay.classList.remove('active'); // Oculta el modal al hacer doble clic en el overlay
+    });
+
+    // También permitir cerrar con un clic simple en el overlay
+    modalOverlay.addEventListener('click', (event) => {
+        if (event.target === modalOverlay) { // Solo si se clica directamente en el overlay y no en la imagen
+            modalOverlay.classList.remove('active');
+        }
+    });
+
+  </script>
+
+</body>
+</html>

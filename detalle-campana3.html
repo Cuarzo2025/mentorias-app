@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Detalle Campaña 3 | Cuarzo</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* Variables CSS para consistencia */
+    :root {
+      --color-neon-gris: #c0c0c0;
+      --color-fondo-negro: #000000;
+      --color-texto-blanco: #f0f0f0;
+      --color-borde-gris: #444444;
+      --color-borde-resaltado: #A9A9A9;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--color-fondo-negro);
+      color: var(--color-texto-blanco);
+      line-height: 1.6;
+    }
+
+    .contenedor-detalle {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #0d0d0d;
+      border: 1px solid var(--color-borde-gris);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Estilo para el efecto de neón en los títulos */
+    h1, h2, .efecto-neon {
+      text-align: center;
+      color: var(--color-neon-gris);
+      text-shadow:
+        0 0 5px rgba(192, 192, 192, 0.5),
+        0 0 10px rgba(192, 192, 192, 0.3);
+      transition: text-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+      cursor: default;
+    }
+
+    /* Efecto de 'encendido' al pasar el puntero */
+    h1:hover, h2:hover, .efecto-neon:hover {
+      color: #ffffff;
+      text-shadow:
+        0 0 10px var(--color-neon-gris),
+        0 0 20px var(--color-neon-gris),
+        0 0 30px var(--color-neon-gris),
+        0 0 40px #fff;
+      animation: pulsate 1.5s infinite alternate;
+    }
+
+    /* Animación de parpadeo (fosforescente que se enciende y apaga) */
+    @keyframes pulsate {
+      from {
+        text-shadow:
+          0 0 5px var(--color-neon-gris),
+          0 0 10px var(--color-neon-gris);
+      }
+      to {
+        text-shadow:
+          0 0 10px #fff,
+          0 0 20px #fff,
+          0 0 30px var(--color-neon-gris),
+          0 0 40px var(--color-neon-gris);
+      }
+    }
+
+    /* Asegura que la animación se aplique solo en hover */
+    h1:hover, h2:hover, .efecto-neon:hover { animation: pulsate 1.5s infinite alternate; }
+    h1, h2, .efecto-neon { animation: none; }
+
+
+    /* Estilos para la imagen con efecto blanco y negro, hover a color y borde */
+    .detalle-imagen {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .detalle-imagen img {
+      max-width: 100%;
+      height: auto;
+      border: 3px solid var(--color-borde-gris);
+      border-radius: 8px;
+      filter: grayscale(100%);
+      transition: filter 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+      cursor: zoom-in;
+    }
+
+    .detalle-imagen img:hover {
+      filter: grayscale(0%);
+      border-color: var(--color-borde-resaltado);
+      box-shadow: 0 0 15px var(--color-borde-resaltado);
+    }
+
+    /* Estilos para el overlay de imagen agrandada (modal) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 3px solid #fff;
+      border-radius: 8px;
+      object-fit: contain;
+      cursor: zoom-out;
+    }
+
+
+    /* Otros estilos de contenido */
+    .detalle-info p {
+      margin-bottom: 20px;
+      padding: 0 10px;
+      font-size: 1.05em;
+    }
+
+    .volver {
+      display: block;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .volver a {
+      color: var(--color-neon-gris);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 10px 20px;
+      border: 1px solid var(--color-borde-gris);
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .volver a:hover {
+      color: #fff;
+      background-color: var(--color-borde-gris);
+      text-shadow: 0 0 10px #fff;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="contenedor-detalle">
+
+    <h1 class="efecto-neon">Optimización SEO y Posicionamiento de Dominio</h1>
+
+    <div class="detalle-imagen">
+      <img id="mainImage" src="screenshots/Picture28.jpg" alt="Imagen de Campaña 3" />
+    </div>
+
+    <div class="detalle-info">
+      <h2 class="efecto-neon">El Desafío</h2>
+      <p>
+        Un eCommerce de productos especializados en América Latina tenía un sitio web con contenido extenso, pero con una visibilidad muy baja en los resultados orgánicos de Google (SEO). El objetivo era alcanzar las primeras posiciones para 10 palabras clave principales en un plazo de 6 meses.
+      </p>
+
+      <h2 class="efecto-neon">Nuestra Solución</h2>
+      <p>
+        Realizamos una auditoría SEO técnica profunda para corregir errores de rastreo e indexación. Luego, implementamos una estrategia de **Link Building de alta calidad** y optimización del contenido existente para la intención de búsqueda del usuario. Se trabajó en la optimización de la velocidad de carga (Core Web Vitals) y la experiencia móvil.
+      </p>
+
+      <h2 class="efecto-neon">Resultados Clave</h2>
+      <p class="efecto-neon">
+        ✅ 7 de las 10 palabras clave principales alcanzaron el Top 3 de Google.
+        <br>
+        ✅ Aumento del 120% en el tráfico orgánico al sitio web.
+        <br>
+        ✅ Disminución del 25% en la tasa de rebote.
+      </p>
+    </div>
+
+    <div class="volver">
+      <a href="proyecto-marketing.html">← Volver a la Galería de Proyectos</a>
+    </div>
+
+    <p style="text-align: center; margin-top: 40px; font-size: 0.8em; color: #555;">
+        © 2025 Cuarzo Proyectos Empresariales.
+    </p>
+
+  </div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <img id="modalImage" src="" alt="Imagen Agrandada" />
+  </div>
+
+  <script>
+    const mainImage = document.getElementById('mainImage');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalImage = document.getElementById('modalImage');
+
+    // Funcionalidad para agrandar la imagen al hacer doble clic
+    mainImage.addEventListener('dblclick', (event) => {
+      modalImage.src = mainImage.src; // Carga la misma imagen en el modal
+      modalOverlay.classList.add('active'); // Muestra el modal
+      event.stopPropagation();
+    });
+
+    // Funcionalidad para cerrar el modal
+    modalOverlay.addEventListener('dblclick', () => {
+      modalOverlay.classList.remove('active'); // Oculta el modal al hacer doble clic
+    });
+
+    modalOverlay.addEventListener('click', (event) => {
+        // Cierra el modal con un solo clic si el clic ocurre en el fondo oscuro
+        if (event.target === modalOverlay) {
+            modalOverlay.classList.remove('active');
+        }
+    });
+
+  </script>
+
+</body>
+</html>
