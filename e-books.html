@@ -431,14 +431,9 @@
                     alert(`Este recurso requiere que te registres o inicies sesión para acceder.`);
                 }
             } else if (typeAccess === 'pago') {
-                // Mostrar la página de la tienda
-                document.getElementById('ebooks-section').style.display = 'none';
-                document.getElementById('store-page').style.display = 'block';
-                document.getElementById('store-ebook-title').textContent = ebookTitle;
-                document.getElementById('store-ebook-price').textContent = `$${price.toFixed(2)} USD`;
-
-                // Inicializar PayPal Smart Buttons para este e-book
-                initPayPalButtons(ebookId, price, ebookTitle); // Pasa el ID y precio del ebook
+                // ✨ ESTA ES LA FUNCIÓN MODIFICADA PARA REDIRIGIR DIRECTAMENTE ✨
+                window.location.href = 'tiendapaypal.html';
+                // La lógica anterior de mostrar la sección 'store-page' y los botones de PayPal ya no se ejecuta.
             }
         }
 
@@ -448,9 +443,7 @@
         }
 
         // --- Integración con PayPal (simulada) ---
-        // DEBES REEMPLAZAR 'YOUR_PAYPAL_CLIENT_ID' con tu Client ID real de PayPal Developer
-        // https://developer.paypal.com/developer/applications/
-        // Esto es solo el CLIENTE. La validación real de la compra DEBE HACERSE EN EL BACKEND.
+        // Se mantiene para el caso de que la sección de tienda se usara para otros fines, pero ya no la llama el botón del kit.
         function initPayPalButtons(ebookId, price, ebookTitle) {
             // Limpiar el contenedor de PayPal para evitar duplicados si se llama varias veces
             const paypalContainer = document.getElementById('paypal-button-container');
@@ -481,31 +474,6 @@
 
                         // *** IMPORTANTE: Aquí deberías enviar una solicitud a tu backend ***
                         // para registrar esta compra en tu base de datos y otorgar acceso al usuario.
-                        // Ejemplo (requiere un endpoint en tu servidor como /api/record_purchase.php):
-                        /*
-                        fetch('/api/record_purchase.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                orderID: data.orderID,
-                                paypalDetails: details, // Envía los detalles completos para verificación
-                                ebook_id: ebookId,
-                                user_id: 'ID_DEL_USUARIO_LOGUEADO' // Necesitas el ID del usuario de tu sistema
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(serverData => {
-                            if (serverData.success) {
-                                alert('¡Adquisición registrada con éxito en nuestro sistema! Ya tienes acceso al recurso.');
-                                window.location.href = `view_pdf.php?id=${ebookId}`; // Redirigir para ver el PDF
-                            } else {
-                                alert('Error al registrar la adquisición en nuestro sistema. Contacta a soporte.');
-                            }
-                        })
-                        .catch(error => console.error('Error al enviar datos de compra al backend:', error));
-                        */
 
                         alert('Adquisición procesada. En un sitio real, ahora tendrías acceso al recurso. ¡Gracias por tu confianza!');
                         goBackToEbooks(); // Volver a la lista de recursos o redirigir al PDF
