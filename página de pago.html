@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Pago Seguro - Kit Emprendedor</title>
+    
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD&enable-funding=visa,mastercard,amex,paylater,discover,jcb"></script>
+    
+    <style>
+        /* Estilos Generales (Misma Estructura Oscura) */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000; 
+            color: #ccc; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkout-box {
+            width: 90%;
+            max-width: 550px; /* Un poco más ancho para los botones */
+            padding: 30px;
+            background-color: #1a1a1a; 
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); 
+            text-align: center;
+        }
+
+        h1 {
+            color: #A9A9A9;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        .summary p {
+            font-size: 1.1em;
+            margin: 10px 0;
+            padding: 5px 0;
+            border-bottom: 1px dashed #333;
+        }
+
+        .final-price {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #fff;
+            margin: 20px 0 30px 0;
+        }
+
+        /* Contenedor de Botones de Pago */
+        #payment-buttons-container {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio entre los botones */
+        }
+        
+        #payment-buttons-container h3 {
+            color: #fff;
+            margin: 10px 0;
+            padding: 10px 0;
+            background-color: #333;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+        
+        .security-note {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 20px;
+        }
+        
+        /* Estilo para el Botón "Cancelar" */
+        #cancel-button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 1em;
+            transition: background-color 0.2s;
+        }
+        #cancel-button:hover {
+            background-color: #666;
+        }
+        
+        /* Estilo para el Footer (Copyright) */
+        footer {
+            background-color: #111;
+            color: #666;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            margin-top: auto; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="checkout-box">
+        
+        <h1>Finalizar Compra Segura</h1>
+
+        <div class="summary">
+            <p>Producto: <strong id="product-title">Kit Digital Premium</strong></p>
+            <p>Moneda de Pago: <strong id="product-currency">USD</strong></p>
+        </div>
+        
+        <div class="final-price">
+            Total a Pagar: <span id="product-price">$49.99</span>
+        </div>
+        
+        <div id="payment-buttons-container">
+            <h3>Pagar con Tarjeta de Crédito o Débito</h3>
+        </div>
+        
+        <button id="cancel-button" onclick="cancelTransaction()">
+            Cancelar / Volver
+        </button>
+
+        <p class="security-note">
+            Tus datos de pago son procesados de forma segura por PayPal. Nunca los almacenamos.
+        </p>
+        
+    </div>
+
+    <footer>
+        &copy; 2024 **Héctor Mauricio Raposso**. Todos los derechos reservados.
+    </footer>
+
+    <script>
+        // ** CONFIGURACIÓN DEL PRODUCTO (AJUSTAR SEGÚN EL PRODUCTO SELECCIONADO) **
+        const PRODUCT_ID = "2";
+        const PRODUCT_TITLE = "Kit Digital Premium";
+        const FINAL_PRICE = 49.99; 
+        const CURRENCY_CODE = "USD"; 
+
+        // ----------------------------------------------------
+        
+        const priceDisplay = document.getElementById('product-price');
+        const titleDisplay = document.getElementById('product-title');
+        const currencyDisplay = document.getElementById('product-currency');
+        const paymentContainer = document.getElementById('payment-buttons-container');
+        
+        // Muestra la información del producto
+        titleDisplay.textContent = PRODUCT_TITLE;
+        currencyDisplay.textContent = CURRENCY_CODE;
+        priceDisplay.textContent = `${CURRENCY_CODE === 'USD' ? '$' : CURRENCY_CODE} ${FINAL_PRICE.toFixed(2)}`;
+
+        
+        /**
+         * Inicializa los Smart Buttons de PayPal para Pago Directo con Tarjeta.
+         */
+        function initPayPalButtons() {
+            if (typeof paypal === 'undefined') {
+                console.error("PayPal SDK no cargado. Revisa tu Client ID.");
+                paymentContainer.innerHTML = '<p style="color:red;">Error: No se pudo cargar el sistema de pago. Intenta más tarde.</p>';
+                return;
+            }
+            
+            // 1. Renderiza el botón genérico de Tarjeta (Visa, MC, Amex)
+            // Cuando el usuario haga clic, PayPal abrirá su propio formulario seguro de entrada de datos.
+            if (paypal.FUNDING.CARD && paypal.FUNDING.CARD.eligible) {
+                 paypal.Buttons({
+                    style: {
+                        layout: 'vertical',
+                        shape: 'rect',
+                        height: 45,
+                        color: 'white', // Blanco para que se vea como un botón de pago con tarjeta
+                        label: 'pay' // Muestra el texto "Pagar" o las tarjetas
+                    },
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: FINAL_PRICE.toFixed(2), 
+                                    currency_code: CURRENCY_CODE 
+                                },
+                                description: `Pago con Tarjeta: ${PRODUCT_TITLE} (ID: ${PRODUCT_ID})`
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            alert(`¡Pago completado! Redirigiendo a la confirmación.`);
+                            // Lógica de redirección a la página de confirmación
+                            // window.location.href = '/confirmacion-pago.html';
+                        });
+                    },
+                    onError: function(err) {
+                        console.error('Error de PayPal:', err);
+                        alert('Hubo un error con el pago con tarjeta. Por favor, inténtalo de nuevo.');
+                    }
+                }).render('#payment-buttons-container');
+            }
+
+            // 2. Renderiza el botón principal de PayPal (Gold) debajo de las tarjetas
+            if (paypal.FUNDING.PAYPAL.eligible) {
+                // Título para separar visualmente PayPal
+                const paypalTitle = document.createElement('h3');
+                paypalTitle.textContent = "O Pagar con tu Cuenta de PayPal";
+                paymentContainer.appendChild(paypalTitle);
+                
+                paypal.Buttons({
+                    style: {
+                        layout: 'vertical',
+                        shape: 'rect',
+                        height: 45,
+                        color: 'gold', 
+                        label: 'paypal'
+                    },
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: FINAL_PRICE.toFixed(2), 
+                                    currency_code: CURRENCY_CODE 
+                                },
+                                description: `Pago con PayPal: ${PRODUCT_TITLE} (ID: ${PRODUCT_ID})`
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            alert(`¡Pago con PayPal completado! Redirigiendo a la confirmación.`);
+                            // Lógica de redirección
+                            // window.location.href = '/confirmacion-pago.html';
+                        });
+                    },
+                    onError: function(err) {
+                        console.error('Error de PayPal:', err);
+                        alert('Hubo un error con el pago con PayPal. Por favor, inténtalo de nuevo.');
+                    }
+                }).render('#payment-buttons-container');
+            }
+        }
+        
+        /**
+         * Función para el botón Cancelar / Volver.
+         */
+        function cancelTransaction() {
+            if (confirm('¿Estás seguro de que deseas cancelar la transacción y volver a la página de selección?')) {
+                // En un entorno real, redirigirías a la página anterior
+                // window.history.back(); 
+                alert('Transacción cancelada. Volviendo a la página anterior (simulación).');
+            }
+        }
+
+        // Inicializa los botones de pago al cargar la página
+        document.addEventListener('DOMContentLoaded', initPayPalButtons);
+    </script>
+</body>
+</html>
