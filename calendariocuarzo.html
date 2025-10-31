@@ -378,7 +378,6 @@
     <div id="main-content">
         <h1>Reserva tu Reunión Personalizada</h1>
 
-        <!-- Message Box -->
         <div id="message-box" class="message-box hidden"></div>
 
         <div id="calendar-container">
@@ -405,13 +404,13 @@
         </div>
 
         <form id="booking-form" action="https://formsubmit.co/cuarzocristalempresarial@gmail.com" method="POST">
-    <input type="hidden" name="_next" value="https://cuarzo2025.github.io/mentorias-app/gracias.html"> <input type="hidden" name="_subject" value="NUEVA RESERVA DE REUNIÓN - CUARZO EMPRESARIAL"> <input type="hidden" id="selectedDate" name="Fecha Solicitada">
-    <input type="hidden" id="selectedTime" name="Hora Solicitada">
-    
-    </form>
+            
+            <input type="hidden" name="_next" value="https://cuarzo2025.github.io/mentorias-app/gracias.html"> 
+            <input type="hidden" name="_subject" value="NUEVA RESERVA DE REUNIÓN - CUARZO EMPRESARIAL"> 
+            <input type="hidden" name="_template" value="table"> <input type="hidden" id="selectedDate" name="Fecha Solicitada">
+            <input type="hidden" id="selectedTime" name="Hora Solicitada">
+            
             <h2>Datos de Contacto para la Reserva</h2>
-            <input type="hidden" id="selectedDate" name="fecha">
-            <input type="hidden" id="selectedTime" name="hora">
 
             <label for="fullName">Nombre y Apellido:</label>
             <input type="text" id="fullName" name="nombre" required placeholder="Ej: Juan Pérez">
@@ -427,6 +426,7 @@
                 <button type="button" id="clear-form-btn">Borrar Campos</button>
             </div>
         </form>
+        
         <div class="form-actions" style="margin-top: 20px;">
             <button type="button" id="back-to-home-btn" onclick="location.href='index.html'">Regresar al Inicio</button>
         </div>
@@ -565,9 +565,6 @@
             document.querySelectorAll('.time-slot-btn').forEach(btn => btn.classList.remove('selected-time'));
             selectedTime = null; // Reset selected time
             hiddenSelectedTime.value = '';
-            
-            // In a real application, you would fetch available times for 'selectedDate' from a backend here
-            // For this example, we're just showing static time slots.
         }
 
         // Function to handle time slot selection
@@ -604,58 +601,39 @@
             renderCalendar();
         }
 
-        // Handle form submission
-        bookingForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent default browser form submission
-
+        // **INICIO DEL BLOQUE DE CÓDIGO MODIFICADO**
+        // Handle form submission - SOLO VALIDACIÓN, SIN FETCH A PHP
+        bookingForm.addEventListener('submit', (event) => {
+            
             const name = fullNameInput.value.trim();
             const whatsapp = whatsappNumberInput.value.trim();
             const email = emailAddressInput.value.trim();
 
+            // 1. VALIDACIÓN DEL CALENDARIO Y HORARIO
             if (!selectedDate || !selectedTime) {
-                showMessage('Por favor, selecciona una fecha y una franja horaria.', 'error');
+                showMessage('🚨 Por favor, selecciona una fecha y una franja horaria.', 'error');
+                event.preventDefault(); // Detiene el envío si falta la selección de calendario/hora
                 return;
             }
 
+            // 2. VALIDACIÓN DE LOS CAMPOS DE CONTACTO
             if (name === '' || whatsapp === '' || email === '') {
-                showMessage('Por favor, completa todos los campos del formulario.', 'error');
+                showMessage('🚨 Por favor, completa todos los campos de contacto (Nombre, WhatsApp, Email).', 'error');
+                event.preventDefault(); // Detiene el envío si faltan datos de contacto
                 return;
             }
 
-            // Create FormData object to send to PHP
-            const formData = new FormData();
-            formData.append('nombre', name);
-            formData.append('telefono', whatsapp);
-            formData.append('fecha', selectedDate);
-            formData.append('hora', selectedTime);
-            formData.append('email', email); // Add email to form data
+            // 3. (CRÍTICO) ASIGNAR LOS VALORES A LOS INPUTS OCULTOS
+            // Esto garantiza que FormSubmit los reciba como 'Fecha Solicitada' y 'Hora Solicitada'.
+            document.getElementById('selectedDate').value = selectedDate;
+            document.getElementById('selectedTime').value = selectedTime;
+            
 
-            try {
-                const response = await fetch('enviar.php', {
-                    method: 'POST',
-                    body: formData // Send as FormData
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const resultText = await response.text(); // Get response as text
-
-                // Check if the PHP script returned a success message
-                if (resultText.includes('¡Gracias! Tu mensaje ha sido enviado correctamente.')) {
-                    showMessage('¡Tu solicitud de reunión ha sido enviada con éxito!', 'success');
-                    clearForm(); // Clear fields on successful submission
-                } else {
-                    showMessage('Hubo un problema al enviar tu solicitud. Inténtalo de nuevo.', 'error');
-                    console.error('Backend response:', resultText); // Log backend response for debugging
-                }
-
-            } catch (error) {
-                console.error('Error sending booking:', error);
-                showMessage('Ocurrió un error de red. Inténtalo de nuevo más tarde.', 'error');
-            }
+            // Si llegamos hasta aquí, la validación pasó. 
+            // NO usamos event.preventDefault(), permitiendo que el formulario se envíe 
+            // a FormSubmit, el cual mandará todos los datos (incluida la fecha y hora) por email.
         });
+        // **FIN DEL BLOQUE DE CÓDIGO MODIFICADO**
 
         // Function to clear all form fields and selections
         function clearForm() {
