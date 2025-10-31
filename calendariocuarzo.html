@@ -407,7 +407,11 @@
             
             <input type="hidden" name="_next" value="https://cuarzo2025.github.io/mentorias-app/gracias.html"> 
             <input type="hidden" name="_subject" value="NUEVA RESERVA DE REUNIÓN - CUARZO EMPRESARIAL"> 
-            <input type="hidden" name="_template" value="table"> <input type="hidden" id="selectedDate" name="Fecha Solicitada">
+            <input type="hidden" name="_template" value="table"> 
+
+            <input type="hidden" name="_autoresponse" value="¡Reserva Confirmada con Éxito! Agradecemos tu interés en Cuarzo. Hemos recibido los detalles de tu reunión.">
+            
+            <input type="hidden" id="selectedDate" name="Fecha Solicitada">
             <input type="hidden" id="selectedTime" name="Hora Solicitada">
             
             <h2>Datos de Contacto para la Reserva</h2>
@@ -601,7 +605,6 @@
             renderCalendar();
         }
 
-        // **INICIO DEL BLOQUE DE CÓDIGO MODIFICADO**
         // Handle form submission - SOLO VALIDACIÓN, SIN FETCH A PHP
         bookingForm.addEventListener('submit', (event) => {
             
@@ -629,11 +632,9 @@
             document.getElementById('selectedTime').value = selectedTime;
             
 
-            // Si llegamos hasta aquí, la validación pasó. 
-            // NO usamos event.preventDefault(), permitiendo que el formulario se envíe 
-            // a FormSubmit, el cual mandará todos los datos (incluida la fecha y hora) por email.
+            // Si llegamos hasta aquí, la validación pasó y el formulario se envía
+            // directamente a FormSubmit.
         });
-        // **FIN DEL BLOQUE DE CÓDIGO MODIFICADO**
 
         // Function to clear all form fields and selections
         function clearForm() {
