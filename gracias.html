@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Gracias por tu Reserva! - Cuarzo</title>
+    <title>¡Reserva Confirmada! - Cuarzo</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
+        /* Estilos Generales */
         body {
             background-color: #000000;
             color: #FFFFFF;
@@ -19,25 +24,39 @@
         }
         .container {
             background-color: #0d0d0d;
-            padding: 40px;
+            padding: 50px 40px; 
             border-radius: 10px;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
-            max-width: 600px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.2); 
+            max-width: 650px;
             width: 90%;
+            z-index: 10; 
         }
         h1 {
             color: #FFFFFF;
-            font-size: 3em;
-            margin-bottom: 20px;
+            font-size: 3.5em; 
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        h2 {
+             color: #FFFFFF;
+             font-size: 1.8em;
+             margin-top: 0;
+             margin-bottom: 30px;
         }
         p {
             color: #cccccc;
-            font-size: 1.2em;
-            margin-bottom: 30px;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.7;
         }
-        .btn-home {
-            background-color: #FFFFFF;
-            color: #000000;
+        .actions-group {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 15px; 
+            flex-wrap: wrap; 
+        }
+        .btn {
             padding: 15px 30px;
             border: none;
             border-radius: 5px;
@@ -45,27 +64,114 @@
             font-weight: bold;
             cursor: pointer;
             text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             display: inline-block;
         }
+        /* Botón WhatsApp principal */
+        .btn-whatsapp-main {
+            background-color: #25D366; 
+            color: #000000;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+        .btn-whatsapp-main:hover {
+            background-color: #128C7E;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+        /* Botón Regresar al Inicio */
+        .btn-home {
+            background-color: #555555; 
+            color: #FFFFFF;
+        }
         .btn-home:hover {
-            background-color: #cccccc;
+            background-color: #777777;
             transform: translateY(-2px);
         }
         .icon {
-            font-size: 4em;
-            margin-bottom: 15px;
-            color: #555555; /* Color gris */
+            font-size: 5em; 
+            margin-bottom: 10px;
+            color: #FFFFFF; 
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); 
+        }
+
+        /* --- Estilos para el Botón Flotante de WhatsApp (transparencia y elegancia) --- */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: rgba(37, 211, 102, 0.8); /* Semi-transparente (80% opacidad) */
+            color: #FFF;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease-in-out;
+            z-index: 1000; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #25D366; /* Opacidad completa al pasar el ratón */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            transform: translateY(-4px) scale(1.05); /* Efecto de levantamiento elegante */
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+             .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 25px;
+            }
+            .container {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 2.5em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            .actions-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="icon">✅</div>
-        <h1>¡Reserva Recibida!</h1>
-        <p>Gracias por solicitar tu reunión. Hemos recibido tu solicitud con éxito. Revisa tu bandeja de entrada para una copia de los detalles.</p>
-        <p>En breve, nos pondremos en contacto contigo vía WhatsApp o correo electrónico para confirmar la disponibilidad y finalizar tu reserva.</p>
-        <a href="index.html" class="btn-home">Regresar al Inicio</a>
+        <h1>¡Reserva Confirmada!</h1>
+        <h2>Hemos recibido tu solicitud de reunión con éxito.</h2>
+        
+        <p>Acabamos de enviarte un **correo de confirmación** con todos los detalles de la fecha y hora seleccionada. Por favor, revisa tu bandeja de entrada (y la carpeta de spam).</p>
+        
+        <p>Nuestro equipo se pondrá en contacto contigo a través de **WhatsApp** en las próximas horas para validar la disponibilidad y finalizar el proceso. ¡Estamos listos para empezar!</p>
+        
+        <div class="actions-group">
+            <a href="https://wa.me/TUNUMERO?text=Hola,%20acabo%20de%20hacer%20una%20reserva%20en%20el%20sitio%20web%20y%20quiero%20confirmar." target="_blank" class="btn btn-whatsapp-main">
+                💬 Contactar a Cuarzo por WhatsApp
+            </a>
+            
+            <a href="index.html" class="btn btn-home">
+                🏠 Regresar al Inicio
+            </a>
+        </div>
     </div>
+    
+    <a href="https://wa.me/TUNUMERO?text=Hola,%20quisiera%20más%20información%20sobre%20sus%20servicios." target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 </body>
 </html>
