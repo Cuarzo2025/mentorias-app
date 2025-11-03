@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda Exclusiva de Recursos - Kit Emprendedor</title>
     
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD&enable-funding=visa,mastercard,amex,paylater,discover,jcb"></script>
     
     <style>
         /* Estilos Generales y Colores */
@@ -31,7 +31,7 @@
         h1 {
             color: #A9A9A9; /* Título color dorado/gris claro */
             text-align: center;
-            margin-bottom: 20px; /* Reducido para hacer espacio al selector */
+            margin-bottom: 20px;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
         }
 
@@ -103,8 +103,7 @@
         
         /* Botones de Selección */
         .variant-button {
-            /* Estilo Base del Botón */
-            background-color: #A9A9A9; /* Fondo color de realce para el CTA */
+            background-color: #A9A9A9;
             color: #000;
             border: none;
             padding: 12px 20px;
@@ -114,8 +113,6 @@
             transition: background-color 0.2s, color 0.2s;
             font-size: 1.1em;
             font-weight: bold;
-            
-            /* Para centrar */
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -123,19 +120,19 @@
         }
 
         .variant-button:hover {
-            background-color: #fff; /* Blanco al pasar el mouse */
+            background-color: #fff; 
             color: #000;
         }
         
         .variant-button.selected {
-            background-color: #FFC439; /* Color de PayPal para indicar selección activa */
+            background-color: #FFC439; 
             color: #111;
             box-shadow: 0 0 10px #FFC439;
         }
 
         /* Estilo del texto de PayPal dentro del botón */
         .variant-button .paypal-text {
-            color: #003087; /* Azul de PayPal */
+            color: #003087; 
             font-weight: 800;
             margin-left: 5px;
         }
@@ -175,6 +172,9 @@
         /* Estilo para el contenedor de PayPal dentro del flotante */
         #paypal-button-container {
             margin-top: 15px;
+            display: flex;
+            flex-direction: column; /* Apilarlos por defecto */
+            gap: 10px;
         }
     </style>
 </head>
@@ -188,6 +188,8 @@
             <select id="currency-select" onchange="updateCurrencyDisplay()">
                 <option value="USD" selected>Dólar Estadounidense (USD - $)</option>
                 <option value="EUR">Euro (EUR - €)</option>
+                <option value="CHF">Franco Suizo (CHF - Fr.)</option>
+                <option value="GBP">Libra Esterlina (GBP - £)</option>
             </select>
         </div>
         <div class="product-grid">
@@ -239,7 +241,30 @@
 
         </div>
     </div>
-
+    
+    <div style="text-align: center; margin-top: 40px; margin-bottom: 50px;">
+        <button 
+            id="pay-card-button"
+            onclick="showFloatingCartForSelectedProduct()"
+            style="
+                background-color: #B22222; /* Rojo llamativo */
+                color: white;
+                border: none;
+                padding: 15px 30px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 1.2em;
+                font-weight: bold;
+                transition: background-color 0.2s;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+                display: none; /* Inicialmente oculto */
+            ">
+            PAGAR CON TARJETA (VISA, MASTER CARD, AMEX) 💳
+        </button>
+        <p id="selection-hint" style="color: #999;">
+            *Por favor, selecciona un kit para habilitar el pago.*
+        </p>
+    </div>
     <div id="floating-cart">
         <h3>Tu Compra Rápida</h3>
         <p>Producto: <strong id="cart-title">Ninguno</strong></p>
@@ -252,49 +277,45 @@
         </p>
     </div>
 
+    <footer>
+        <div style="background-color: #111; color: #666; padding: 15px; text-align: center; margin-top: 20px;">
+             &copy; 2025 **Héctor Mauricio Raposso**. Todos los derechos reservados.
+        </div>
+    </footer>
     <script>
         let selectedProduct = null;
         let currentCurrency = 'USD'; // Moneda inicial
         
-        // ** Tasa de Conversión Fija para el ejemplo (USD por EUR) **
-        // En un entorno de producción, DEBERÍAS obtener esto de una API de divisas.
+        // ** Tasa de Conversión Fija para el ejemplo (USD por la otra moneda) **
         const conversionRate = {
             'USD': 1.00,
-            'EUR': 0.9259 // Ejemplo: 1 EUR = 0.9259 USD (o 1 USD = 1.08 EUR)
+            'EUR': 0.9259,
+            'CHF': 0.8876,
+            'GBP': 0.8123 
         };
         const currencySymbols = {
             'USD': '$',
-            'EUR': '€'
+            'EUR': '€',
+            'CHF': 'Fr.',
+            'GBP': '£'
         };
 
         const floatingCart = document.getElementById('floating-cart');
         const cartTitle = document.getElementById('cart-title');
         const cartPrice = document.getElementById('cart-price');
         const currencySelect = document.getElementById('currency-select');
+        const payCardButton = document.getElementById('pay-card-button');
+        const selectionHint = document.getElementById('selection-hint');
         
         /**
-         * Calcula el precio en la moneda actual.
-         * @param {number} usdPrice - Precio base en USD.
-         * @returns {number} El precio convertido.
+         * Convierte el precio base (USD) a la moneda seleccionada.
          */
         function convertPrice(usdPrice) {
-            // El precio base (data-price) está en USD.
-            // Si la moneda actual es USD, se usa el precio base.
-            // Si es EUR, se divide el precio base por la tasa de cambio USD/EUR (ej: 1.08)
-            // o se multiplica por la tasa EUR/USD (ej: 0.9259).
-            
-            // Usando la tasa inversa (USD/EUR) de 1.08, que es 1/0.9259
-            if (currentCurrency === 'EUR') {
-                // Si 1 USD = 0.9259 EUR, entonces Price_EUR = Price_USD * 0.9259
-                return usdPrice * conversionRate['EUR'];
-            }
-            return usdPrice; // Si es USD
+            return usdPrice * conversionRate[currentCurrency];
         }
 
         /**
          * Formatea el precio con el símbolo y código de moneda actual.
-         * @param {number} price - El valor numérico del precio.
-         * @returns {string} El precio formateado.
          */
         function formatPrice(price) {
             const symbol = currencySymbols[currentCurrency];
@@ -314,76 +335,82 @@
                 el.textContent = formatPrice(newPrice);
             });
             
-            // Si hay un producto seleccionado, actualiza el carrito flotante y PayPal
             if (selectedProduct) {
-                // Recalcular el precio del producto seleccionado en la nueva moneda
                 const newPrice = convertPrice(selectedProduct.basePrice); 
                 selectedProduct.currentPrice = newPrice;
                 
-                // Actualizar el carrito flotante
                 cartPrice.textContent = formatPrice(newPrice);
-                floatingCart.style.display = 'block';
-
-                // Inicializar/Reinicializar los botones de PayPal con la nueva moneda y precio
-                initPayPalButtons(selectedProduct.id, selectedProduct.currentPrice, selectedProduct.title, currentCurrency);
+                // Si el carrito estaba abierto, lo actualiza. Si no, no lo fuerza a aparecer.
+                if (floatingCart.style.display !== 'none') {
+                    initPayPalButtons(selectedProduct.id, selectedProduct.currentPrice, selectedProduct.title, currentCurrency);
+                }
             }
         }
         
-        /**
-         * Maneja la selección de un producto y actualiza el carrito flotante.
-         */
         function selectProduct(buttonElement) {
             const id = buttonElement.getAttribute('data-id');
             const title = buttonElement.getAttribute('data-title');
-            const basePrice = parseFloat(buttonElement.getAttribute('data-price')); // Siempre USD
+            const basePrice = parseFloat(buttonElement.getAttribute('data-price')); 
             
             const currentPrice = convertPrice(basePrice);
 
             selectedProduct = { id, title, basePrice, currentPrice };
 
-            // 1. Marcar el botón como seleccionado
             document.querySelectorAll('.variant-button').forEach(btn => {
                 btn.classList.remove('selected');
             });
             buttonElement.classList.add('selected');
             
-            // 2. Actualizar el carrito flotante
             cartTitle.textContent = title;
             cartPrice.textContent = formatPrice(currentPrice);
-            floatingCart.style.display = 'block';
+            
+            // Oculta el carrito flotante inmediatamente después de la selección
+            floatingCart.style.display = 'none';
 
-            // 3. Inicializar/Reinicializar los botones de PayPal con el nuevo producto
+            // Muestra el nuevo botón de pagar con tarjeta
+            payCardButton.style.display = 'block';
+            selectionHint.style.display = 'none';
+
             initPayPalButtons(id, currentPrice, title, currentCurrency);
         }
 
+        // FUNCIÓN AÑADIDA para el botón grande de pagar con tarjeta
+        function showFloatingCartForSelectedProduct() {
+            if (selectedProduct) {
+                // Muestra el carrito flotante
+                floatingCart.style.display = 'block';
+                // Hace un scroll suave hacia el carrito flotante
+                floatingCart.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                alert('Por favor, selecciona primero un Kit antes de ir a pagar.');
+            }
+        }
+
         /**
-         * Inicializa los Smart Buttons de PayPal.
+         * Inicializa los Smart Buttons de PayPal, renderizando PayPal, Visa y Mastercard individualmente.
          */
         function initPayPalButtons(id, price, title, currency) {
-            // Limpia el contenedor anterior para evitar duplicados
             const paypalContainer = document.getElementById('paypal-button-container');
             if (paypalContainer) {
-                paypalContainer.innerHTML = '';
+                paypalContainer.innerHTML = ''; // Limpia el contenedor
             }
             
-            // Verifica que el SDK esté cargado
             if (typeof paypal === 'undefined') {
                 console.error("PayPal SDK no cargado. Revisa tu Client ID.");
                 return;
             }
 
-            paypal.Buttons({
+            // Configuración base para todos los botones
+            const baseConfig = {
                 style: {
                     layout: 'vertical',
-                    color: 'gold', 
                     shape: 'rect',
-                    label: 'paypal'
+                    height: 45 // Necesario para la correcta visualización
                 },
                 createOrder: function(data, actions) {
                     return actions.order.create({
                         purchase_units: [{
                             amount: {
-                                // CRÍTICO: Usar el precio y la moneda convertida
                                 value: price.toFixed(2), 
                                 currency_code: currency 
                             },
@@ -397,10 +424,11 @@
                         const finalCurrency = details.purchase_units[0].amount.currency_code;
                         alert(`¡Pago de ${finalAmount} ${finalCurrency} completado para "${title}"!\n\nID de Transacción: ${details.id}`);
                         
-                        // *** PASO CRÍTICO DE BACKEND AQUÍ ***
-                        // Envía details.id, id del producto, y el currency_code a tu servidor.
-                        
+                        // Limpieza post-compra
                         floatingCart.style.display = 'none';
+                        payCardButton.style.display = 'none';
+                        selectionHint.style.display = 'block';
+
                         document.querySelectorAll('.variant-button').forEach(btn => {
                             btn.classList.remove('selected');
                         });
@@ -411,12 +439,55 @@
                     console.error('Error de PayPal:', err);
                     alert('Hubo un error con el pago. Por favor, inténtalo de nuevo.');
                 }
-            }).render('#paypal-button-container');
+            };
+            
+            // --- Renderizado de Botones Individuales ---
+            // 1. Botón Principal de PayPal (Gold)
+            if (paypal.FUNDING.PAYPAL.eligible) {
+                paypal.Buttons({
+                    ...baseConfig,
+                    fundingSource: paypal.FUNDING.PAYPAL,
+                    style: {...baseConfig.style, color: 'gold', label: 'paypal'}
+                }).render('#paypal-button-container');
+            }
+
+            // 2. Botón de VISA (Aparece como "Debit or Credit Card")
+            if (paypal.FUNDING.VISA && paypal.FUNDING.VISA.eligible) {
+                paypal.Buttons({
+                    ...baseConfig,
+                    fundingSource: paypal.FUNDING.VISA,
+                    style: {...baseConfig.style, color: 'white', label: 'pay'}
+                }).render('#paypal-button-container');
+            }
+
+            // 3. Botón de MASTERCARD
+            if (paypal.FUNDING.MASTERCARD && paypal.FUNDING.MASTERCARD.eligible) {
+                paypal.Buttons({
+                    ...baseConfig,
+                    fundingSource: paypal.FUNDING.MASTERCARD,
+                    style: {...baseConfig.style, color: 'white', label: 'pay'}
+                }).render('#paypal-button-container');
+            }
+            
+            // 4. Botón Pay Later (Financiamiento)
+            if (paypal.FUNDING.PAYLATER && paypal.FUNDING.PAYLATER.eligible) {
+                 paypal.Buttons({
+                    ...baseConfig,
+                    fundingSource: paypal.FUNDING.PAYLATER,
+                    style: {...baseConfig.style, color: 'blue', label: 'pay'}
+                }).render('#paypal-button-container');
+            }
+            
+            // Amex a menudo se agrupa con Visa/Mastercard y no necesita un renderizado explícito
         }
 
-        // Llamar a la función al cargar para asegurar que los precios iniciales usen USD
-        // y para inicializar la variable currentCurrency correctamente.
-        document.addEventListener('DOMContentLoaded', updateCurrencyDisplay);
+        // Inicializa la vista de moneda al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+             updateCurrencyDisplay();
+             // Asegura que el botón de pagar esté oculto al inicio
+             payCardButton.style.display = 'none';
+             selectionHint.style.display = 'block';
+        });
     </script>
 </body>
 </html>
