@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda Exclusiva de Recursos - Kit Emprendedor</title>
     
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD&enable-funding=visa,mastercard,amex,paylater,discover,jcb"></script>
-    
     <style>
-        /* Estilos Generales y Colores */
+        /* Estilos Originales Preservados con Mejoras de UI */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #000; /* Fondo negro */
-            color: #ccc; /* Texto gris claro */
+            background-color: #000;
+            color: #ccc;
             transition: all 0.3s ease;
         }
 
@@ -23,44 +21,64 @@
             max-width: 1200px;
             margin: 40px auto;
             padding: 20px;
-            background-color: #1a1a1a; /* Fondo oscuro del contenedor */
+            background-color: #1a1a1a;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); /* Sombra gris sutil */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
         }
 
         h1 {
-            color: #A9A9A9; /* Título color dorado/gris claro */
+            color: #A9A9A9;
             text-align: center;
             margin-bottom: 20px;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
         }
 
-        /* Contenedor del selector de moneda */
+        /* Nuevo Selector de Moneda con Banderas Reales */
         .currency-selector-container {
-            text-align: right;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
             margin-bottom: 30px;
-            padding: 10px;
-            background-color: #333;
-            border-radius: 5px;
-        }
-
-        .currency-selector-container label {
-            font-size: 1.1em;
-            margin-right: 10px;
-            color: #fff;
-        }
-
-        .currency-selector-container select {
-            padding: 8px 15px;
-            border-radius: 5px;
-            border: 1px solid #A9A9A9;
+            padding: 15px;
             background-color: #222;
-            color: #fff;
-            font-size: 1em;
-            cursor: pointer;
+            border-radius: 8px;
+            flex-wrap: wrap;
+            border: 1px solid #333;
         }
-        
-        /* Grid de Productos */
+
+        .currency-btn {
+            background: #333;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 6px;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .currency-btn:hover {
+            border-color: #FFC439;
+            background: #3a3a3a;
+        }
+
+        .currency-btn.active {
+            background: #FFC439;
+            color: #000;
+            border-color: #FFC439;
+        }
+
+        .flag-img {
+            width: 20px;
+            height: 14px;
+            object-fit: cover;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -101,7 +119,6 @@
             margin: 15px 0;
         }
         
-        /* Botones de Selección */
         .variant-button {
             background-color: #A9A9A9;
             color: #000;
@@ -130,14 +147,12 @@
             box-shadow: 0 0 10px #FFC439;
         }
 
-        /* Estilo del texto de PayPal dentro del botón */
         .variant-button .paypal-text {
             color: #003087; 
             font-weight: 800;
             margin-left: 5px;
         }
 
-        /* Contenedor Flotante de Compra */
         #floating-cart {
             position: fixed;
             bottom: 20px;
@@ -148,7 +163,7 @@
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
             z-index: 1000;
-            display: none; /* Oculto por defecto */
+            display: none;
             border: 2px solid #A9A9A9;
         }
 
@@ -169,12 +184,32 @@
             color: #fff;
         }
 
-        /* Estilo para el contenedor de PayPal dentro del flotante */
         #paypal-button-container {
             margin-top: 15px;
-            display: flex;
-            flex-direction: column; /* Apilarlos por defecto */
-            gap: 10px;
+            min-height: 150px;
+        }
+
+        #custom-alert-box {
+            position: fixed; 
+            top: 20px; 
+            right: 20px; 
+            max-width: 300px;
+            background: #B22222;
+            color: white; 
+            padding: 15px; 
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
+            z-index: 9999;
+            opacity: 0; 
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .loading-text {
+            color: #888;
+            font-size: 0.8em;
+            text-align: center;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -183,311 +218,193 @@
     <div class="container">
         <h1>Selecciona la Versión de Tu Kit de Emprendimiento</h1>
 
+        <!-- Selector de Moneda Modernizado con Banderas y Franco Suizo -->
         <div class="currency-selector-container">
-            <label for="currency-select">Seleccionar Moneda:</label>
-            <select id="currency-select" onchange="updateCurrencyDisplay()">
-                <option value="USD" selected>Dólar Estadounidense (USD - $)</option>
-                <option value="EUR">Euro (EUR - €)</option>
-                <option value="CHF">Franco Suizo (CHF - Fr.)</option>
-                <option value="GBP">Libra Esterlina (GBP - £)</option>
-            </select>
+            <button class="currency-btn active" id="btn-USD" onclick="handleCurrencyUpdate('USD')">
+                <img src="https://flagcdn.com/w40/us.png" class="flag-img" alt="USD"> USD
+            </button>
+            <button class="currency-btn" id="btn-EUR" onclick="handleCurrencyUpdate('EUR')">
+                <img src="https://flagcdn.com/w40/eu.png" class="flag-img" alt="EUR"> EUR
+            </button>
+            <button class="currency-btn" id="btn-GBP" onclick="handleCurrencyUpdate('GBP')">
+                <img src="https://flagcdn.com/w40/gb.png" class="flag-img" alt="GBP"> GBP
+            </button>
+            <button class="currency-btn" id="btn-CHF" onclick="handleCurrencyUpdate('CHF')">
+                <img src="https://flagcdn.com/w40/ch.png" class="flag-img" alt="CHF"> CHF
+            </button>
         </div>
-        <div class="product-grid">
 
+        <div class="product-grid">
             <div class="product-card">
                 <h3>Kit Digital Básico</h3>
-                <p>Acceso a la guía principal y plantillas esenciales. Ideal para principiantes.</p>
-                <div class="price" data-usd-price="19.99">$19.99 USD</div> 
-                <button 
-                    class="variant-button" 
-                    data-id="1" 
-                    data-title="Kit Digital Básico" 
-                    data-price="19.99"
-                    onclick="selectProduct(this)">
-                    Comprar Ahora 
-                    <span class="paypal-text">| PayPal</span>
+                <p>Acceso a la guía principal y plantillas esenciales.</p>
+                <div class="price" id="price-1" data-usd-price="19.99">$19.99 USD</div> 
+                <button class="variant-button" data-id="1" data-title="Kit Digital Básico" data-price="19.99" onclick="selectProduct(this)">
+                    Comprar Ahora <span class="paypal-text">| PayPal</span>
                 </button>
             </div>
 
             <div class="product-card">
                 <h3>Kit Digital Premium</h3>
-                <p>Incluye guía avanzada, 1 hora de consultoría y recursos exclusivos. ¡El más popular!</p>
-                <div class="price" data-usd-price="49.99">$49.99 USD</div>
-                <button 
-                    class="variant-button" 
-                    data-id="2" 
-                    data-title="Kit Digital Premium" 
-                    data-price="49.99"
-                    onclick="selectProduct(this)">
-                    Comprar Ahora 
-                    <span class="paypal-text">| PayPal</span>
+                <p>Incluye guía avanzada, 1 hora de consultoría y recursos exclusivos.</p>
+                <div class="price" id="price-2" data-usd-price="49.99">$49.99 USD</div>
+                <button class="variant-button" data-id="2" data-title="Kit Digital Premium" data-price="49.99" onclick="selectProduct(this)">
+                    Comprar Ahora <span class="paypal-text">| PayPal</span>
                 </button>
             </div>
 
             <div class="product-card">
                 <h3>Kit Mentor Master</h3>
-                <p>Todo lo anterior más un mes de soporte ilimitado y plan de negocio personalizado.</p>
-                <div class="price" data-usd-price="99.99">$99.99 USD</div>
-                <button 
-                    class="variant-button" 
-                    data-id="3" 
-                    data-title="Kit Mentor Master" 
-                    data-price="99.99"
-                    onclick="selectProduct(this)">
-                    Comprar Ahora 
-                    <span class="paypal-text">| PayPal</span>
+                <p>Todo lo anterior más un mes de soporte ilimitado.</p>
+                <div class="price" id="price-3" data-usd-price="99.99">$99.99 USD</div>
+                <button class="variant-button" data-id="3" data-title="Kit Mentor Master" data-price="99.99" onclick="selectProduct(this)">
+                    Comprar Ahora <span class="paypal-text">| PayPal</span>
                 </button>
             </div>
-
         </div>
     </div>
     
     <div style="text-align: center; margin-top: 40px; margin-bottom: 50px;">
-        <button 
-            id="pay-card-button"
-            onclick="showFloatingCartForSelectedProduct()"
-            style="
-                background-color: #B22222; /* Rojo llamativo */
-                color: white;
-                border: none;
-                padding: 15px 30px;
-                border-radius: 8px;
-                cursor: pointer;
-                font-size: 1.2em;
-                font-weight: bold;
-                transition: background-color 0.2s;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-                display: none; /* Inicialmente oculto */
-            ">
-            PAGAR CON TARJETA (VISA, MASTER CARD, AMEX) 💳
-        </button>
         <p id="selection-hint" style="color: #999;">
             *Por favor, selecciona un kit para habilitar el pago.*
         </p>
     </div>
+
     <div id="floating-cart">
         <h3>Tu Compra Rápida</h3>
         <p>Producto: <strong id="cart-title">Ninguno</strong></p>
         <p>Total: <strong id="cart-price">$0.00 USD</strong></p> 
         
+        <div id="loading-indicator" class="loading-text" style="display:none;">Cargando PayPal...</div>
         <div id="paypal-button-container"></div>
         
         <p style="font-size: 0.8em; text-align: center; color: #888; margin-top: 10px;">
-            El pago es 100% seguro y gestionado por PayPal.
+            Pago 100% seguro vía PayPal.
         </p>
     </div>
 
     <footer>
         <div style="background-color: #111; color: #666; padding: 15px; text-align: center; margin-top: 20px;">
-             &copy; 2025 **Héctor Mauricio Raposso**. Todos los derechos reservados.
+            &copy; 2025 **Héctor Mauricio Raposso**. Todos los derechos reservados.
         </div>
     </footer>
+    
+    <div id="custom-alert-box"></div>
+
     <script>
-        let selectedProduct = null;
-        let currentCurrency = 'USD'; // Moneda inicial
-        
-        // ** Tasa de Conversión Fija para el ejemplo (USD por la otra moneda) **
-        const conversionRate = {
-            'USD': 1.00,
-            'EUR': 0.9259,
-            'CHF': 0.8876,
-            'GBP': 0.8123 
-        };
-        const currencySymbols = {
-            'USD': '$',
-            'EUR': '€',
-            'CHF': 'Fr.',
-            'GBP': '£'
-        };
+        const CLIENT_ID = "ATlkn4MmFU8Pgsjqn22Oro_M5s83QVMzU3pmhenHTU6oIXI3wjPtTDIpwSNk4Dj1OsxlWEZyPRZEMFnB";
+        let selectedProductData = null;
+        let currentCurrency = 'USD';
 
-        const floatingCart = document.getElementById('floating-cart');
-        const cartTitle = document.getElementById('cart-title');
-        const cartPrice = document.getElementById('cart-price');
-        const currencySelect = document.getElementById('currency-select');
-        const payCardButton = document.getElementById('pay-card-button');
-        const selectionHint = document.getElementById('selection-hint');
-        
-        /**
-         * Convierte el precio base (USD) a la moneda seleccionada.
-         */
-        function convertPrice(usdPrice) {
-            return usdPrice * conversionRate[currentCurrency];
+        // Tasas de conversión y símbolos
+        const conversionRates = { 'USD': 1.0, 'EUR': 0.93, 'CHF': 0.89, 'GBP': 0.81 };
+        const symbols = { 'USD': '$', 'EUR': '€', 'CHF': 'Fr.', 'GBP': '£' };
+
+        function customAlert(message) {
+            const alertBox = document.getElementById('custom-alert-box');
+            alertBox.textContent = message;
+            alertBox.style.opacity = '1';
+            setTimeout(() => { alertBox.style.opacity = '0'; }, 4000);
         }
 
-        /**
-         * Formatea el precio con el símbolo y código de moneda actual.
-         */
-        function formatPrice(price) {
-            const symbol = currencySymbols[currentCurrency];
-            return `${symbol}${price.toFixed(2)} ${currentCurrency}`;
-        }
-        
-        /**
-         * Actualiza la visualización de todos los precios en la página.
-         */
-        function updateCurrencyDisplay() {
-            currentCurrency = currencySelect.value;
-            const priceElements = document.querySelectorAll('.price');
+        function handleCurrencyUpdate(code) {
+            currentCurrency = code;
             
-            priceElements.forEach(el => {
-                const usdPrice = parseFloat(el.getAttribute('data-usd-price'));
-                const newPrice = convertPrice(usdPrice);
-                el.textContent = formatPrice(newPrice);
+            // Actualizar estilo de botones
+            document.querySelectorAll('.currency-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.id === `btn-${code}`);
             });
+
+            updateDisplayPrices();
             
-            if (selectedProduct) {
-                const newPrice = convertPrice(selectedProduct.basePrice); 
-                selectedProduct.currentPrice = newPrice;
-                
-                cartPrice.textContent = formatPrice(newPrice);
-                // Si el carrito estaba abierto, lo actualiza. Si no, no lo fuerza a aparecer.
-                if (floatingCart.style.display !== 'none') {
-                    initPayPalButtons(selectedProduct.id, selectedProduct.currentPrice, selectedProduct.title, currentCurrency);
-                }
+            if (selectedProductData) {
+                refreshCartUI();
+                loadPayPalSDK();
             }
         }
-        
-        function selectProduct(buttonElement) {
-            const id = buttonElement.getAttribute('data-id');
-            const title = buttonElement.getAttribute('data-title');
-            const basePrice = parseFloat(buttonElement.getAttribute('data-price')); 
-            
-            const currentPrice = convertPrice(basePrice);
 
-            selectedProduct = { id, title, basePrice, currentPrice };
-
-            document.querySelectorAll('.variant-button').forEach(btn => {
-                btn.classList.remove('selected');
+        function updateDisplayPrices() {
+            document.querySelectorAll('.price').forEach(el => {
+                const usd = parseFloat(el.getAttribute('data-usd-price'));
+                const converted = usd * conversionRates[currentCurrency];
+                el.textContent = `${symbols[currentCurrency]}${converted.toFixed(2)} ${currentCurrency}`;
             });
-            buttonElement.classList.add('selected');
-            
-            cartTitle.textContent = title;
-            cartPrice.textContent = formatPrice(currentPrice);
-            
-            // Oculta el carrito flotante inmediatamente después de la selección
-            floatingCart.style.display = 'none';
-
-            // Muestra el nuevo botón de pagar con tarjeta
-            payCardButton.style.display = 'block';
-            selectionHint.style.display = 'none';
-
-            initPayPalButtons(id, currentPrice, title, currentCurrency);
         }
 
-        // FUNCIÓN AÑADIDA para el botón grande de pagar con tarjeta
-        function showFloatingCartForSelectedProduct() {
-            if (selectedProduct) {
-                // Muestra el carrito flotante
-                floatingCart.style.display = 'block';
-                // Hace un scroll suave hacia el carrito flotante
-                floatingCart.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
-                alert('Por favor, selecciona primero un Kit antes de ir a pagar.');
-            }
+        function selectProduct(btn) {
+            document.querySelectorAll('.variant-button').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+
+            selectedProductData = {
+                id: btn.getAttribute('data-id'),
+                title: btn.getAttribute('data-title'),
+                basePriceUSD: parseFloat(btn.getAttribute('data-price'))
+            };
+
+            refreshCartUI();
+            document.getElementById('floating-cart').style.display = 'block';
+            document.getElementById('selection-hint').style.display = 'none';
+            
+            loadPayPalSDK();
         }
 
-        /**
-         * Inicializa los Smart Buttons de PayPal, renderizando PayPal, Visa y Mastercard individualmente.
-         */
-        function initPayPalButtons(id, price, title, currency) {
-            const paypalContainer = document.getElementById('paypal-button-container');
-            if (paypalContainer) {
-                paypalContainer.innerHTML = ''; // Limpia el contenedor
-            }
-            
-            if (typeof paypal === 'undefined') {
-                console.error("PayPal SDK no cargado. Revisa tu Client ID.");
-                return;
-            }
+        function refreshCartUI() {
+            if (!selectedProductData) return;
+            const finalPrice = selectedProductData.basePriceUSD * conversionRates[currentCurrency];
+            document.getElementById('cart-title').textContent = selectedProductData.title;
+            document.getElementById('cart-price').textContent = `${symbols[currentCurrency]}${finalPrice.toFixed(2)} ${currentCurrency}`;
+        }
 
-            // Configuración base para todos los botones
-            const baseConfig = {
-                style: {
-                    layout: 'vertical',
-                    shape: 'rect',
-                    height: 45 // Necesario para la correcta visualización
-                },
+        function loadPayPalSDK() {
+            const container = document.getElementById('paypal-button-container');
+            container.innerHTML = '';
+            document.getElementById('loading-indicator').style.display = 'block';
+
+            const existingScript = document.getElementById('paypal-script-tag');
+            if (existingScript) existingScript.remove();
+
+            const script = document.createElement('script');
+            script.id = 'paypal-script-tag';
+            script.src = `https://www.paypal.com/sdk/js?client-id=${CLIENT_ID}&currency=${currentCurrency}`;
+            script.onload = renderButtons;
+            script.onerror = () => {
+                document.getElementById('loading-indicator').style.display = 'none';
+                customAlert("Error al cargar el sistema de pagos.");
+            };
+            document.head.appendChild(script);
+        }
+
+        function renderButtons() {
+            document.getElementById('loading-indicator').style.display = 'none';
+            const price = (selectedProductData.basePriceUSD * conversionRates[currentCurrency]).toFixed(2);
+
+            paypal.Buttons({
+                style: { layout: 'vertical', color: 'gold', shape: 'rect', height: 45 },
                 createOrder: function(data, actions) {
                     return actions.order.create({
                         purchase_units: [{
+                            description: selectedProductData.title,
                             amount: {
-                                value: price.toFixed(2), 
-                                currency_code: currency 
-                            },
-                            description: `Compra: ${title} (ID: ${id})`
+                                currency_code: currentCurrency,
+                                value: price
+                            }
                         }]
                     });
                 },
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(function(details) {
-                        const finalAmount = details.purchase_units[0].amount.value;
-                        const finalCurrency = details.purchase_units[0].amount.currency_code;
-                        alert(`¡Pago de ${finalAmount} ${finalCurrency} completado para "${title}"!\n\nID de Transacción: ${details.id}`);
-                        
-                        // Limpieza post-compra
-                        floatingCart.style.display = 'none';
-                        payCardButton.style.display = 'none';
-                        selectionHint.style.display = 'block';
-
-                        document.querySelectorAll('.variant-button').forEach(btn => {
-                            btn.classList.remove('selected');
-                        });
-                        selectedProduct = null;
+                        customAlert("¡Pago exitoso! Gracias, " + details.payer.name.given_name);
+                        document.getElementById('floating-cart').style.display = 'none';
                     });
                 },
                 onError: function(err) {
-                    console.error('Error de PayPal:', err);
-                    alert('Hubo un error con el pago. Por favor, inténtalo de nuevo.');
+                    console.error(err);
+                    customAlert("Hubo un problema con la transacción.");
                 }
-            };
-            
-            // --- Renderizado de Botones Individuales ---
-            // 1. Botón Principal de PayPal (Gold)
-            if (paypal.FUNDING.PAYPAL.eligible) {
-                paypal.Buttons({
-                    ...baseConfig,
-                    fundingSource: paypal.FUNDING.PAYPAL,
-                    style: {...baseConfig.style, color: 'gold', label: 'paypal'}
-                }).render('#paypal-button-container');
-            }
-
-            // 2. Botón de VISA (Aparece como "Debit or Credit Card")
-            if (paypal.FUNDING.VISA && paypal.FUNDING.VISA.eligible) {
-                paypal.Buttons({
-                    ...baseConfig,
-                    fundingSource: paypal.FUNDING.VISA,
-                    style: {...baseConfig.style, color: 'white', label: 'pay'}
-                }).render('#paypal-button-container');
-            }
-
-            // 3. Botón de MASTERCARD
-            if (paypal.FUNDING.MASTERCARD && paypal.FUNDING.MASTERCARD.eligible) {
-                paypal.Buttons({
-                    ...baseConfig,
-                    fundingSource: paypal.FUNDING.MASTERCARD,
-                    style: {...baseConfig.style, color: 'white', label: 'pay'}
-                }).render('#paypal-button-container');
-            }
-            
-            // 4. Botón Pay Later (Financiamiento)
-            if (paypal.FUNDING.PAYLATER && paypal.FUNDING.PAYLATER.eligible) {
-                 paypal.Buttons({
-                    ...baseConfig,
-                    fundingSource: paypal.FUNDING.PAYLATER,
-                    style: {...baseConfig.style, color: 'blue', label: 'pay'}
-                }).render('#paypal-button-container');
-            }
-            
-            // Amex a menudo se agrupa con Visa/Mastercard y no necesita un renderizado explícito
+            }).render('#paypal-button-container');
         }
 
-        // Inicializa la vista de moneda al cargar la página
-        document.addEventListener('DOMContentLoaded', () => {
-             updateCurrencyDisplay();
-             // Asegura que el botón de pagar esté oculto al inicio
-             payCardButton.style.display = 'none';
-             selectionHint.style.display = 'block';
-        });
+        window.onload = updateDisplayPrices;
     </script>
 </body>
 </html>
