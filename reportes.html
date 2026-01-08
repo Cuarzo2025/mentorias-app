@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Órdenes | Cuarzo Cristal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root { 
+            --bg: #000000; --sidebar: #080808; --text-main: #FFFFFF; 
+            --text-dim: #666666; --border: #1a1a1a; --hover: #0c0c0c;
+        }
+        body { background-color: var(--bg); color: var(--text-main); font-family: 'Montserrat', sans-serif; margin: 0; display: flex; min-height: 100vh; }
+        
+        .sidebar { width: 250px; background-color: var(--sidebar); padding: 40px 20px; border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; height: 100vh; z-index: 100; }
+        .sidebar-header h2 { font-weight: 800; letter-spacing: 5px; font-size: 1.1rem; margin: 0; text-align: center; }
+        .sidebar nav { margin-top: 50px; }
+        .sidebar nav a { display: flex; align-items: center; color: var(--text-dim); text-decoration: none; padding: 15px; border-radius: 8px; transition: 0.3s; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
+        .sidebar nav a:hover, .sidebar nav a.active { background-color: var(--hover); color: #fff; }
+        .sidebar nav a i { margin-right: 15px; width: 20px; text-align: center; }
+
+        .main-content { flex-grow: 1; margin-left: 290px; padding: 60px 40px; width: calc(100% - 290px); }
+        h1 { font-weight: 800; font-size: 2rem; letter-spacing: -1px; margin: 0; }
+        
+        .table-wrapper { background: #050505; border: 1px solid var(--border); border-radius: 12px; overflow-x: auto; margin-top: 30px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; min-width: 1000px; }
+        th { padding: 20px; background: #0a0a0a; color: var(--text-dim); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; }
+        td { padding: 20px; border-bottom: 1px solid var(--border); font-size: 0.8rem; vertical-align: middle; }
+        
+        .ot-badge { font-family: monospace; color: #fff; font-weight: 800; font-size: 0.7rem; background: #1a1a1a; padding: 4px 8px; border-radius: 4px; }
+        .price-tag { font-weight: 800; color: #fff; }
+        .status-select { background: #000; color: #fff; border: 1px solid #333; padding: 6px; border-radius: 4px; font-size: 0.7rem; font-family: 'Montserrat'; font-weight: 600; }
+        
+        .btn-pdf { background: #fff; color: #000; border: none; padding: 8px 12px; border-radius: 4px; font-weight: 800; font-size: 0.65rem; cursor: pointer; }
+
+        /* ESTILOS DE IMPRESIÓN (EL COMPROBANTE) */
+        @media print {
+            body * { visibility: hidden; }
+            #plantilla-impresion, #plantilla-impresion * { visibility: visible; }
+            #plantilla-impresion { 
+                position: absolute; left: 0; top: 0; width: 100%; 
+                background: white !important; color: black !important; padding: 40px;
+            }
+            .no-print { display: none; }
+        }
+
+        #plantilla-impresion { display: none; background: white; color: black; padding: 40px; font-family: sans-serif; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar no-print">
+        <div class="sidebar-header"><h2>CUARZO</h2></div>
+        <nav>
+            <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Dashboard</a>
+            <a href="nuevos-clientes.html"><i class="fas fa-user-plus"></i> Nuevo Cliente</a> 
+            <a href="reportes.html" class="active"><i class="fas fa-tasks"></i> Órdenes</a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <h1 class="no-print">Órdenes de Trabajo</h1>
+        <div class="table-wrapper no-print">
+            <table id="tablaReportes">
+                <thead>
+                    <tr>
+                        <th>ID / Fecha</th>
+                        <th>Cliente</th>
+                        <th>Proyecto</th>
+                        <th>Presupuesto</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="listaCuerpo"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="plantilla-impresion">
+        <div style="text-align: center; border-bottom: 2px solid black; padding-bottom: 20px; margin-bottom: 20px;">
+            <h1 style="letter-spacing: 5px;">CUARZO CRISTAL</h1>
+            <p>COMPROBANTE DE ORDEN DE TRABAJO</p>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+            <div>
+                <p><strong>CLIENTE:</strong> <span id="print-nombre"></span></p>
+                <p><strong>CONTACTO:</strong> <span id="print-email"></span></p>
+            </div>
+            <div style="text-align: right;">
+                <p><strong>FECHA:</strong> <span id="print-fecha"></span></p>
+                <p><strong>OT:</strong> #<span id="print-id"></span></p>
+            </div>
+        </div>
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid black;">
+            <thead>
+                <tr style="background: #f0f0f0;">
+                    <th style="border: 1px solid black; padding: 10px; text-align: left;">DESCRIPCIÓN</th>
+                    <th style="border: 1px solid black; padding: 10px; text-align: right;">TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid black; padding: 20px; height: 100px;">
+                        <strong id="print-tipo"></strong>
+                        <p>Estado actual: <span id="print-estado"></span></p>
+                    </td>
+                    <td style="border: 1px solid black; padding: 20px; text-align: right; font-size: 1.5rem; font-weight: bold;">
+                        $<span id="print-precio"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 50px; font-size: 0.8rem; color: #555;">
+            <p>* Este documento sirve como registro oficial de la solicitud del servicio.</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCW3_c7c4wNs6mUgX0EFp40SnjBx-WfLNI",
+            authDomain: "cuarzocristalempresarialsist.firebaseapp.com",
+            projectId: "cuarzocristalempresarialsist",
+            storageBucket: "cuarzocristalempresarialsist.firebasestorage.app",
+            messagingSenderId: "1031610061736",
+            appId: "1:1031610061736:web:d05d431b433eb5b55ec39d"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // HACER LAS FUNCIONES ACCESIBLES PARA LOS BOTONES
+        window.cambiarEstado = async (id, nuevoEstado) => {
+            await updateDoc(doc(db, "leads_clientes", id), { estadoLead: nuevoEstado });
+        };
+
+        window.imprimirOT = (id) => {
+            const fila = document.getElementById(`row-${id}`);
+            
+            // Llenar datos en la plantilla de impresión
+            document.getElementById('print-nombre').innerText = fila.querySelector('.c-nombre').innerText;
+            document.getElementById('print-email').innerText = fila.querySelector('.c-email').innerText;
+            document.getElementById('print-tipo').innerText = fila.querySelector('.c-tipo').innerText;
+            document.getElementById('print-precio').innerText = fila.querySelector('.price-tag').innerText.replace('$', '');
+            document.getElementById('print-fecha').innerText = fila.querySelector('.c-fecha').innerText;
+            document.getElementById('print-estado').innerText = fila.querySelector('.status-select').value;
+            document.getElementById('print-id').innerText = id.substring(0, 8).toUpperCase();
+
+            // Ejecutar impresión
+            window.print();
+        };
+
+        const q = query(collection(db, "leads_clientes"), orderBy("fechaRegistro", "desc"));
+
+        onSnapshot(q, (snapshot) => {
+            const cuerpo = document.getElementById('listaCuerpo');
+            cuerpo.innerHTML = "";
+            snapshot.forEach((snapshotDoc) => {
+                const data = snapshotDoc.data();
+                const id = snapshotDoc.id;
+                const tr = document.createElement('tr');
+                tr.id = `row-${id}`;
+                tr.innerHTML = `
+                    <td>
+                        <span class="ot-badge">#${id.substring(0,6)}</span>
+                        <div class="c-fecha" style="font-size:0.6rem; color:#444; margin-top:5px;">${data.fechaRegistro}</div>
+                    </td>
+                    <td>
+                        <b class="c-nombre">${data.nombre.toUpperCase()}</b><br>
+                        <span class="c-email" style="color:#666; font-size:0.7rem;">${data.email}</span>
+                    </td>
+                    <td>
+                        <div class="c-tipo" style="font-weight:600;">${data.tipo}</div>
+                    </td>
+                    <td><span class="price-tag">$${data.presupuesto || '0'}</span></td>
+                    <td>
+                        <select class="status-select" onchange="cambiarEstado('${id}', this.value)">
+                            <option value="RECIBIDA" ${data.estadoLead === 'RECIBIDA' ? 'selected' : ''}>RECIBIDA</option>
+                            <option value="EN PROCESO" ${data.estadoLead === 'EN PROCESO' ? 'selected' : ''}>EN PROCESO</option>
+                            <option value="FINALIZADO" ${data.estadoLead === 'FINALIZADO' ? 'selected' : ''}>FINALIZADO</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="btn-pdf" onclick="imprimirOT('${id}')">IMPRIMIR PDF</button>
+                    </td>
+                `;
+                cuerpo.appendChild(tr);
+            });
+        });
+    </script>
+</body>
+</html>
